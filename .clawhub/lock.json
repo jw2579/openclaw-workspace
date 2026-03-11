@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "sonoscli": {
+      "version": "1.0.0",
+      "installedAt": 1773213570007
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1773213721584
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1773213738950
+    },
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1773213748581
+    },
+    "gog": {
+      "version": "1.0.0",
+      "installedAt": 1773213764283
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1773213784248
+    }
+  }
+}
