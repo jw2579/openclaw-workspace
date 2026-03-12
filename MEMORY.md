@@ -8,5 +8,5 @@
 ## Output style
 - Only show new jobs not seen before
 - Rank against my resume and preferred stack
-- Show top 5 best new matches first
+- Show top 5-10 best new matches first
 - Rate them with stars and give reasons
