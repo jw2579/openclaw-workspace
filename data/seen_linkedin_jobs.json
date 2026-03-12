@@ -1,0 +1,79 @@
+{
+  "jobs": {
+    "4311839440": {
+      "companyName": "Brown Brothers Harriman",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Peoplesoft Systems Lead"
+    },
+    "4338748125": {
+      "companyName": "Uphold",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Software Engineer - Trading Execution"
+    },
+    "4357830467": {
+      "companyName": "Vise",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Accelerate Fellowship (Summer 2026)"
+    },
+    "4371464114": {
+      "companyName": "Selby Jennings",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "C++ Engineer | Leading NYC Hedge Fund"
+    },
+    "4374668947": {
+      "companyName": "Healthfirst",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Senior Salesforce Developer"
+    },
+    "4382701971": {
+      "companyName": "Barclays",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Prime RAD Developer"
+    },
+    "4382731117": {
+      "companyName": "QUANTEAM - North America (RAINBOW PARTNERS Group)",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "C++ Algo Developer - Electronic Equities"
+    },
+    "4382733144": {
+      "companyName": "QUANTEAM - North America (RAINBOW PARTNERS Group)",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "C++ Algo Developer - Electronic Equities (New-York Based role)"
+    },
+    "4383252766": {
+      "companyName": "Apple",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Software Engineer - Early Career (Backend/Data)"
+    },
+    "4383265337": {
+      "companyName": "Prudential Financial",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Senior ML Ops Engineer"
+    },
+    "4383267185": {
+      "companyName": "Aequor Information Technologies Pvt. Ltd.",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Senior Semantic Engineer / Ontology Engineer"
+    },
+    "4383277328": {
+      "companyName": "Zocdoc",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Integration Health Engineer"
+    },
+    "4384369810": {
+      "companyName": "Commonfund",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "AI/ML Development Analyst"
+    },
+    "4384399568": {
+      "companyName": "GeneDx",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Senior Software Engineer II, Full-Stack"
+    },
+    "4384527151": {
+      "companyName": "Fidelity Investments",
+      "first_seen_at": "2026-03-12T00:31:52+00:00",
+      "title": "Senior Software Engineer in Test"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "exact_names": [
+    "Tata Consultancy Services",
+    "Infosys",
+    "Wipro",
+    "HCLTech",
+    "Tech Mahindra",
+    "LTIMindtree",
+    "Cognizant",
+    "Mphasis",
+    "Birlasoft",
+    "Hexaware",
+    "Virtusa",
+    "UST",
+    "Synechron",
+    "Genpact"
+  ],
+  "name_contains": [
+    "stealth",
+    "confidential",
+    "undisclosed"
+  ],
+  "website_contains": [],
+  "notes": [
+    "User-editable denylist for neutral business-rule filtering only.",
+    "Do not add nationality, ethnicity, race, or origin based rules.",
+    "Exact names above are editable examples requested by the user."
+  ]
+}
