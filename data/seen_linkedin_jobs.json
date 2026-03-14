@@ -85,6 +85,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Software Engineer Backend - Kohler Ventures"
     },
+    "4257234103": {
+      "companyName": "Uber",
+      "first_seen_at": "2026-03-14T15:37:59+00:00",
+      "title": "Staff Machine Learning Engineer - Causal Inference"
+    },
     "4258558564": {
       "companyName": "Duolingo",
       "first_seen_at": "2026-03-13T12:34:12+00:00",
@@ -125,15 +130,30 @@
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "C++ Software Engineer"
     },
+    "4283049030": {
+      "companyName": "Trexquant Investment LP",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "High-Frequency Trading System Engineer (USA)"
+    },
     "4290869777": {
       "companyName": "DoorDash",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Software Engineer, ML Serving Platform"
     },
+    "4294226869": {
+      "companyName": "Fitch Solutions",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Lead Software Engineer"
+    },
     "4294672022": {
       "companyName": "Genentech",
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Machine Learning Engineer, Foundation Models (Prescient / AI for Drug Discovery)"
+    },
+    "4302993309": {
+      "companyName": "Dataminr",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer, Backend"
     },
     "4303074003": {
       "companyName": "JPMorganChase",
@@ -144,6 +164,11 @@
       "companyName": "Zinnia",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Software Engineer"
+    },
+    "4304801773": {
+      "companyName": "Headway",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Staff Machine Learning Engineer"
     },
     "4308848905": {
       "companyName": "Metropolitan Transportation Authority",
@@ -190,20 +215,55 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Senior Platform Engineer - Kubernetes"
     },
+    "4321154979": {
+      "companyName": "Whatnot",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer, Discovery (Search)"
+    },
     "4324331623": {
       "companyName": "Trexquant Investment LP",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "C++ Trading & Simulator Engineer (USA)"
+    },
+    "4324592040": {
+      "companyName": "Epic",
+      "first_seen_at": "2026-03-14T15:34:00+00:00",
+      "title": "Technical Solutions Engineer"
     },
     "4324658519": {
       "companyName": "Reflection AI",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Member of Technical Staff - Pre-Training"
     },
+    "4324679316": {
+      "companyName": "Whatnot",
+      "first_seen_at": "2026-03-14T15:34:00+00:00",
+      "title": "Software Engineer, Merchant Tooling"
+    },
+    "4324841931": {
+      "companyName": "Clear Street",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer - Trade Processing Middle Office Platform"
+    },
+    "4324859204": {
+      "companyName": "Whatnot",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer, Fraud"
+    },
+    "4324862552": {
+      "companyName": "Cohere",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Member of Technical Staff, Data Engineering"
+    },
     "4324908225": {
       "companyName": "Reflection AI",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Member of Technical Staff - Post-Training"
+    },
+    "4324950743": {
+      "companyName": "Whatnot",
+      "first_seen_at": "2026-03-14T15:37:59+00:00",
+      "title": "Software Engineer, Seller Growth"
     },
     "4325824661": {
       "companyName": "Bloomberg",
@@ -224,6 +284,11 @@
       "companyName": "Hopper",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Senior Software Engineer - Customer Experience Platform"
+    },
+    "4328260230": {
+      "companyName": "PwC",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Forward Deployed Software Engineer- Palantir Foundry- Senior Manager"
     },
     "4330689211": {
       "companyName": "Trexquant Investment LP",
@@ -250,10 +315,20 @@
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Senior Infrastructure Developer - API Platform"
     },
+    "4331220972": {
+      "companyName": "PwC",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Forward Deployed Software Engineer-Palantir Foundry-Director"
+    },
     "4331596031": {
       "companyName": "Cockroach Labs",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Member of Technical Staff (SRE)"
+    },
+    "4332254414": {
+      "companyName": "Anthropic",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Research Engineer, Universes"
     },
     "4332893304": {
       "companyName": "Justworks",
@@ -270,15 +345,40 @@
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Legal Engineer"
     },
+    "4337960542": {
+      "companyName": "Credit Genie",
+      "first_seen_at": "2026-03-14T15:37:59+00:00",
+      "title": "Staff iOS Engineer"
+    },
+    "4338071989": {
+      "companyName": "Cohere",
+      "first_seen_at": "2026-03-14T15:34:00+00:00",
+      "title": "Forward Deployed Engineer, Prompt Specialist"
+    },
+    "4338131722": {
+      "companyName": "Scale AI",
+      "first_seen_at": "2026-03-14T15:18:45+00:00",
+      "title": "Staff Machine Learning Research Scientist, LLM Evals"
+    },
     "4338748125": {
       "companyName": "Uphold",
       "first_seen_at": "2026-03-12T00:31:52+00:00",
       "title": "Software Engineer - Trading Execution"
     },
+    "4339038858": {
+      "companyName": "Jacobs",
+      "first_seen_at": "2026-03-14T15:18:45+00:00",
+      "title": "VDC Engineer"
+    },
     "4339119493": {
       "companyName": "Aircall",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Forward Deployed Engineer"
+    },
+    "4339219659": {
+      "companyName": "Abridge",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer, SRE"
     },
     "4340496065": {
       "companyName": "Bloomberg",
@@ -299,6 +399,11 @@
       "companyName": "Figma",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
       "title": "AI Applied Scientist"
+    },
+    "4344572065": {
+      "companyName": "Anthropic",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Research Engineer, Reward Models Platform"
     },
     "4344652056": {
       "companyName": "Reflection AI",
@@ -330,6 +435,11 @@
       "first_seen_at": "2026-03-13T16:34:12+00:00",
       "title": "Software Engineer, Metrics and Storage- Weights & Biases"
     },
+    "4344886951": {
+      "companyName": "Anthropic",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer, Growth"
+    },
     "4344905292": {
       "companyName": "Weights & Biases",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
@@ -359,6 +469,11 @@
       "companyName": "Suno",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "Software Engineer, Frontend"
+    },
+    "4347752662": {
+      "companyName": "Suno",
+      "first_seen_at": "2026-03-14T15:18:45+00:00",
+      "title": "Software Engineer, Growth"
     },
     "4348317570": {
       "companyName": "DoorDash",
@@ -410,6 +525,21 @@
       "first_seen_at": "2026-03-14T08:36:14+00:00",
       "title": "Senior Solutions Engineer - New York City"
     },
+    "4356682861": {
+      "companyName": "EY",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
+    },
+    "4356802610": {
+      "companyName": "EY",
+      "first_seen_at": "2026-03-14T15:37:59+00:00",
+      "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
+    },
+    "4356842511": {
+      "companyName": "EY",
+      "first_seen_at": "2026-03-14T15:18:45+00:00",
+      "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
+    },
     "4357830467": {
       "companyName": "Vise",
       "first_seen_at": "2026-03-12T00:31:52+00:00",
@@ -419,6 +549,11 @@
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Lead Software Engineer - Java, AWS"
+    },
+    "4358621893": {
+      "companyName": "Ironclad",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Legal Engineer (Implementation Consultant)"
     },
     "4358734095": {
       "companyName": "CLEAR",
@@ -430,15 +565,30 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Data Scientist II"
     },
+    "4359457212": {
+      "companyName": "Tubi",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Staff Software Engineer, ML Infra & Distributed Systems"
+    },
     "4359491959": {
       "companyName": "Maybern",
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Senior Software Engineer"
     },
+    "4359681059": {
+      "companyName": "Farther",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Staff Software Engineer"
+    },
     "4359686987": {
       "companyName": "WorldQuant",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Lead AI Software Engineer"
+    },
+    "4359736797": {
+      "companyName": "Verisk",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer I"
     },
     "4362272747": {
       "companyName": "BASF",
@@ -525,10 +675,20 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Lead Software Engineer - Java/Fintech"
     },
+    "4367489581": {
+      "companyName": "Equip",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Web Developer"
+    },
     "4367503162": {
       "companyName": "Prudential Financial",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Software Engineer"
+    },
+    "4367505464": {
+      "companyName": "Genmab",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Programming Intern - Application Performance Monitoring (APM)"
     },
     "4367560718": {
       "companyName": "Bedrock Robotics",
@@ -665,6 +825,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Forward Deployed AI Engineer"
     },
+    "4373736553": {
+      "companyName": "Carta",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Data Engineering Tech Lead"
+    },
     "4373984766": {
       "companyName": "Practising Law Institute (PLI)",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
@@ -700,6 +865,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Forward Deployed Engineer II, GenAI, Google Cloud"
     },
+    "4374619735": {
+      "companyName": "Anthropic",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer, Agent SDK (Claude Code)"
+    },
     "4374620210": {
       "companyName": "Google",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -715,6 +885,16 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Product Data Scientist, Workspace Monetization"
     },
+    "4374655097": {
+      "companyName": "Wealthsimple",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Developer, Crypto"
+    },
+    "4374663262": {
+      "companyName": "Maven Clinic",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer, iOS"
+    },
     "4374667116": {
       "companyName": "Google",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -725,10 +905,20 @@
       "first_seen_at": "2026-03-12T00:31:52+00:00",
       "title": "Senior Salesforce Developer"
     },
+    "4374674743": {
+      "companyName": "Hover",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Software Engineer, Frontend"
+    },
     "4374684714": {
       "companyName": "Scribd, Inc.",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Senior Software Engineer - Frontend (Signup & Activation)"
+    },
+    "4374905068": {
+      "companyName": "Morgan Stanley",
+      "first_seen_at": "2026-03-14T15:34:00+00:00",
+      "title": "Senior Full Stack Software Engineer"
     },
     "4375026062": {
       "companyName": "Persistent Systems, LLC",
@@ -755,6 +945,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Lead Software Engineer - Android Lead"
     },
+    "4375829390": {
+      "companyName": "BlackRock",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior AI Engineer - GenAI/ML, Aladdin Engineering - Vice President"
+    },
     "4375848113": {
       "companyName": "Unity",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -769,6 +964,11 @@
       "companyName": "StubHub",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Software Engineer II - Fulfillment"
+    },
+    "4376164127": {
+      "companyName": "Intuit",
+      "first_seen_at": "2026-03-14T15:37:59+00:00",
+      "title": "Staff iOS Engineer"
     },
     "4377774739": {
       "companyName": "Precision Neuroscience",
@@ -1064,6 +1264,11 @@
       "companyName": "CyberCoders",
       "first_seen_at": "2026-03-14T08:38:46+00:00",
       "title": "Fullstack Developer - ROR, Ruby"
+    },
+    "4383656137": {
+      "companyName": "Meta",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer, Server Efficiency"
     },
     "4383910669": {
       "companyName": "TalentAlly",
@@ -1510,6 +1715,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Data Engineer, Emerging Talent Intern (Summer)"
     },
+    "4384679184": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-14T15:18:45+00:00",
+      "title": "Devops Engineer"
+    },
     "4384829749": {
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -1894,6 +2104,31 @@
       "companyName": "Interactive Brokers",
       "first_seen_at": "2026-03-14T08:36:14+00:00",
       "title": "Software Engineer, Mid level"
+    },
+    "4385866288": {
+      "companyName": "Rippling",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Senior Staff Fullstack Engineer - Time Products"
+    },
+    "4385878346": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "AI/ML Software Engineer III- Java / Python"
+    },
+    "4385883267": {
+      "companyName": "Gusto",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Staff Software Engineer, Reporting Platform (Frontend)"
+    },
+    "4385885128": {
+      "companyName": "-",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "UI DEVELOPER (ANGULAR)"
+    },
+    "4385886098": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-14T15:13:37+00:00",
+      "title": "Software Engineer III, Java Backend Developer"
     }
   }
 }
