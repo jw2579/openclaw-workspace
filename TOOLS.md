@@ -37,4 +37,9 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+### Integrations
+
+- Notion credentials are stored locally at `.secrets/notion.env` for internal reuse across threads.
+- Do not echo secret values back into chat unless explicitly asked.
+
 Add whatever helps you do your job. This is your cheat sheet.
