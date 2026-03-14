@@ -1,150 +1,148 @@
 # LinkedIn Jobs Report
 
-- Generated at: 2026-03-12T00:31:52+00:00
+- Generated at: 2026-03-14T00:33:56+00:00
 - Public search URL: https://www.linkedin.com/jobs/search/?keywords=software+developer&geoId=90000070&distance=25&f_TPR=r14400&sortBy=DD
 - Actor: curious_coder/linkedin-jobs-scraper
 - Fetch mode: sync
-- Jobs fetched: 47
-- Already seen skipped: 0
-- Filtered out: 32
-- New candidates kept: 15
+- Jobs fetched: 43
+- Already seen skipped: 1
+- Filtered out: 30
+- New candidates kept: 12
 
 ## 1. New recommended jobs
 
-### 1. Senior Software Engineer II, Full-Stack — GeneDx
-- Rating: ★★★★★ (9.95)
+### 1. Senior Software Engineer 2 - Care Tools — The Farmer's Dog
+- Rating: ★★★★★ (10.85)
 - Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4384399568
-- Link: https://grnh.se/szcj5guc5us
+- LinkedIn job ID: 4384296398
+- Link: https://job-boards.greenhouse.io/thefarmersdog/jobs/8460736002
 - Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Summary As a public and profitable company, we have ambitious plans to scale and enhance our products and services. We're looking for software engineers who can work holistically to design strategic solutions that go beyond just writing code. A strong track record in understanding business needs, communicating effectively, and delivering impactful results is essential, along with leadership qualities to guide and inspire colleagues.Job ResponsibilitiesAs a Senior Software Engineer, you'll play a...
+- Summary: Who We AreThe Farmer’s Dog was born from a mission to change the landscape of pet health, providing dogs and their humans with honest, smart, and simple care. We’re starting by radically improving the $90 billion pet food industry, replacing bags of highly-processed pellets with a personalized subscription service that sends complete and balanced, freshly-made dog food directly to customers’ doors. Our ultimate goal is to create innovative, delightful and personalized experiences across all aspe...
 
-### 2. Software Engineer - Trading Execution — Uphold
-- Rating: ★★★★★ (8.45)
+### 2. Senior Software Engineer 2 - Marketing Tools and Landing Pages — The Farmer's Dog
+- Rating: ★★★★★ (10.40)
 - Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4338748125
-- Link: https://uphold.bamboohr.com/careers/773?source=linkedin
+- LinkedIn job ID: 4384291549
+- Link: https://job-boards.greenhouse.io/thefarmersdog/jobs/8460735002
 - Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: About UpholdUphold is a financial technology company that believes on-chain services are the future of finance. It provides modern infrastructure for on-chain payments, banking and investments. Offering Consumer Services, Business Services and Institutional Trading, Uphold makes pioneering financial services easy and trusted for millions of customers in more than 140 countries.Uphold integrates with more than 30 trading venues, including centralized and decentralized exchanges, to deliver superi...
+- Summary: Who We AreThe Farmer’s Dog was born from a mission to change the landscape of pet health, providing dogs and their humans with honest, smart, and simple care. We’re starting by radically improving the $90 billion pet food industry, replacing bags of highly-processed pellets with a personalized subscription service that sends complete and balanced, freshly-made dog food directly to customers’ doors. Our ultimate goal is to create innovative, delightful and personalized experiences across all aspe...
 
-### 3. Senior Software Engineer in Test — Fidelity Investments
-- Rating: ★★★★★ (8.45)
+### 3. Vice President; Software Engineer — Bank of America
+- Rating: ★★★★★ (9.35)
 - Location: Jersey City, NJ
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4384527151
-- Link: https://jobs.fidelity.com/en/jobs/2123817/senior-software-engineer-in-test/?source=LinkedIn_Job+Boards
+- LinkedIn job ID: 4383167113
+- Link: https://careers.bankofamerica.com/en-us/job-detail/26009514/vice-president-software-engineer-jersey-city-new-jersey-united-states
 - Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Job DescriptionThe RoleAsset Management Technology (AMT) provides worldwide technology and support to all the Investment Management, Research, Trading and Investment Operations functions. We are seeking a highly skilled Quality Assurance Engineer to join our Investment Risk Technology team. This role is central to building and evolving our Portfolio Risk and Analytics platform, which powers risk insights across multi-asset portfolios.The Responsibilities You Will HaveDesign and develop scalable,...
+- Summary: Job Description:At Bank of America, we are guided by a common purpose to help make financial lives better through the power of every connection. We do this by driving Responsible Growth and delivering for our clients, teammates, communities and shareholders every day.Being a Great Place to Work is core to how we drive Responsible Growth. This includes our commitment to being an inclusive workplace, attracting and developing exceptional talent, supporting our teammates’ physical, emotional, and f...
 
-### 4. Software Engineer - Early Career (Backend/Data) — Apple
-- Rating: ★★★★★ (7.85)
+### 4. Senior Software Engineer, Ad Serving — Roku
+- Rating: ★★★★★ (8.90)
 - Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4383252766
-- Link: https://jobs.apple.com/en-us/details/200651247?board_id=17682
+- LinkedIn job ID: 4385579339
 - Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: SummaryAt Apple, we believe in the power of technology to enrich people's lives. Everything we build is designed to empower people, including our advertising platform. We deliver ads in a way that benefits both customers and advertisers — helping people discover content, supporting creators, and protecting and respecting everyone’s privacy.Our technology makes advertising possible on the App Store, Apple News, Stocks, and Apple TV. We help developers and marketers of all sizes drive app discover...
+- Summary: Teamwork makes the stream work. Roku is changing how the world watches TVRoku is the #1 TV streaming platform in the U.S., Canada, and Mexico, and we've set our sights on powering every television in the world. Roku pioneered streaming to the TV. Our mission is to be the TV streaming platform that connects the entire TV ecosystem. We connect consumers to the content they love, enable content publishers to build and monetize large audiences, and provide advertisers unique capabilities to engage c...
 
-### 5. AI/ML Development Analyst — Commonfund
-- Rating: ★★★★★ (7.60)
-- Location: Norwalk, CT
+### 5. Software Engineer III, Full Stack, Commerce — Google
+- Rating: ★★★★★ (8.90)
+- Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4384369810
-- Link: https://www.commonfund.org/careers/
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, fastapi, sql, llm
-- Summary: Job SummaryCommonfund is seeking a highly motivated AI/ML Development Analyst to design, develop, and deploy advanced artificial intelligence and machine learning solutions. The ideal candidate will have strong experience in AI/ML development, Agentic AI systems, Python programming, SQL, and web application development.This role involves building intelligent systems, developing data-driven models, and integrating AI capabilities into scalable applications for business processes at Commonfund. Ca...
+- LinkedIn job ID: 4384602624
+- Link: https://careers.google.com/jobs/results/92409579454767814-software-engineer-iii/?src=Online/LinkedIn/linkedin_us&utm_source=linkedin&utm_medium=jobposting&utm_campaign=contract
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: Note: By applying to this position you will have an opportunity to share your preferred working location from the following: New York, NY, USA; Pittsburgh, PA, USA.Minimum qualifications:Bachelor’s degree or equivalent practical experience. 2 years of experience programming in Java or C++.2 years of experience programming in JavaScript or TypeScript.Preferred qualifications:Master's degree or PhD in Computer Science or related technical field. 2 years of experience with performance, large scale ...
 
-### 6. Prime RAD Developer — Barclays
+### 6. Senior Typescript Software Engineer - Trade Automation & Execution — Bloomberg
+- Rating: ★★★★★ (8.30)
+- Location: New York, NY
+- Employment type: Full-time
+- Workplace type: Unknown
+- LinkedIn job ID: 4383168901
+- Link: https://click.appcast.io/t/-MJ3gzRcJDFkPGnRdg5ZqiFy8uqNTVhGnZIt3-ndX2Mng9uks4xanF0FQTn9cEfv?src=LinkedIn
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: LocationNew YorkBusiness AreaEngineering and CTORef #10049158Description &amp; RequirementsJoin the Pioneers of Trading TechnologyImagine working on a team that’s shaping how buy-side trading workflows are experienced across asset classes, with trillions of dollars flowing through systems you help build every day. The EMS Workflows teams sit at the heart of Bloomberg’s Execution Management Systems, owning the presentation layer for buy-side EMSs across all asset classes.We partner closely with p...
+
+### 7. Analyst or Associate, AI & Platform Engineering — Aker
 - Rating: ★★★★☆ (7.40)
 - Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4382701971
-- Link: https://search.jobs.barclays/job/-/-/13015/92651848368?src=JB-12860
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, react, sql
-- Summary: Embark on a transformative journey as a Prime RAD Developer. At Barclays, our vision is clear – to redefine the future of banking and help craft innovative solutions. In this role, you will partner closely with business stakeholders across regions to translate requirements into high-impact technology solutions for the Liquid Financing business. As part of a Rapid Application Development function, you will focus on speed-to-market, delivering iterative solutions that enhance operational efficienc...
+- LinkedIn job ID: 4385567637
+- Link: https://aker-ai.com/jobs/analyst-or-associate-ai-platform-engineering
+- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, sql, llm
+- Summary: Summary:Aker is seeking an Analyst or Associate to join its AI &amp; Platform Engineering team to design, build, and operate production-grade AI systems. This role focuses on large language models (LLMs), agentic systems, and data platforms that power intelligent decision-making and automation across the firm.This position is suited for individuals who want to build and own real systems end-to-end — from raw data ingestion and transformation to retrieval systems, orchestration layers, and intell...
 
-### 7. Senior ML Ops Engineer — Prudential Financial
-- Rating: ★★★★☆ (7.30)
-- Location: Newark, NJ
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4383265337
-- Link: https://pru.wd5.myworkdayjobs.com/Careers/job/Newark-NJ-USA/Senior-ML-Ops-Engineer_R-123866-1/apply
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, sql, llm, health
-- Summary: Job ClassificationTechnology - Engineering &amp; CloudAre you interested in building capabilities that enable the organization with innovation, speed, agility, scalability and efficiency? The Global Technology team takes great pride in our culture where digital transformation is built into our DNA! When you join our organization at Prudential, you’ll unlock an exciting and impactful career – all while growing your skills and advancing your profession at one of the world’s leading financial servi...
-
-### 8. Integration Health Engineer — Zocdoc
-- Rating: ★★★★☆ (6.95)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4383277328
-- Link: https://job-boards.greenhouse.io/zocdoc/jobs/7659009?gh_src=068301fd1us
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, sql, health
-- Summary: Our MissionHealthcare should work for patients, but it doesn’t. In their time of need, they call down outdated insurance directories. Then wait on hold. Then wait weeks for the privilege of a visit. Then wait in a room solely designed for waiting. Then wait for a surprise bill. In any other consumer industry, the companies delivering such a poor customer experience would not survive. But in healthcare, patients lack market power. Which means they are expected to accept the unacceptable.Zocdoc’s ...
-
-### 9. C++ Engineer | Leading NYC Hedge Fund — Selby Jennings
+### 8. Lead Systems Operations Engineer — Wells Fargo
 - Rating: ★★★☆☆ (5.90)
-- Location: New York, NY
+- Location: Iselin, NJ
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4371464114
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, sql
-- Summary: A leading quantitative trading team within a alternative investment manager is seeking a Software Engineer to help build and enhance the technology that powers global trading strategies. This is a hands-on role focused on high-performance systems, where precision and reliability are critical. You'll work closely with researchers and senior engineers to design scalable solutions for real-time environments.ResponsibilitiesDevelop and optimize core components of trading infrastructure in modern C++...
+- LinkedIn job ID: 4385553489
+- Link: https://tnl2.jometer.com/v2/job?jz=581jn41b466874231eef93905a37b530adc39CMAJQAYBAACQAAAAAAAQ&utm_source=joveo&publisher=Linkedin%20Flat%20bid
+- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, mobile
+- Summary: Are you looking for more? Find it here. At Wells Fargo, we believe that a meaningful career is much more than just a job. It’s about finding all the elements that help you thrive, in one place.  means you’re supported in life, not just work. It means having a competitive salary, a robust benefits package, and programs to support your work-life balance and well-being. It means being rewarded for investing in your community, celebrated for being your authentic self, and empowered to grow.About Thi...
 
-### 10. Senior Salesforce Developer — Healthfirst
-- Rating: ★★★☆☆ (5.60)
+### 9. Senior Lead Java Securities Quantitative Analytics Specialist — Wells Fargo
+- Rating: ★★★☆☆ (5.15)
 - Location: New York, NY
 - Employment type: Full-time
 - Workplace type: Unknown
-- LinkedIn job ID: 4374668947
-- Link: https://healthfirst.avature.net/careersmarketplace/PipelineDetail/15875?source=LinkedIn
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: mobile, health
-- Summary: Healthfirst is in need of a Senior Salesforce Developer. Partial telecommuting permitted; role requires onsite work at 100 Church Street, New York, NY multiple days per week. (Tuesdays, Wednesdays, Thursdays)Duties &amp; ResponsibilitiesAnalyze, design, implement customized software applications. Design, develop, and maintain complex applications. Develop unit tests and provide code coverage to accurately test business logic and functionality. Participate in developing specifications, including ...
+- LinkedIn job ID: 4385561182
+- Link: https://tnl2.jometer.com/v2/job?jz=581jneb4c5e36350155bd9b6ff3b5ca8fc688CMAJQAYBAACQAAAAAAAQ&utm_source=joveo&publisher=Linkedin%20Flat%20bid
+- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: react, mobile
+- Summary: About This RoleWells Fargo is seeking a Quantitative Software Engineer, Executive Director (Senior Lead Securities Quantitative Analytics Specialist). A successful applicant will be a Java quantitative developer in the Mortgage Modeling Development Center in Wells Fargo Securities, with a focus on Juniper Vasara development. Vasara is the next generation risk platform for the bank. It is an ambitious, green field initiative to tackle the bank's risk computation challenges within capital markets,...
+
+### 10. AI Technology Product Manager-Associate — BlackRock
+- Rating: ★★★☆☆ (4.85)
+- Location: New York, NY
+- Employment type: Full-time
+- Workplace type: Unknown
+- LinkedIn job ID: 4385534768
+- Link: https://careers.blackrock.com/job/-/-/45831/92689558176?source=LinkedIn
+- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: health
+- Summary: About This RoleBlackRock is one of the world’s leading asset management firms and Aladdin® is the firm’s an end-to-end operating system for investment professionals to see their whole portfolio, understand risk exposure, and act with precision. Aladdin is the central nervous system powering the investment decisions of both the firm and its clients; a $1bn technology business that has significant growth aspirations over the next five years.The Aladdin Platform team is responsible for engineering ...
 
 ## 2. Filtered-out jobs with reasons
 
-- Member of Technical Staff — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
-- Python risk engineer — Envision Technology Solutions: neutral business-rule staffing/vendor signal: staffing
-- AI Engineer / Data Scientist — Rivago Infotech Inc: neutral business-rule staffing/vendor signal: staffing
-- Software Development Engineer, Guidance and Personalization - Amazon Ads — Amazon: neutral business-rule staffing/vendor signal: recruiting
+- Engineer — Akkodis Group Nordics: neutral business-rule staffing/vendor signal: it services
+- Senior Software Engineer (GEN AI and Antigravity) — Diversity Nexus: neutral business-rule staffing/vendor signal: c2c
+- Senior Fullstack Software Engineer — Robert Half: neutral business-rule staffing/vendor signal: staffing
+- Senior Software AI Engineer – Hedge Fund (NYC, Hybrid) — Sartre Group: neutral business-rule staffing/vendor signal: recruitment
+- 2026 Summer Internship (US) - Software Engineer, Backend Windows Development — Zebra Technologies: neutral business-rule staffing/vendor signal: it services
+- Senior Software Engineer - Java, Angular — PNC: low-transparency signal: confidential
+- Workday Developer — Avance Consulting: neutral business-rule staffing/vendor signal: recruiting
+- Senior Functional Tester — ECLARO: neutral business-rule staffing/vendor signal: staffing
+- Software Developer - .NET — Orion Innovation: neutral business-rule staffing/vendor signal: recruitment
+- Software Developer - .NET — Orion Innovation: neutral business-rule staffing/vendor signal: recruitment
+- C++ Developer — Robert Half: neutral business-rule staffing/vendor signal: talent solutions
 - Developer — Akkodis Group Nordics: neutral business-rule staffing/vendor signal: it services
-- C# Algorithmic Trading Developer – Front Office — QUANTEAM - North America (RAINBOW PARTNERS Group): neutral business-rule staffing/vendor signal: it services
-- Founding Software Engineer — Radley James: neutral business-rule staffing/vendor signal: recruitment
-- MERN/MEAN Stack Developer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
-- Bioinformatics Software Engineer — Memorial Sloan Kettering Cancer Center: neutral business-rule staffing/vendor signal: recruiting
-- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
-- Software Engineer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
 - UI Developer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
 - Software Engineer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
 - Software Engineer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
-- Software Engineer, Client Solutions — AKASA: neutral business-rule staffing/vendor signal: recruiting
-- Software Engineer, Data Platform — Ramp: neutral business-rule staffing/vendor signal: recruiting
-- Senior Backend Integrations Engineer — Uphold: neutral business-rule staffing/vendor signal: vendor
-- US_East | Software Developer - Application Server Technologies_L1 — Expedite Talent Solutions: low-transparency signal: confidential
-- Fully Remote: Loan IQ Developer — Ventures Unlimited Inc: neutral business-rule staffing/vendor signal: staffing
-- Director of AI Engineering – Vaccine R&D Operations Enablement — Pfizer: neutral business-rule staffing/vendor signal: recruiting
-- Senior Verification Engineer — Real: neutral business-rule staffing/vendor signal: staffing
-- Postdoctoral Fellow – AI & Computational Hematology — Memorial Sloan Kettering Cancer Center: neutral business-rule staffing/vendor signal: recruiting
-- Tandem Developer — Envision Technology Solutions: neutral business-rule staffing/vendor signal: staffing
-- Senior GenAI Engineer — Deloitte: neutral business-rule staffing/vendor signal: recruiting
-- OneStream Developer — BDO USA: neutral business-rule staffing/vendor signal: consulting services
-- Lead Applications Integration Engineer — Gotham Technology Group: neutral business-rule staffing/vendor signal: it services
-- Bioinformatics Software Engineer III, Pathology and Lab Medicine — Memorial Sloan Kettering Cancer Center: neutral business-rule staffing/vendor signal: recruiting
-- Senior Backend Cloud Developer/ Only USC or Permanent Resident — HireTalent - Staffing & Recruiting Firm: neutral business-rule staffing/vendor signal: staffing
-- OneStream Developer — BDO USA: neutral business-rule staffing/vendor signal: consulting services
-- Advanced Software Engineer - Salesforce — Metropolitan Transportation Authority: neutral business-rule staffing/vendor signal: vendor
-- Netcool Developer — Tekgence Inc: neutral business-rule staffing/vendor signal: it services
-- Python Data Engineering Technical Lead — Akkodis Group Nordics: neutral business-rule staffing/vendor signal: it services
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Junior Java Developer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Associate GenAI Engineer — Deloitte: neutral business-rule staffing/vendor signal: it services
+- DC Policy Technical Lead — Capgemini: neutral business-rule staffing/vendor signal: recruiting
+- Duckcreek Policy Tech Lead — Capgemini: neutral business-rule staffing/vendor signal: recruiting
+- Senior GraphQL Engineer — Jobot: neutral business-rule staffing/vendor signal: staffing
+- Azure DevOpst Test Lead - Hybrid NYC — Randstad Digital Americas: neutral business-rule staffing/vendor signal: talent solutions
+- V&V Engineer/System Verification Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
+- V&V Engineer/System Verification Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
+- Postdoctoral Fellow-R&D Science Engineer — Pfizer: low-transparency signal: confidential
+- Quadient Developer — Cenicor Technologies Inc.: neutral business-rule staffing/vendor signal: staffing
+- Adobe Experience Manager — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
+- Quantum Calibration Software Developer — IBM: neutral business-rule staffing/vendor signal: it services
+- Sr. Functional Tester — Xaxis Solutions: neutral business-rule staffing/vendor signal: staffing
+- Artificial Intelligence - Senior Quality Assurance Engineer - Remote — Pellera Technologies: neutral business-rule staffing/vendor signal: recruiting
 
 ## 3. Count of already-seen jobs skipped
 
-- 0
+- 1
