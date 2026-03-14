@@ -50,7 +50,7 @@ Before running the workflow, read these when present:
 - Prefer the local helper script `scripts/linkedin_apify_jobs.py` for fetch/filter/dedupe/report work.
 - Keep persistent state minimal and private.
 - Do not persist secrets into workspace files, reports, logs, or memory.
-- For recurring Discord runs that must report to multiple threads, keep the cron `announce` delivery on the primary thread and mirror the same concise human summary to secondary thread sessions with `sessions_send`.
+- For recurring Discord runs in this workspace, deliver the cron summary only to the configured target thread. If routing changes, prefer updating the cron `announce` destination over adding mirror posts unless the user explicitly wants both.
 
 ## Typical run
 

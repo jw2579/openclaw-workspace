@@ -70,3 +70,29 @@ When staging mixed modifications + deletions, prefer `git add -A` to avoid paths
 
 ---
 
+## [LRN-20260314-002] correction
+
+**Logged**: 2026-03-14T18:55:00Z
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+When a user asks for multi-thread cron reporting, do not assume they want mirrored delivery; if delivery supports only one target, confirm whether to switch the sole announce target instead.
+
+### Details
+I initially implemented a primary-thread announce plus secondary-thread mirror pattern. The user corrected that preference and wanted the simpler outcome: stop reporting to the old thread and deliver only to the new `Job Tracker` thread.
+
+### Suggested Action
+When routing a cron summary to multiple chat destinations is ambiguous, prefer asking or choosing the single explicit target rather than adding mirrored posts by default.
+
+### Metadata
+- Source: user_feedback
+- Related Files: TOOLS.md, skills/linkedin_apify_jobs/SKILL.md
+- Tags: cron, discord, delivery, correction
+
+### Resolution
+- **Resolved**: 2026-03-14T18:55:00Z
+- **Notes**: Updated cron delivery target to `channel:1482225712093069415` only and removed mirror-routing guidance.
+
+---

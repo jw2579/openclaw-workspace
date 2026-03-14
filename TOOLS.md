@@ -44,8 +44,8 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ### LinkedIn Job Report Routing
 
-- Primary Discord thread session: `agent:main:discord:channel:1481436478125903983` (`#job-alert`)
-- Mirror Discord thread session: `agent:main:discord:channel:1482225712093069415` (`Job Tracker`)
-- Current cron pattern: primary delivery uses cron announce to `#job-alert`, then mirrors the same concise human summary to `Job Tracker` via `sessions_send`.
+- Old Discord thread session: `agent:main:discord:channel:1481436478125903983` (`#job-alert`)
+- Active delivery target: `agent:main:discord:channel:1482225712093069415` (`Job Tracker`)
+- Current cron pattern: deliver only to `Job Tracker` via cron `announce`; do not mirror back to the old thread.
 
 Add whatever helps you do your job. This is your cheat sheet.
