@@ -65,3 +65,37 @@ Enable Google Drive API for the gog OAuth client project, or keep using Gmail at
 - Related Files: scripts/linkedin_apify_jobs.py, skills/gog/SKILL.md
 
 ---
+## [ERR-20260314-003] linkedin_multi_region_apify_fallback_abort
+
+**Logged**: 2026-03-14T16:36:00Z
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+In the new multi-region LinkedIn pipeline, a single region's failed Apify fallback request could abort the entire run instead of degrading gracefully to guest API results for that region.
+
+### Error
+```
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+```
+
+### Context
+- Operation attempted: smoke-test the new multi-region fetch plan with `LINKEDIN_COUNT=3 LINKEDIN_FORCE_MODE=offpeak`
+- Region that triggered it: `us`
+- Guest scraping for that region hit LinkedIn anti-bot on detail fetches
+- The pipeline then attempted Apify fallback for that one region and received HTTP 400
+- Before the fix, that exception bubbled up and killed the whole run
+
+### Suggested Fix
+Wrap region-level Apify fallback in a `try/except`, log the fallback failure, and continue the run on the guest results already gathered for that region.
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/linkedin_apify_jobs.py
+
+### Resolution
+- **Resolved**: 2026-03-14T16:38:00Z
+- **Notes**: Region-level fallback failures now degrade gracefully; smoke test completed successfully with guest results preserved.
+
+---

@@ -14,17 +14,32 @@ Use this skill to fetch fresh LinkedIn job listings via LinkedIn's free guest AP
 
 When Notion is enabled, keep the schema lean and decision-focused: company, position, URL, status, star-based score, match reason, location, work mode, posted time, and JD content. Do not recreate a `note` column.
 
-The script also supports automatic time-of-day behavior in `America/New_York`:
-- `high_peak` = weekdays 09:00-21:00 → fetch up to 100, recommend up to 10
-- `low_peak` = weekdays 21:00-09:00 plus weekends → fetch up to 50, recommend up to 5 only if they clear a suitability threshold
-- Override for testing with `LINKEDIN_FORCE_MODE=high|low`
+The script now supports automatic multi-region time-of-day behavior in `America/New_York` with runs at `01:00, 05:00, 09:00, 13:00, 17:00, 21:00` EDT.
+
+Per-region fetch profiles:
+- `new_york`
+  - weekday peak hours: `09, 13, 17` → fetch `55`
+  - weekday offpeak hours: `01, 05, 21` → fetch `32`
+  - weekend hours: all run slots → fetch `28`
+- `california`
+  - weekday peak hours: `13, 17, 21` → fetch `80`
+  - weekday offpeak hours: `01, 05, 09` → fetch `40`
+  - weekend hours: all run slots → fetch `32`
+- `us`
+  - weekday peak hours: `09, 13, 17, 21` → fetch `105`
+  - weekday offpeak hours: `01, 05` → fetch `58`
+  - weekend hours: all run slots → fetch `48`
+
+Recommendation caps are derived proportionally from the average per-region fetch count and capped lower than the old 10/5 behavior. Offpeak/weekend jobs must still clear the low-signal threshold and match target software-role titles.
+
+Override for testing with `LINKEDIN_FORCE_MODE=peak|offpeak|weekend`.
 
 ## Required reads
 
 Before running the workflow, read these when present:
 - `USER.md`
-- `MEMORY.md`
 - `memory/resume-jiaxuan.md`
+- `MEMORY.md` only in direct/main-session contexts where long-term memory is allowed
 
 ## Rules
 
@@ -51,7 +66,8 @@ Optional environment overrides:
 - `LINKEDIN_REPORT_PATH`
 - `LINKEDIN_SEEN_STATE_PATH`
 - `LINKEDIN_DENYLIST_PATH`
-- `LINKEDIN_COUNT` (default: 100)
+- `LINKEDIN_COUNT` (override the configured per-region fetch count for smoke tests)
+- `LINKEDIN_FORCE_MODE` (`peak|offpeak|weekend` for testing)
 - `NOTION_TOKEN` (optional — if provided with NOTION_DB_ID, accepted jobs are inserted into Notion)
 - `NOTION_DB_ID` (optional — Notion database ID for job tracking)
 - `APIFY_TOKEN` (optional — enables automatic fallback to the legacy Apify actor if LinkedIn guest requests hit anti-bot/captcha)
@@ -69,7 +85,10 @@ Fallback source when LinkedIn anti-bot blocks detail fetches and `APIFY_TOKEN` i
 ## Search configuration
 
 - Queries: software developer, software engineer, backend engineer, full stack engineer, ai engineer, mobile developer
-- Location: New York City Metropolitan Area (geoId=90000070, distance=25)
+- Regions searched each run:
+  - New York City Metropolitan Area (`geoId=90000070`, `distance=25`)
+  - California
+  - United States
 - Freshness: last 4 hours
-- Max candidates: 100
-- Top picks: 5-10 depending on quality
+- Fetch counts: determined per region by the active EDT run slot (`peak`, `offpeak`, `weekend`)
+- Top picks: derived proportionally from the average per-region fetch count, with stricter gating for offpeak/weekend roles

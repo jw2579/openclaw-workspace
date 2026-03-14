@@ -19,8 +19,6 @@ SEEN_PATH = Path(os.environ.get("LINKEDIN_SEEN_STATE_PATH", DATA_DIR / "seen_lin
 DENYLIST_PATH = Path(os.environ.get("LINKEDIN_DENYLIST_PATH", DATA_DIR / "company_denylist.json"))
 REPORT_PATH = Path(os.environ.get("LINKEDIN_REPORT_PATH", REPORTS_DIR / "linkedin_jobs_latest.md"))
 RESUME_PATH = WORKSPACE / "memory" / "resume-jiaxuan.md"
-MAX_RESULTS_HIGH = 100
-MAX_RESULTS_LOW = 50
 LOW_PEAK_MIN_SCORE = float(os.environ.get("LINKEDIN_LOW_PEAK_MIN_SCORE", "5.5"))
 ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
 
@@ -33,10 +31,42 @@ ROLE_QUERIES = [
     "mobile developer",
 ]
 
-SEARCH_LOCATION = "New York City Metropolitan Area"
-SEARCH_GEO_ID = "90000070"
-SEARCH_DISTANCE = "25"
+SCHEDULE_TIMEZONE = "America/New_York"
+RUN_HOURS_EDT = [1, 5, 9, 13, 17, 21]
 SEARCH_FRESHNESS = "r14400"  # last 4 hours
+REGION_ORDER = ["new_york", "california", "us"]
+REGION_CONFIGS: Dict[str, Dict[str, Any]] = {
+    "new_york": {
+        "label": "New York City Metropolitan Area",
+        "location": "New York City Metropolitan Area",
+        "geoId": "90000070",
+        "distance": "25",
+        "peak_hours_edt": [9, 13, 17],
+        "offpeak_hours_edt": [1, 5, 21],
+        "weekend_hours_edt": [1, 5, 9, 13, 17, 21],
+        "fetch_count": {"peak": 55, "offpeak": 32, "weekend": 28},
+    },
+    "california": {
+        "label": "California",
+        "location": "California, United States",
+        "geoId": "",
+        "distance": "",
+        "peak_hours_edt": [13, 17, 21],
+        "offpeak_hours_edt": [1, 5, 9],
+        "weekend_hours_edt": [1, 5, 9, 13, 17, 21],
+        "fetch_count": {"peak": 80, "offpeak": 40, "weekend": 32},
+    },
+    "us": {
+        "label": "United States",
+        "location": "United States",
+        "geoId": "",
+        "distance": "",
+        "peak_hours_edt": [9, 13, 17, 21],
+        "offpeak_hours_edt": [1, 5],
+        "weekend_hours_edt": [1, 5, 9, 13, 17, 21],
+        "fetch_count": {"peak": 105, "offpeak": 58, "weekend": 48},
+    },
+}
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
@@ -115,7 +145,7 @@ def http_error_body(exc: error.HTTPError) -> Tuple[str, str]:
 def current_new_york_time() -> time.struct_time:
     original_tz = os.environ.get("TZ")
     try:
-        os.environ["TZ"] = "America/New_York"
+        os.environ["TZ"] = SCHEDULE_TIMEZONE
         if hasattr(time, "tzset"):
             time.tzset()
         return time.localtime()
@@ -128,54 +158,89 @@ def current_new_york_time() -> time.struct_time:
             time.tzset()
 
 
-def get_run_mode() -> str:
+def get_forced_period() -> Optional[str]:
     forced = (os.environ.get("LINKEDIN_FORCE_MODE") or "").strip().lower()
-    if forced in {"high", "high_peak", "peak"}:
-        return "high_peak"
-    if forced in {"low", "low_peak", "offpeak", "off_peak"}:
-        return "low_peak"
+    aliases = {
+        "high": "peak",
+        "high_peak": "peak",
+        "peak": "peak",
+        "low": "offpeak",
+        "low_peak": "offpeak",
+        "offpeak": "offpeak",
+        "off_peak": "offpeak",
+        "weekend": "weekend",
+    }
+    return aliases.get(forced)
+
+
+def build_region_fetch_plan() -> List[Dict[str, Any]]:
     ny = current_new_york_time()
-    weekday = ny.tm_wday  # Monday=0
     hour = ny.tm_hour
-    if weekday <= 4 and 9 <= hour < 21:
-        return "high_peak"
-    return "low_peak"
-
-
-def get_max_results_for_mode(run_mode: str) -> int:
+    is_weekend = ny.tm_wday >= 5
+    forced_period = get_forced_period()
     override = os.environ.get("LINKEDIN_COUNT")
-    if override:
-        return int(override)
-    return MAX_RESULTS_HIGH if run_mode == "high_peak" else MAX_RESULTS_LOW
+    plan: List[Dict[str, Any]] = []
+
+    for region_key in REGION_ORDER:
+        config = REGION_CONFIGS[region_key]
+        if forced_period:
+            period = forced_period
+        elif is_weekend:
+            period = "weekend"
+        elif hour in config["peak_hours_edt"]:
+            period = "peak"
+        elif hour in config["offpeak_hours_edt"]:
+            period = "offpeak"
+        else:
+            period = "offpeak"
+
+        fetch_count = int(override) if override else int(config["fetch_count"][period])
+        plan.append({
+            "region_key": region_key,
+            "config": config,
+            "period": period,
+            "fetch_count": fetch_count,
+            "hour_edt": hour,
+            "weekday": ny.tm_wday,
+            "is_weekend": is_weekend,
+        })
+    return plan
+
+
+def total_fetch_budget(fetch_plan: List[Dict[str, Any]]) -> int:
+    return sum(int(item.get("fetch_count") or 0) for item in fetch_plan)
+
+
+def search_params_for_region(query: str, region_config: Dict[str, Any], start: Optional[int] = None) -> Dict[str, str]:
+    params = {
+        "keywords": query,
+        "location": region_config["location"],
+        "f_TPR": SEARCH_FRESHNESS,
+        "sortBy": "DD",
+    }
+    if start is not None:
+        params["start"] = str(start)
+    if region_config.get("geoId"):
+        params["geoId"] = region_config["geoId"]
+    if region_config.get("distance"):
+        params["distance"] = region_config["distance"]
+    return params
 
 
 # ---------------------------------------------------------------------------
 # LinkedIn guest API — search + detail fetch
 # ---------------------------------------------------------------------------
 
-def linkedin_search_url(query: str, start: int = 0) -> str:
-    params = {
-        "keywords": query,
-        "location": SEARCH_LOCATION,
-        "geoId": SEARCH_GEO_ID,
-        "distance": SEARCH_DISTANCE,
-        "f_TPR": SEARCH_FRESHNESS,
-        "sortBy": "DD",
-        "start": str(start),
-    }
-    return "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?" + parse.urlencode(params)
+def linkedin_search_url(query: str, region_config: Dict[str, Any], start: int = 0) -> str:
+    return "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?" + parse.urlencode(
+        search_params_for_region(query, region_config, start=start)
+    )
 
 
-def linkedin_public_search_url(query: str) -> str:
-    params = {
-        "keywords": query,
-        "location": SEARCH_LOCATION,
-        "geoId": SEARCH_GEO_ID,
-        "distance": SEARCH_DISTANCE,
-        "f_TPR": SEARCH_FRESHNESS,
-        "sortBy": "DD",
-    }
-    return "https://www.linkedin.com/jobs/search/?" + parse.urlencode(params)
+def linkedin_public_search_url(query: str, region_config: Dict[str, Any]) -> str:
+    return "https://www.linkedin.com/jobs/search/?" + parse.urlencode(
+        search_params_for_region(query, region_config, start=None)
+    )
 
 
 def apify_request(token: str, url: str, payload: Optional[Dict[str, Any]], method: str = "POST") -> Dict[str, Any]:
@@ -308,20 +373,45 @@ def extract_employment_type(job_html: str) -> str:
     return ""
 
 
-def fetch_jobs_guest_api(max_results: int) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    """Fetch jobs from LinkedIn guest API across all role queries."""
-    all_cards: Dict[str, Dict[str, Any]] = {}  # dedupe by id
+def append_unique(items: List[str], value: str) -> None:
+    if value and value not in items:
+        items.append(value)
+
+
+def add_search_context(job: Dict[str, Any], region_plan: Dict[str, Any]) -> None:
+    append_unique(job.setdefault("searchRegionKeys", []), region_plan["region_key"])
+    append_unique(job.setdefault("searchRegionLabels", []), region_plan["config"]["label"])
+    append_unique(job.setdefault("searchPeriods", []), region_plan["period"])
+
+
+def merge_job_records(existing: Dict[str, Any], incoming: Dict[str, Any]) -> Dict[str, Any]:
+    merged = dict(existing)
+    for key, value in incoming.items():
+        if key in {"searchRegionKeys", "searchRegionLabels", "searchPeriods"}:
+            merged.setdefault(key, [])
+            for item in value or []:
+                append_unique(merged[key], item)
+        elif not merged.get(key) and value:
+            merged[key] = value
+    return merged
+
+
+def fetch_jobs_guest_api(region_plan: Dict[str, Any]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Fetch jobs from LinkedIn guest API across all role queries for one region."""
+    region_config = region_plan["config"]
+    max_results = int(region_plan["fetch_count"])
+    all_cards: Dict[str, Dict[str, Any]] = {}
     errors: List[str] = []
 
     for query in ROLE_QUERIES:
-        url = linkedin_search_url(query)
+        url = linkedin_search_url(query, region_config)
         try:
             html = http_get(url)
             cards = parse_job_cards(html)
             for card in cards:
                 if card["id"] not in all_cards:
                     all_cards[card["id"]] = card
-            time.sleep(1.0)  # polite delay between queries
+            time.sleep(1.0)
         except Exception as e:
             errors.append(f"search '{query}': {e}")
 
@@ -329,8 +419,6 @@ def fetch_jobs_guest_api(max_results: int) -> Tuple[List[Dict[str, Any]], Dict[s
             break
 
     detail_attempted = min(len(all_cards), max_results)
-
-    # Fetch individual JD for each card
     jobs: List[Dict[str, Any]] = []
     for card in list(all_cards.values())[:max_results]:
         try:
@@ -349,13 +437,18 @@ def fetch_jobs_guest_api(max_results: int) -> Tuple[List[Dict[str, Any]], Dict[s
                 "postedLabel": card.get("postedLabel") or "",
                 "postedAt": card.get("postedAt") or "",
             }
+            add_search_context(job, region_plan)
             jobs.append(job)
-            time.sleep(0.5)  # polite delay between detail fetches
+            time.sleep(0.5)
         except Exception as e:
             errors.append(f"detail {card['id']}: {e}")
 
     anti_bot_errors = sum(1 for err in errors if "captcha/anti-bot" in err or "rate-limited" in err)
     meta = {
+        "region": region_plan["region_key"],
+        "region_label": region_config["label"],
+        "period": region_plan["period"],
+        "fetch_limit": max_results,
         "mode": "linkedin_guest_api",
         "source_label": "LinkedIn guest API (free, no API key)",
         "queries": len(ROLE_QUERIES),
@@ -367,8 +460,10 @@ def fetch_jobs_guest_api(max_results: int) -> Tuple[List[Dict[str, Any]], Dict[s
     return jobs, meta
 
 
-def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    public_urls = [linkedin_public_search_url(query) for query in ROLE_QUERIES]
+def fetch_jobs_apify(token: str, region_plan: Dict[str, Any]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    region_config = region_plan["config"]
+    max_results = int(region_plan["fetch_count"])
+    public_urls = [linkedin_public_search_url(query, region_config) for query in ROLE_QUERIES]
     actor_input = {
         "urls": public_urls,
         "scrapeCompany": True,
@@ -381,7 +476,13 @@ def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]]
     try:
         items = apify_request(token, sync_url, actor_input)
         if isinstance(items, list):
+            for job in items:
+                add_search_context(job, region_plan)
             return items, {
+                "region": region_plan["region_key"],
+                "region_label": region_config["label"],
+                "period": region_plan["period"],
+                "fetch_limit": max_results,
                 "mode": "apify_fallback",
                 "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
                 "actor": ACTOR_ID,
@@ -391,7 +492,14 @@ def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]]
                 "fetch_mode": "sync",
             }
         if isinstance(items, dict) and isinstance(items.get("data"), list):
-            return items["data"], {
+            wrapped = items["data"]
+            for job in wrapped:
+                add_search_context(job, region_plan)
+            return wrapped, {
+                "region": region_plan["region_key"],
+                "region_label": region_config["label"],
+                "period": region_plan["period"],
+                "fetch_limit": max_results,
                 "mode": "apify_fallback",
                 "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
                 "actor": ACTOR_ID,
@@ -432,8 +540,14 @@ def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]]
     items = apify_get(token, items_url)
     if not isinstance(items, list):
         raise RuntimeError(f"Unexpected Apify dataset payload type: {type(items).__name__}")
+    for job in items:
+        add_search_context(job, region_plan)
 
     meta = {
+        "region": region_plan["region_key"],
+        "region_label": region_config["label"],
+        "period": region_plan["period"],
+        "fetch_limit": max_results,
         "mode": "apify_fallback",
         "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
         "actor": ACTOR_ID,
@@ -445,6 +559,94 @@ def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]]
         "dataset_id": dataset_id,
     }
     return items, meta
+
+
+def fetch_jobs_for_region(region_plan: Dict[str, Any], apify_token: Optional[str]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    region_key = region_plan["region_key"]
+    region_label = region_plan["config"]["label"]
+    period = region_plan["period"]
+    fetch_limit = int(region_plan["fetch_count"])
+    print(
+        f"Fetching jobs from LinkedIn guest API... (region={region_key}, period={period}, count={fetch_limit}, location={region_label})",
+        file=sys.stderr,
+    )
+    jobs, fetch_meta = fetch_jobs_guest_api(region_plan)
+    fetched = len(jobs)
+    print(f"Fetched {fetched} jobs for {region_key} across {fetch_meta['queries']} queries.", file=sys.stderr)
+    if fetch_meta.get("errors"):
+        for err in fetch_meta["errors"]:
+            print(f"  fetch error [{region_key}]: {err}", file=sys.stderr)
+
+    guest_meta = fetch_meta
+    if should_use_apify_fallback(jobs, fetch_meta):
+        if apify_token:
+            print(f"LinkedIn anti-bot threshold hit for {region_key}; switching to Apify fallback...", file=sys.stderr)
+            try:
+                jobs, fetch_meta = fetch_jobs_apify(apify_token, region_plan)
+                fetch_meta["guest_attempt"] = guest_meta
+                fetched = len(jobs)
+                print(f"Apify fallback fetched {fetched} jobs for {region_key}.", file=sys.stderr)
+            except Exception as exc:
+                fetch_meta = dict(guest_meta)
+                fetch_meta.setdefault("errors", []).append(f"apify fallback failed: {exc}")
+                fetch_meta["fallback_error"] = str(exc)
+                print(
+                    f"WARNING: Apify fallback failed for {region_key}: {exc}. Staying on guest API results.",
+                    file=sys.stderr,
+                )
+        else:
+            print(
+                f"WARNING: LinkedIn anti-bot threshold hit for {region_key} but APIFY_TOKEN is not available; staying on guest API results.",
+                file=sys.stderr,
+            )
+    fetch_meta["fetched"] = fetched
+    return jobs, fetch_meta
+
+
+def aggregate_source_label(region_runs: List[Dict[str, Any]]) -> str:
+    modes = {item.get("mode") for item in region_runs}
+    if modes == {"linkedin_guest_api"}:
+        return "LinkedIn guest API (free, no API key)"
+    if modes == {"apify_fallback"}:
+        return "Apify fallback (triggered after LinkedIn anti-bot)"
+    return "Mixed: LinkedIn guest API primary, Apify fallback where blocked"
+
+
+def fetch_jobs_all_regions(fetch_plan: List[Dict[str, Any]], apify_token: Optional[str]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    aggregated_jobs: Dict[str, Dict[str, Any]] = {}
+    region_runs: List[Dict[str, Any]] = []
+    flattened_errors: List[str] = []
+
+    for region_plan in fetch_plan:
+        jobs, region_meta = fetch_jobs_for_region(region_plan, apify_token)
+        region_runs.append(region_meta)
+        for err in region_meta.get("errors", []):
+            flattened_errors.append(f"{region_meta['region']}: {err}")
+        guest_attempt = region_meta.get("guest_attempt") or {}
+        for err in guest_attempt.get("errors", []):
+            flattened_errors.append(f"{region_meta['region']} guest attempt: {err}")
+        for job in jobs:
+            key = get_job_id(job) or get_job_url(job) or f"{region_meta['region']}:{len(aggregated_jobs)}"
+            if key in aggregated_jobs:
+                aggregated_jobs[key] = merge_job_records(aggregated_jobs[key], job)
+            else:
+                aggregated_jobs[key] = dict(job)
+
+    source_modes = sorted({item.get("mode", "linkedin_guest_api") for item in region_runs})
+    meta = {
+        "mode": source_modes[0] if len(source_modes) == 1 else "mixed_sources",
+        "source_label": aggregate_source_label(region_runs),
+        "region_runs": region_runs,
+        "errors": flattened_errors,
+        "queries": len(ROLE_QUERIES) * len(fetch_plan),
+        "fetch_budget": total_fetch_budget(fetch_plan),
+        "source_modes": source_modes,
+        "hour_edt": fetch_plan[0]["hour_edt"] if fetch_plan else None,
+        "weekday": fetch_plan[0]["weekday"] if fetch_plan else None,
+        "is_weekend": fetch_plan[0]["is_weekend"] if fetch_plan else None,
+        "active_profiles": [f"{item['region_key']}:{item['period']}/{item['fetch_count']}" for item in fetch_plan],
+    }
+    return list(aggregated_jobs.values()), meta
 
 
 def should_use_apify_fallback(jobs: List[Dict[str, Any]], meta: Dict[str, Any]) -> bool:
@@ -664,20 +866,51 @@ def assign_star_value(rank_index: int, total: int) -> float:
     return ladder[min(rank_index, len(ladder) - 1)]
 
 
-def choose_top_n(recommended_count: int, run_mode: str) -> int:
-    if run_mode == "low_peak":
-        return min(5, recommended_count)
-    return 10 if recommended_count >= 10 else min(5, recommended_count)
+def effective_job_period(job: Dict[str, Any]) -> str:
+    periods = job.get("searchPeriods") or []
+    if "peak" in periods:
+        return "peak"
+    if "offpeak" in periods:
+        return "offpeak"
+    if "weekend" in periods:
+        return "weekend"
+    return "offpeak"
 
 
-def select_recommended(candidates: List[Tuple[Dict[str, Any], float, List[str]]], run_mode: str) -> List[Tuple[Dict[str, Any], float, List[str]]]:
-    if run_mode == "low_peak":
-        suitable = [
-            candidate for candidate in candidates
-            if candidate[1] >= LOW_PEAK_MIN_SCORE and title_matches_target_role(candidate[0])
-        ]
-        return suitable[:choose_top_n(len(suitable), run_mode)]
-    return candidates[:choose_top_n(len(candidates), run_mode)]
+def job_search_profiles(job: Dict[str, Any]) -> List[str]:
+    keys = job.get("searchRegionKeys") or []
+    labels = job.get("searchRegionLabels") or []
+    periods = job.get("searchPeriods") or []
+    profiles: List[str] = []
+    for idx, region_key in enumerate(keys):
+        label = labels[idx] if idx < len(labels) else region_key
+        period = periods[idx] if idx < len(periods) else "unknown"
+        profiles.append(f"{label} ({period})")
+    return profiles
+
+
+def recommendation_cap(fetch_plan: List[Dict[str, Any]]) -> int:
+    if not fetch_plan:
+        return 5
+    average_fetch = total_fetch_budget(fetch_plan) / max(1, len(fetch_plan))
+    proportional_cap = max(1, round(average_fetch / 10.0))
+    return min(8, proportional_cap)
+
+
+def choose_top_n(recommended_count: int, fetch_plan: List[Dict[str, Any]]) -> int:
+    return min(recommendation_cap(fetch_plan), recommended_count)
+
+
+def select_recommended(candidates: List[Tuple[Dict[str, Any], float, List[str]]], fetch_plan: List[Dict[str, Any]]) -> List[Tuple[Dict[str, Any], float, List[str]]]:
+    suitable: List[Tuple[Dict[str, Any], float, List[str]]] = []
+    for candidate in candidates:
+        job, score, _ = candidate
+        effective_period = effective_job_period(job)
+        if effective_period in {"offpeak", "weekend"}:
+            if score < LOW_PEAK_MIN_SCORE or not title_matches_target_role(job):
+                continue
+        suitable.append(candidate)
+    return suitable[:choose_top_n(len(suitable), fetch_plan)]
 
 
 # ---------------------------------------------------------------------------
@@ -897,29 +1130,16 @@ def main() -> int:
     seen_jobs = seen.setdefault("jobs", {})
     resume_text = normalize(read_text_if_exists(RESUME_PATH))
 
-    run_mode = get_run_mode()
-    max_results = get_max_results_for_mode(run_mode)
+    fetch_plan = build_region_fetch_plan()
+    fetch_budget = total_fetch_budget(fetch_plan)
     apify_token = os.environ.get("APIFY_TOKEN")
 
-    # Fetch jobs from free LinkedIn guest API first, then fall back to Apify if anti-bot blocks bite hard.
-    print(f"Fetching jobs from LinkedIn guest API... (mode={run_mode}, count={max_results})", file=sys.stderr)
-    jobs, fetch_meta = fetch_jobs_guest_api(max_results)
+    jobs, fetch_meta = fetch_jobs_all_regions(fetch_plan, apify_token)
     fetched = len(jobs)
-    print(f"Fetched {fetched} jobs across {fetch_meta['queries']} queries.", file=sys.stderr)
-    if fetch_meta.get("errors"):
-        for err in fetch_meta["errors"]:
-            print(f"  fetch error: {err}", file=sys.stderr)
-
-    guest_meta = fetch_meta
-    if should_use_apify_fallback(jobs, fetch_meta):
-        if apify_token:
-            print("LinkedIn anti-bot threshold hit; switching to Apify fallback...", file=sys.stderr)
-            jobs, fetch_meta = fetch_jobs_apify(apify_token, max_results)
-            fetch_meta["guest_attempt"] = guest_meta
-            fetched = len(jobs)
-            print(f"Apify fallback fetched {fetched} jobs.", file=sys.stderr)
-        else:
-            print("WARNING: LinkedIn anti-bot threshold hit but APIFY_TOKEN is not available; staying on guest API results.", file=sys.stderr)
+    print(
+        f"Fetched {fetched} unique jobs across {len(fetch_plan)} regions / {fetch_meta['queries']} queries (budget={fetch_budget}).",
+        file=sys.stderr,
+    )
 
     already_seen = 0
     filtered_out: List[Tuple[Dict[str, Any], str]] = []
@@ -959,7 +1179,8 @@ def main() -> int:
         candidates.append((job, score, reasons))
 
     candidates.sort(key=lambda x: x[1], reverse=True)
-    recommended = select_recommended(candidates, run_mode)
+    recommended = select_recommended(candidates, fetch_plan)
+    recommendation_limit = recommendation_cap(fetch_plan)
     recommended_star_map = {
         get_job_id(job): render_star_value(assign_star_value(idx, len(recommended)))
         for idx, (job, _, _) in enumerate(recommended)
@@ -997,54 +1218,64 @@ def main() -> int:
 
     # Generate report
     lines: List[str] = []
+    region_runs = fetch_meta.get("region_runs") or []
+    active_profile_summary = ", ".join(fetch_meta.get("active_profiles") or [])
     lines.append("# LinkedIn Jobs Report\n")
     lines.append(f"- Generated at: {stamp}")
-    lines.append(f"- Run mode: {run_mode}")
+    lines.append(f"- Schedule timezone: {SCHEDULE_TIMEZONE}")
+    lines.append(f"- Scheduled run hours EDT: {', '.join(str(hour) for hour in RUN_HOURS_EDT)}")
+    if fetch_meta.get("hour_edt") is not None:
+        lines.append(f"- Current EDT hour: {fetch_meta.get('hour_edt')}")
+    lines.append(f"- Active region profiles: {active_profile_summary}")
     lines.append(f"- Data source: {fetch_meta.get('source_label', 'LinkedIn guest API (free, no API key)')}")
     lines.append(f"- Search queries: {', '.join(ROLE_QUERIES)}")
-    lines.append(f"- Location: {SEARCH_LOCATION} (geoId={SEARCH_GEO_ID}, distance={SEARCH_DISTANCE})")
     lines.append(f"- Freshness: last 4 hours")
-    lines.append(f"- Fetch limit: {max_results}")
-    lines.append(f"- Jobs fetched: {fetched}")
+    lines.append(f"- Fetch budget: {fetch_budget}")
+    lines.append(f"- Unique jobs fetched: {fetched}")
     lines.append(f"- Fetch errors: {len(fetch_meta.get('errors', []))}")
-    if fetch_meta.get("mode") == "apify_fallback":
-        lines.append(f"- Fallback used: yes (actor={fetch_meta.get('actor')}, mode={fetch_meta.get('fetch_mode')})")
-        guest_attempt = fetch_meta.get("guest_attempt") or {}
-        lines.append(f"- Guest attempt before fallback: raw_cards={guest_attempt.get('raw_cards', 0)}, detail_attempted={guest_attempt.get('detail_attempted', 0)}, anti_bot_errors={guest_attempt.get('anti_bot_errors', 0)}")
-    else:
-        lines.append("- Fallback used: no")
+    lines.append(f"- Recommendation cap: up to {recommendation_limit}")
+    lines.append(f"- Non-peak rule: offpeak/weekend jobs must score >= {LOW_PEAK_MIN_SCORE:.1f} and match target role titles")
     lines.append(f"- Already seen skipped: {already_seen}")
     lines.append(f"- Filtered out: {len(filtered_out)}")
     if filter_reasons_count:
         breakdown = ", ".join(f"{k}={v}" for k, v in sorted(filter_reasons_count.items()))
         lines.append(f"  - Filter breakdown: {breakdown}")
     lines.append(f"- New candidates kept: {len(candidates)}")
-    if run_mode == "low_peak":
-        lines.append(f"- Low-peak recommendation threshold: score >= {LOW_PEAK_MIN_SCORE:.1f}, cap 5")
 
     if notion_enabled:
         lines.append(f"- Notion: {notion_inserted} inserted, {notion_skipped_existing} already existed, {notion_failed} failed")
     else:
         lines.append(f"- Notion: {notion_status}")
 
-    fetch_issues: List[str] = []
-    if fetch_meta.get("mode") == "apify_fallback":
-        guest_attempt = fetch_meta.get("guest_attempt") or {}
-        for err in guest_attempt.get("errors", []):
-            fetch_issues.append(f"guest attempt: {err}")
-        for err in fetch_meta.get("errors", []):
-            fetch_issues.append(f"apify fallback: {err}")
-    else:
-        fetch_issues.extend(fetch_meta.get("errors", []))
+    if region_runs:
+        lines.append("")
+        lines.append("## 0. Regional fetch plan\n")
+        for region_meta in region_runs:
+            region_cfg = REGION_CONFIGS.get(region_meta["region"], {})
+            geo_note_parts = []
+            if region_cfg.get("geoId"):
+                geo_note_parts.append(f"geoId={region_cfg['geoId']}")
+            if region_cfg.get("distance"):
+                geo_note_parts.append(f"distance={region_cfg['distance']}")
+            geo_note = f" ({', '.join(geo_note_parts)})" if geo_note_parts else ""
+            lines.append(
+                f"- {region_meta['region']}: location={region_meta['region_label']}{geo_note}, period={region_meta['period']}, fetch_limit={region_meta['fetch_limit']}, fetched={region_meta.get('fetched', 0)}, source={region_meta.get('mode')}"
+            )
+            if region_meta.get("mode") == "apify_fallback":
+                guest_attempt = region_meta.get("guest_attempt") or {}
+                lines.append(
+                    f"  - guest attempt before fallback: raw_cards={guest_attempt.get('raw_cards', 0)}, detail_attempted={guest_attempt.get('detail_attempted', 0)}, anti_bot_errors={guest_attempt.get('anti_bot_errors', 0)}"
+                )
 
+    fetch_issues: List[str] = list(fetch_meta.get("errors", []))
     if fetch_issues:
         lines.append("")
-        lines.append("## 0. Fetch issues\n")
+        lines.append("## 1. Fetch issues\n")
         for err in fetch_issues:
             lines.append(f"- {err}")
     lines.append("")
 
-    lines.append("## 1. New recommended jobs\n")
+    lines.append("## 2. New recommended jobs\n")
     if recommended:
         for idx, (job, score, reasons) in enumerate(recommended, start=1):
             job_id = get_job_id(job)
@@ -1055,6 +1286,10 @@ def main() -> int:
             star_text = recommended_star_map.get(job_id, render_star_value(3.0))
             lines.append(f"### {idx}. {title} — {company}")
             lines.append(f"- Rating: {star_text}")
+            lines.append(f"- Effective period: {effective_job_period(job)}")
+            profiles = job_search_profiles(job)
+            if profiles:
+                lines.append(f"- Search profiles: {', '.join(profiles)}")
             lines.append(f"- Location: {location}")
             if get_posted_display(job):
                 lines.append(f"- Posted: {get_posted_display(job)}")
@@ -1071,12 +1306,9 @@ def main() -> int:
                 lines.append(f"- Summary: {summary[:500]}{'...' if len(summary) > 500 else ''}")
             lines.append("")
     else:
-        if run_mode == "low_peak":
-            lines.append("No suitable low-peak recommendations this run.\n")
-        else:
-            lines.append("No new recommended jobs this run.\n")
+        lines.append("No suitable recommendations this run.\n")
 
-    lines.append("## 2. Filtered-out jobs with reasons\n")
+    lines.append("## 3. Filtered-out jobs with reasons\n")
     if filtered_out:
         for job, reason in filtered_out[:50]:
             lines.append(f"- {(job.get('title') or 'Untitled role')} — {(job.get('companyName') or 'Unknown company')}: {reason}")
@@ -1084,11 +1316,11 @@ def main() -> int:
         lines.append("- None")
     lines.append("")
 
-    lines.append("## 3. Count of already-seen jobs skipped\n")
+    lines.append("## 4. Count of already-seen jobs skipped\n")
     lines.append(f"- {already_seen}")
     lines.append("")
 
-    lines.append("## 4. Local storage\n")
+    lines.append("## 5. Local storage\n")
     lines.append(f"- Local report path: {REPORT_PATH}")
     lines.append("")
 
@@ -1098,7 +1330,7 @@ def main() -> int:
     local_report_status = str(REPORT_PATH)
 
     # Console summary for Discord announce
-    summary_titles = [f"{job.get('title')} @ {job.get('companyName')}" for job, _, _ in recommended[:5]]
+    summary_titles = [f"{recommended_star_map.get(get_job_id(job), render_star_value(3.0))} {job.get('title')} @ {job.get('companyName')}" for job, _, _ in recommended[:5]]
     notion_line = ""
     if notion_enabled:
         notion_line = f" | notion_inserted={notion_inserted} | notion_exists={notion_skipped_existing}"
@@ -1107,10 +1339,12 @@ def main() -> int:
     else:
         notion_line = " | notion=not_configured"
     report_line = f" | local_report={local_report_status}"
+    profile_line = f" | profiles={active_profile_summary}"
+    budget_line = f" | fetch_budget={fetch_budget} | recommendation_cap={recommendation_limit}"
 
     source_mode = fetch_meta.get("mode", "linkedin_guest_api")
     print(
-        f"LinkedIn jobs run ok | mode={run_mode} | source={source_mode} | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)}{notion_line}{report_line}"
+        f"LinkedIn jobs run ok | source={source_mode}{profile_line}{budget_line} | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)}{notion_line}{report_line}"
     )
     if summary_titles:
         print("Top picks: " + " | ".join(summary_titles))
