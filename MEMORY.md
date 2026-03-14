@@ -38,5 +38,5 @@
 
 ## Notion integration
 - Enabled (optional) via NOTION_TOKEN and NOTION_DB_ID env vars
-- Accepted jobs inserted into Notion database with company, position, URL, status, note, and full JD as child content
+- Accepted jobs inserted into Notion database with company, position, URL, status, star-based score, match reason, posted time, and full JD as child content
 - If Notion is not configured, pipeline runs as report-only

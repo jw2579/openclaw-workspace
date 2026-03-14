@@ -214,6 +214,7 @@ def parse_job_cards(html: str) -> List[Dict[str, str]]:
         titlem = re.search(r"<h3[^>]*>\s*(.*?)\s*</h3>", s, re.S)
         compm = re.search(r'job-search-card-subtitle"[^>]*>\s*(.*?)\s*</a>', s, re.S)
         locm = re.search(r'job-search-card__location"[^>]*>\s*(.*?)\s*</span>', s, re.S)
+        timem = re.search(r'<time[^>]*datetime="([^"]*)"[^>]*>\s*(.*?)\s*</time>', s, re.S)
         if not (idm and hrefm and titlem and compm):
             continue
         jobs.append({
@@ -222,6 +223,8 @@ def parse_job_cards(html: str) -> List[Dict[str, str]]:
             "title": re.sub(r"<[^>]+>", "", unescape(titlem.group(1))).strip(),
             "companyName": re.sub(r"<[^>]+>", "", unescape(compm.group(1))).strip(),
             "location": re.sub(r"<[^>]+>", "", unescape(locm.group(1))).strip() if locm else "",
+            "postedLabel": re.sub(r"<[^>]+>", "", unescape(timem.group(2))).strip() if timem else "",
+            "postedAt": timem.group(1).strip() if timem else "",
         })
     return jobs
 
@@ -304,7 +307,8 @@ def fetch_jobs_guest_api() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
                 "jobUrl": card["jobUrl"],
                 "descriptionText": jd_text,
                 "employmentType": emp_type or "Unknown",
-                "postedAt": True,  # guest API results are always recent
+                "postedLabel": card.get("postedLabel") or "",
+                "postedAt": card.get("postedAt") or "",
             }
             jobs.append(job)
             time.sleep(0.5)  # polite delay between detail fetches
@@ -438,9 +442,31 @@ def extract_full_text(job: Dict[str, Any]) -> str:
     fields = [
         job.get("title"), job.get("companyName"), job.get("companyDescription"),
         job.get("descriptionText"), job.get("description"), job.get("location"),
-        job.get("employmentType"), job.get("companyWebsite"), job.get("jobUrl"),
+        job.get("employmentType"), job.get("companyWebsite"), get_job_url(job),
+        job.get("postedLabel"), job.get("postedAt"), job.get("postedDate"), job.get("timeAgo"),
     ]
     return "\n".join(str(x) for x in fields if x)
+
+
+def get_job_url(job: Dict[str, Any]) -> str:
+    for key in ["jobUrl", "jobPostingUrl", "link"]:
+        value = job.get(key)
+        if value:
+            return str(value).strip()
+    return ""
+
+
+def has_valid_job_url(job: Dict[str, Any]) -> bool:
+    url = get_job_url(job)
+    return bool(url and re.search(r"https?://([a-z0-9-]+\.)*linkedin\.com/jobs/view/", url, re.I))
+
+
+def get_posted_display(job: Dict[str, Any]) -> str:
+    for key in ["postedLabel", "timeAgo", "postedAt", "postedDate"]:
+        value = (job.get(key) or "").strip() if isinstance(job.get(key), str) else job.get(key)
+        if value:
+            return str(value).strip()
+    return ""
 
 
 def citizenship_pr_filter(job: Dict[str, Any]) -> bool:
@@ -498,7 +524,7 @@ def get_job_id(job: Dict[str, Any]) -> str:
         value = job.get(key)
         if value:
             return str(value)
-    for key in ["jobUrl", "jobPostingUrl", "applyUrl"]:
+    for key in ["jobUrl", "jobPostingUrl", "link", "applyUrl"]:
         value = job.get(key)
         if value:
             m = re.search(r"/(\d{6,})", str(value))
@@ -526,6 +552,10 @@ def rank_job(job: Dict[str, Any], resume_text: str) -> Tuple[float, List[str]]:
         if signal in text:
             score += 0.45
 
+    if any(s in text for s in ["healthcare", "health tech", "health-tech", "biotech", "biotechnology", "life sciences", "medical", "clinical", "patient", "pharma", "therapeutics", "drug discovery"]):
+        score += 0.9
+        reasons.append("health/biotech domain fits your health-tech background")
+
     if "full time" in text or "full-time" in text:
         score += 0.6
         reasons.append("full-time role")
@@ -533,7 +563,7 @@ def rank_job(job: Dict[str, Any], resume_text: str) -> Tuple[float, List[str]]:
     if "new york" in text or "remote" in text or "hybrid" in text:
         score += 0.4
 
-    if job.get("postedAt") or job.get("postedDate") or job.get("timeAgo"):
+    if get_posted_display(job):
         score += 0.5
         reasons.append("recent listing metadata present")
 
@@ -549,19 +579,27 @@ def rank_job(job: Dict[str, Any], resume_text: str) -> Tuple[float, List[str]]:
         if hits:
             reasons.append("resume overlap: " + ", ".join(hits[:5]))
 
-    return score, reasons[:4]
+    return score, reasons[:5]
 
 
-def stars(score: float) -> str:
-    if score >= 7.5:
-        return "★★★★★"
-    if score >= 6.0:
-        return "★★★★☆"
-    if score >= 4.5:
-        return "★★★☆☆"
-    if score >= 3.0:
-        return "★★☆☆☆"
-    return "★☆☆☆☆"
+def render_star_value(value: float) -> str:
+    full = int(value)
+    half = (value - full) >= 0.5
+    return "⭐" * full + ("✨" if half else "")
+
+
+def assign_star_value(rank_index: int, total: int) -> float:
+    ladders = {
+        1: [5.0],
+        2: [5.0, 4.5],
+        3: [5.0, 4.5, 4.0],
+        4: [5.0, 4.5, 4.0, 3.5],
+        5: [5.0, 4.5, 4.0, 3.5, 3.0],
+    }
+    if total in ladders and rank_index < len(ladders[total]):
+        return ladders[total][rank_index]
+    ladder = [5.0, 4.5, 4.5, 4.0, 4.0, 3.5, 3.5, 3.0, 3.0, 2.5]
+    return ladder[min(rank_index, len(ladder) - 1)]
 
 
 def choose_top_n(recommended_count: int) -> int:
@@ -595,17 +633,82 @@ def notion_api(url: str, headers: Dict[str, str], payload: Optional[Dict] = None
         raise RuntimeError(f"Notion API {method} {url} failed: {detail}") from exc
 
 
-def ensure_note_column(db_id: str, headers: Dict[str, str]) -> None:
+def notion_rich_text(text: str) -> List[Dict[str, Any]]:
+    text = (text or "").strip()
+    if not text:
+        return []
+    return [{"type": "text", "text": {"content": text[:2000]}}]
+
+
+def notion_existing_urls(db_id: str, headers: Dict[str, str]) -> set:
+    existing: set = set()
+    cursor: Optional[str] = None
+    while True:
+        payload: Dict[str, Any] = {"page_size": 100}
+        if cursor:
+            payload["start_cursor"] = cursor
+        result = notion_api(
+            f"https://api.notion.com/v1/databases/{db_id}/query",
+            headers,
+            payload=payload,
+            method="POST",
+        )
+        for page in result.get("results", []):
+            url_prop = (((page.get("properties") or {}).get("URL") or {}).get("url") or "").strip()
+            if url_prop:
+                existing.add(url_prop)
+        if not result.get("has_more"):
+            break
+        cursor = result.get("next_cursor")
+    return existing
+
+
+def ensure_job_tracker_schema(db_id: str, headers: Dict[str, str]) -> None:
     db = notion_api(f"https://api.notion.com/v1/databases/{db_id}", headers)
     props = db.get("properties", {})
-    if "note" in props and props["note"].get("type") == "rich_text":
-        return
-    notion_api(
-        f"https://api.notion.com/v1/databases/{db_id}",
-        headers,
-        payload={"properties": {"note": {"rich_text": {}}}},
-        method="PATCH",
-    )
+
+    removal_patch: Dict[str, Any] = {}
+    if "note" in props:
+        removal_patch["note"] = None
+    if "Score" in props and props["Score"].get("type") != "rich_text":
+        removal_patch["Score"] = None
+    if removal_patch:
+        notion_api(
+            f"https://api.notion.com/v1/databases/{db_id}",
+            headers,
+            payload={"properties": removal_patch},
+            method="PATCH",
+        )
+        db = notion_api(f"https://api.notion.com/v1/databases/{db_id}", headers)
+        props = db.get("properties", {})
+
+    patch: Dict[str, Any] = {}
+    if "Score" not in props:
+        patch["Score"] = {"rich_text": {}}
+    if "Match reason" not in props:
+        patch["Match reason"] = {"rich_text": {}}
+    if "Location" not in props:
+        patch["Location"] = {"rich_text": {}}
+    if "Posted" not in props:
+        patch["Posted"] = {"rich_text": {}}
+    if "Work mode" not in props:
+        patch["Work mode"] = {
+            "select": {
+                "options": [
+                    {"name": "Remote", "color": "green"},
+                    {"name": "Hybrid", "color": "yellow"},
+                    {"name": "On-site", "color": "blue"},
+                ]
+            }
+        }
+
+    if patch:
+        notion_api(
+            f"https://api.notion.com/v1/databases/{db_id}",
+            headers,
+            payload={"properties": patch},
+            method="PATCH",
+        )
 
 
 def jd_to_children(jd_text: str) -> List[Dict[str, Any]]:
@@ -627,32 +730,66 @@ def jd_to_children(jd_text: str) -> List[Dict[str, Any]]:
     ]
 
 
-def notion_insert_job(job: Dict[str, Any], score: float, reasons: List[str],
-                      db_id: str, headers: Dict[str, str]) -> bool:
-    """Insert a job into Notion. Returns True on success."""
+def infer_work_mode(job: Dict[str, Any]) -> Optional[str]:
+    text = normalize(extract_full_text(job))
+    if "hybrid" in text:
+        return "Hybrid"
+    if "on-site" in text or "onsite" in text or "in-office" in text or "in office" in text:
+        return "On-site"
+    if "remote" in text:
+        return "Remote"
+    return None
+
+
+def notion_insert_job(job: Dict[str, Any], score: float, reasons: List[str], star_text: str,
+                      db_id: str, headers: Dict[str, str], existing_urls: Optional[set] = None) -> str:
+    """Insert a job into Notion. Returns inserted|exists|failed|invalid."""
     company = (job.get("companyName") or "Unknown")[:200]
     title = (job.get("title") or "Untitled")[:2000]
-    url = job.get("jobUrl") or ""
-    note = f"accepted by filters | score: {score:.2f} | reasons: {'; '.join(reasons[:3])}"
+    url = get_job_url(job)
+    if not has_valid_job_url(job):
+        print(f"  Notion insert skipped for {company} - {title}: invalid LinkedIn URL", file=sys.stderr)
+        return "invalid"
+    if existing_urls is not None and url in existing_urls:
+        print(f"  Notion insert skipped for {company} - {title}: URL already exists in database", file=sys.stderr)
+        return "exists"
+
+    match_reason = "; ".join(reasons[:3]).strip()
     jd_text = job.get("descriptionText") or ""
+    location = (job.get("location") or "").strip()
+    work_mode = infer_work_mode(job)
+    posted = get_posted_display(job)
+
+    properties: Dict[str, Any] = {
+        "Name": {"title": [{"type": "text", "text": {"content": company}}]},
+        "URL": {"url": url},
+        "position": {"rich_text": notion_rich_text(title)},
+        "Status": {"status": {"name": "Not started"}},
+        "Score": {"rich_text": notion_rich_text(star_text)},
+        "Match reason": {"rich_text": notion_rich_text(match_reason)},
+    }
+    if location:
+        properties["Location"] = {"rich_text": notion_rich_text(location)}
+    if work_mode:
+        properties["Work mode"] = {"select": {"name": work_mode}}
+    if posted:
+        properties["Posted"] = {"rich_text": notion_rich_text(posted)}
 
     payload = {
         "parent": {"database_id": db_id},
-        "properties": {
-            "Name": {"title": [{"type": "text", "text": {"content": company}}]},
-            "URL": {"url": url if url else None},
-            "position": {"rich_text": [{"type": "text", "text": {"content": title}}]},
-            "Status": {"status": {"name": "Not started"}},
-            "note": {"rich_text": [{"type": "text", "text": {"content": note[:2000]}}]},
-        },
+        "properties": properties,
         "children": jd_to_children(jd_text),
     }
     try:
         result = notion_api("https://api.notion.com/v1/pages", headers, payload=payload, method="POST")
-        return result.get("object") == "page"
+        if result.get("object") == "page":
+            if existing_urls is not None:
+                existing_urls.add(url)
+            return "inserted"
+        return "failed"
     except Exception as e:
         print(f"  Notion insert failed for {company} - {title}: {e}", file=sys.stderr)
-        return False
+        return "failed"
 
 
 # ---------------------------------------------------------------------------
@@ -671,7 +808,7 @@ def main() -> int:
     if notion_enabled:
         try:
             nh = notion_headers(notion_token)
-            ensure_note_column(notion_db_id, nh)
+            ensure_job_tracker_schema(notion_db_id, nh)
             notion_status = "connected"
             print("Notion integration: connected and verified.", file=sys.stderr)
         except Exception as e:
@@ -714,6 +851,10 @@ def main() -> int:
     candidates: List[Tuple[Dict[str, Any], float, List[str]]] = []
 
     for job in jobs:
+        if not has_valid_job_url(job):
+            filtered_out.append((job, "invalid_or_missing_linkedin_job_url"))
+            filter_reasons_count["invalid_link"] = filter_reasons_count.get("invalid_link", 0) + 1
+            continue
         job_id = get_job_id(job)
         if not job_id:
             filtered_out.append((job, "missing linkedin job id"))
@@ -744,16 +885,27 @@ def main() -> int:
     candidates.sort(key=lambda x: x[1], reverse=True)
     top_n = choose_top_n(len(candidates))
     recommended = candidates[:top_n]
+    recommended_star_map = {
+        get_job_id(job): render_star_value(assign_star_value(idx, len(recommended)))
+        for idx, (job, _, _) in enumerate(recommended)
+    }
 
     # Notion insertion (before report, so we can include status)
     notion_inserted = 0
     notion_failed = 0
+    notion_skipped_existing = 0
+    existing_notion_urls: Optional[set] = None
     if notion_enabled and recommended:
+        existing_notion_urls = notion_existing_urls(notion_db_id, nh)
         print(f"Inserting {len(recommended)} jobs into Notion...", file=sys.stderr)
         for job, score, reasons in recommended:
-            if notion_insert_job(job, score, reasons, notion_db_id, nh):
+            star_text = recommended_star_map.get(get_job_id(job), render_star_value(3.0))
+            status = notion_insert_job(job, score, reasons, star_text, notion_db_id, nh, existing_notion_urls)
+            if status == "inserted":
                 notion_inserted += 1
-            else:
+            elif status == "exists":
+                notion_skipped_existing += 1
+            elif status in {"failed", "invalid"}:
                 notion_failed += 1
             time.sleep(0.3)  # rate limit courtesy
 
@@ -791,7 +943,7 @@ def main() -> int:
         lines.append(f"  - Filter breakdown: {breakdown}")
     lines.append(f"- New candidates kept: {len(candidates)}")
     if notion_enabled:
-        lines.append(f"- Notion: {notion_inserted} inserted, {notion_failed} failed")
+        lines.append(f"- Notion: {notion_inserted} inserted, {notion_skipped_existing} already existed, {notion_failed} failed")
     else:
         lines.append(f"- Notion: {notion_status}")
 
@@ -816,20 +968,25 @@ def main() -> int:
     if recommended:
         for idx, (job, score, reasons) in enumerate(recommended, start=1):
             job_id = get_job_id(job)
-            url = job.get("jobUrl") or ""
+            url = get_job_url(job)
             company = job.get("companyName") or "Unknown company"
             title = job.get("title") or "Untitled role"
             location = job.get("location") or "Unknown location"
+            star_text = recommended_star_map.get(job_id, render_star_value(3.0))
             lines.append(f"### {idx}. {title} — {company}")
-            lines.append(f"- Rating: {stars(score)} ({score:.2f})")
+            lines.append(f"- Rating: {star_text}")
             lines.append(f"- Location: {location}")
+            if get_posted_display(job):
+                lines.append(f"- Posted: {get_posted_display(job)}")
+            if infer_work_mode(job):
+                lines.append(f"- Work mode: {infer_work_mode(job)}")
             lines.append(f"- Employment type: {job.get('employmentType') or 'Unknown'}")
             lines.append(f"- LinkedIn job ID: {job_id}")
             if url:
                 lines.append(f"- Link: {url}")
             if reasons:
                 lines.append(f"- Why it ranked: {'; '.join(reasons)}")
-            summary = (job.get("descriptionText") or "").strip().replace("\n", " ")
+            summary = (job.get("descriptionText") or job.get("description") or "").strip().replace("\n", " ")
             if summary:
                 lines.append(f"- Summary: {summary[:500]}{'...' if len(summary) > 500 else ''}")
             lines.append("")
@@ -855,7 +1012,7 @@ def main() -> int:
     summary_titles = [f"{job.get('title')} @ {job.get('companyName')}" for job, _, _ in recommended[:5]]
     notion_line = ""
     if notion_enabled:
-        notion_line = f" | notion_inserted={notion_inserted}"
+        notion_line = f" | notion_inserted={notion_inserted} | notion_exists={notion_skipped_existing}"
     elif notion_token or notion_db_id:
         notion_line = " | notion=connection_failed"
     else:

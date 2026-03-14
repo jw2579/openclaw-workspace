@@ -12,6 +12,8 @@ metadata:
 
 Use this skill to fetch fresh LinkedIn job listings via LinkedIn's free guest API (no API key, no cost), automatically fall back to the prior Apify actor when LinkedIn anti-bot blocks the guest scrape and `APIFY_TOKEN` is available, filter low-quality companies, dedupe by LinkedIn job ID, rank against Jiaxuan's resume/preferences, optionally insert accepted jobs into a Notion database, and generate a report for recurring Discord announcements.
 
+When Notion is enabled, keep the schema lean and decision-focused: company, position, URL, status, star-based score, match reason, location, work mode, posted time, and JD content. Do not recreate a `note` column.
+
 ## Required reads
 
 Before running the workflow, read these when present:

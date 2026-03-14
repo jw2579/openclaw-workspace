@@ -45,6 +45,11 @@
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "Software Engineering"
     },
+    "4275620751": {
+      "companyName": "Interactive Brokers",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Quantitative Model Engineer"
+    },
     "4279590821": {
       "companyName": "Avangrid",
       "first_seen_at": "2026-03-13T12:34:12+00:00",
@@ -440,6 +445,11 @@
       "first_seen_at": "2026-03-12T04:34:28+00:00",
       "title": "Full-Stack Software Engineer"
     },
+    "4377907158": {
+      "companyName": "The Walt Disney Company",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Sr Machine Learning Engineer"
+    },
     "4378377024": {
       "companyName": "Delmar Nord",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -494,6 +504,11 @@
       "companyName": "Distyl",
       "first_seen_at": "2026-03-12T08:34:48+00:00",
       "title": "Platform Product Manager"
+    },
+    "4383039711": {
+      "companyName": "Chubb",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Head of Data/AI Infrastructure"
     },
     "4383040015": {
       "companyName": "Fortell",
@@ -554,6 +569,11 @@
       "companyName": "Jerry",
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Applied Data Scientist (entry)"
+    },
+    "4383181883": {
+      "companyName": "WDF Inc.",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Plumbing Lead Draftsman"
     },
     "4383183042": {
       "companyName": "The Hartford",
@@ -700,6 +720,16 @@
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Software Engineer II - Scala"
     },
+    "4383910669": {
+      "companyName": "TalentAlly",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Senior DevOps Engineer - Compute Platforms"
+    },
+    "4383914151": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Associate Director, Software Engineering - Data & Platform Modernization"
+    },
     "4383919221": {
       "companyName": "Reflection AI",
       "first_seen_at": "2026-03-12T16:34:11+00:00",
@@ -830,6 +860,11 @@
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Software Engineer"
     },
+    "4384285571": {
+      "companyName": "KPMG US",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Manager, Cloud Engineer - Terraform"
+    },
     "4384290136": {
       "companyName": "LeadingReach",
       "first_seen_at": "2026-03-13T20:34:08+00:00",
@@ -849,6 +884,11 @@
       "companyName": "The Farmer's Dog",
       "first_seen_at": "2026-03-14T00:33:56+00:00",
       "title": "Senior Software Engineer 2 - Care Tools"
+    },
+    "4384323987": {
+      "companyName": "Bausch + Lomb",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "AI Agent ML Engineer"
     },
     "4384369810": {
       "companyName": "Commonfund",
@@ -945,6 +985,11 @@
       "first_seen_at": "2026-03-14T00:33:56+00:00",
       "title": "Software Engineer III, Full Stack, Commerce"
     },
+    "4384609949": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Azure DevOpst Test Lead - Hybrid NYC"
+    },
     "4384609968": {
       "companyName": "Jobs via Dice",
       "first_seen_at": "2026-03-14T04:33:58+00:00",
@@ -965,10 +1010,20 @@
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Java Backend Developer"
     },
+    "4384618725": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "W2 Position: FLG -213: MDM Developer- Jersey City, NJ - hybrid (InPerson for Client Round)"
+    },
     "4384624225": {
       "companyName": "Jobs via Dice",
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Senior Full Stack Developer"
+    },
+    "4384624709": {
+      "companyName": "NYU Langone Health",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Lead Developer"
     },
     "4384625386": {
       "companyName": "Keystone",
@@ -979,6 +1034,16 @@
       "companyName": "Keystone",
       "first_seen_at": "2026-03-14T04:33:58+00:00",
       "title": "Forward Deployed AI Engineer"
+    },
+    "4384627969": {
+      "companyName": "Peregrine",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Senior Software Engineer, Identity"
+    },
+    "4384628963": {
+      "companyName": "Genmab",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "AI Lab Intern"
     },
     "4384630101": {
       "companyName": "Jobs via Dice",
@@ -1005,10 +1070,40 @@
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Data Scientist"
     },
+    "4384635999": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Senior Backend Engineer (Java, Spring Boot, Cloud Migration)"
+    },
     "4384636261": {
       "companyName": "CPS, Inc.",
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Python Software Engineer"
+    },
+    "4384637852": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Java Backend & Database Engineer"
+    },
+    "4384637886": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Developer (Angular 13+, .Net Core, Oracle 12c, API)"
+    },
+    "4384641763": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Senior Fullstack Software Engineer"
+    },
+    "4384655100": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": ".NET Developer Full-Stack"
+    },
+    "4384655120": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Java Developer"
     },
     "4384829749": {
       "companyName": "JPMorganChase",
@@ -1225,10 +1320,20 @@
       "first_seen_at": "2026-03-14T04:33:58+00:00",
       "title": "Software Engineer"
     },
+    "4385591317": {
+      "companyName": "Con Edison",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Systems Specialist - Sr. Software Engineer"
+    },
     "4385598537": {
       "companyName": "Wells Fargo",
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Lead Payments Full Stack Java Developers"
+    },
+    "4385599803": {
+      "companyName": "Decagon",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Director of Solutions Engineering, Enterprise East"
     },
     "4385800387": {
       "companyName": "AndHealth",
@@ -1250,6 +1355,11 @@
       "first_seen_at": "2026-03-14T04:33:58+00:00",
       "title": "Member of Technical Staff"
     },
+    "4385814151": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Senior Lead Software Engineer"
+    },
     "4385814898": {
       "companyName": "Uber",
       "first_seen_at": "2026-03-14T04:33:58+00:00",
@@ -1265,6 +1375,11 @@
       "first_seen_at": "2026-03-14T04:33:58+00:00",
       "title": "Software Engineer"
     },
+    "4385824699": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Senior C# Full-Stack Engineer \u2014 AI Data & Infrastructure"
+    },
     "4385825314": {
       "companyName": "Uber",
       "first_seen_at": "2026-03-14T04:33:58+00:00",
@@ -1279,6 +1394,36 @@
       "companyName": "NextGen Coding Company",
       "first_seen_at": "2026-03-14T05:00:58+00:00",
       "title": "Senior Software Engineer (Full-Stack / Systems)"
+    },
+    "4385827597": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Rust Software Engineer - Distributed Systems"
+    },
+    "4385829528": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Python Software Engineer - AI Workflows"
+    },
+    "4385831431": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Systems Software Engineer - Machine Learning Ops"
+    },
+    "4385832097": {
+      "companyName": "The City University of New York",
+      "first_seen_at": "2026-03-14T05:56:03+00:00",
+      "title": "Enterprise Applications Developer - Finance Systems (Software Developer-PeopleSoft 2) - Provisional"
+    },
+    "4385832502": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Software Engineer (C#) - Internal Tooling"
+    },
+    "4385836364": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-14T07:28:45+00:00",
+      "title": "Data Platform Engineer (Python)"
     }
   }
 }
