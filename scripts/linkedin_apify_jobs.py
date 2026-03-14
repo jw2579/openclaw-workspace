@@ -3,7 +3,10 @@
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
+import textwrap
 import time
 from datetime import datetime, timezone
 from html import unescape
@@ -17,9 +20,14 @@ REPORTS_DIR = WORKSPACE / "reports"
 LOGS_DIR = WORKSPACE / "logs"
 SEEN_PATH = Path(os.environ.get("LINKEDIN_SEEN_STATE_PATH", DATA_DIR / "seen_linkedin_jobs.json"))
 DENYLIST_PATH = Path(os.environ.get("LINKEDIN_DENYLIST_PATH", DATA_DIR / "company_denylist.json"))
-REPORT_PATH = Path(os.environ.get("LINKEDIN_REPORT_PATH", REPORTS_DIR / "linkedin_jobs_latest.md"))
+REPORT_PATH_ENV = (os.environ.get("LINKEDIN_REPORT_PATH") or "").strip()
+REPORT_PDF_PATH_ENV = (os.environ.get("LINKEDIN_REPORT_PDF_PATH") or "").strip()
+REPORT_PATH = Path(REPORT_PATH_ENV) if REPORT_PATH_ENV else (REPORTS_DIR / "linkedin_jobs_latest.md")
+REPORT_PDF_PATH = Path(REPORT_PDF_PATH_ENV) if REPORT_PDF_PATH_ENV else (REPORTS_DIR / "linkedin_jobs_latest.pdf")
 RESUME_PATH = WORKSPACE / "memory" / "resume-jiaxuan.md"
-MAX_RESULTS = int(os.environ.get("LINKEDIN_COUNT", "100"))
+MAX_RESULTS_HIGH = 100
+MAX_RESULTS_LOW = 50
+LOW_PEAK_MIN_SCORE = float(os.environ.get("LINKEDIN_LOW_PEAK_MIN_SCORE", "5.5"))
 ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
 
 ROLE_QUERIES = [
@@ -47,7 +55,7 @@ NEUTRAL_BAD_SIGNALS = [
 ]
 GOOD_SIGNALS = [
     "python", "django", "fastapi", "react", "flutter", "full stack", "backend",
-    "api", "llm", "ai", "product", "mobile", "health", "sql", "data",
+    "api", "llm", "ai", "product", "mobile", "sql", "data",
 ]
 
 CITIZENSHIP_PR_PATTERNS = [
@@ -108,6 +116,272 @@ def http_error_body(exc: error.HTTPError) -> Tuple[str, str]:
         raw = ""
     snippet = re.sub(r"\s+", " ", raw).strip()[:300]
     return raw, snippet
+
+
+def env_flag(name: str, default: bool = False) -> bool:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def current_new_york_time() -> time.struct_time:
+    original_tz = os.environ.get("TZ")
+    try:
+        os.environ["TZ"] = "America/New_York"
+        if hasattr(time, "tzset"):
+            time.tzset()
+        return time.localtime()
+    finally:
+        if original_tz is None:
+            os.environ.pop("TZ", None)
+        else:
+            os.environ["TZ"] = original_tz
+        if hasattr(time, "tzset"):
+            time.tzset()
+
+
+def get_run_mode() -> str:
+    forced = (os.environ.get("LINKEDIN_FORCE_MODE") or "").strip().lower()
+    if forced in {"high", "high_peak", "peak"}:
+        return "high_peak"
+    if forced in {"low", "low_peak", "offpeak", "off_peak"}:
+        return "low_peak"
+    ny = current_new_york_time()
+    weekday = ny.tm_wday  # Monday=0
+    hour = ny.tm_hour
+    if weekday <= 4 and 9 <= hour < 21:
+        return "high_peak"
+    return "low_peak"
+
+
+def get_max_results_for_mode(run_mode: str) -> int:
+    override = os.environ.get("LINKEDIN_COUNT")
+    if override:
+        return int(override)
+    return MAX_RESULTS_HIGH if run_mode == "high_peak" else MAX_RESULTS_LOW
+
+
+def sanitize_pdf_text(text: str) -> str:
+    replacements = {
+        "⭐": "*",
+        "✨": "+",
+        "—": "-",
+        "–": "-",
+        "’": "'",
+        "“": '"',
+        "”": '"',
+        "…": "...",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return text.encode("latin-1", "replace").decode("latin-1")
+
+
+def wrap_pdf_lines(text: str, width: int = 96) -> List[str]:
+    lines: List[str] = []
+    for raw in sanitize_pdf_text(text).replace("\r\n", "\n").split("\n"):
+        raw = raw.rstrip()
+        if not raw:
+            lines.append("")
+            continue
+        indent = "  " if raw.lstrip().startswith(("-", "*")) else ""
+        wrapped = textwrap.wrap(
+            raw,
+            width=width,
+            break_long_words=True,
+            drop_whitespace=False,
+            subsequent_indent=indent,
+        )
+        lines.extend(wrapped or [""])
+    return lines
+
+
+def pdf_escape(text: str) -> str:
+    return text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+
+def write_simple_pdf_from_markdown(markdown_text: str, out_path: Path) -> Path:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    lines = wrap_pdf_lines(markdown_text)
+    line_height = 12
+    max_lines_per_page = 60
+    pages = [lines[i:i + max_lines_per_page] for i in range(0, len(lines), max_lines_per_page)] or [[""]]
+
+    objects: List[bytes] = []
+    page_object_nums: List[int] = []
+    content_object_nums: List[int] = []
+
+    objects.append(b"<< /Type /Catalog /Pages 2 0 R >>")
+    objects.append(b"")  # placeholder for /Pages
+    objects.append(b"<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>")
+
+    next_obj_num = 4
+    for page_lines in pages:
+        page_obj_num = next_obj_num
+        content_obj_num = next_obj_num + 1
+        page_object_nums.append(page_obj_num)
+        content_object_nums.append(content_obj_num)
+        next_obj_num += 2
+
+        stream_lines = ["BT", "/F1 10 Tf", f"{line_height} TL", "1 0 0 1 40 760 Tm"]
+        for idx, line in enumerate(page_lines):
+            if idx > 0:
+                stream_lines.append("T*")
+            stream_lines.append(f"({pdf_escape(line)}) Tj")
+        stream_lines.append("ET")
+        stream = "\n".join(stream_lines).encode("latin-1", "replace")
+
+        objects.append(
+            (
+                f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+                f"/Resources << /Font << /F1 3 0 R >> >> /Contents {content_obj_num} 0 R >>"
+            ).encode("latin-1")
+        )
+        objects.append(
+            b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"\nendstream"
+        )
+
+    kids = " ".join(f"{n} 0 R" for n in page_object_nums)
+    objects[1] = f"<< /Type /Pages /Kids [{kids}] /Count {len(page_object_nums)} >>".encode("latin-1")
+
+    pdf = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+    offsets = [0]
+    for i, obj in enumerate(objects, start=1):
+        offsets.append(len(pdf))
+        pdf.extend(f"{i} 0 obj\n".encode("ascii"))
+        pdf.extend(obj)
+        pdf.extend(b"\nendobj\n")
+
+    xref_pos = len(pdf)
+    pdf.extend(f"xref\n0 {len(objects) + 1}\n".encode("ascii"))
+    pdf.extend(b"0000000000 65535 f \n")
+    for off in offsets[1:]:
+        pdf.extend(f"{off:010d} 00000 n \n".encode("ascii"))
+    pdf.extend(
+        (
+            f"trailer\n<< /Size {len(objects) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_pos}\n%%EOF\n"
+        ).encode("ascii")
+    )
+    out_path.write_bytes(pdf)
+    return out_path
+
+
+def detect_gog_account() -> str:
+    explicit = (os.environ.get("GOG_ACCOUNT") or os.environ.get("LINKEDIN_REPORT_GMAIL_TO") or "").strip()
+    if explicit:
+        return explicit
+    try:
+        result = subprocess.run(
+            ["gog", "auth", "list", "--plain"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:
+        return ""
+    for line in result.stdout.splitlines():
+        parts = line.split("\t")
+        if len(parts) >= 3 and parts[1] == "default" and parts[2] == "gmail":
+            return parts[0].strip()
+    for line in result.stdout.splitlines():
+        parts = line.split("\t")
+        if parts:
+            return parts[0].strip()
+    return ""
+
+
+def parse_tabbed_kv(text: str) -> Dict[str, str]:
+    data: Dict[str, str] = {}
+    for line in text.splitlines():
+        if "\t" not in line:
+            continue
+        key, value = line.split("\t", 1)
+        data[key.strip()] = value.strip()
+    return data
+
+
+def gmail_thread_url(account: str, thread_id: str) -> str:
+    if not thread_id:
+        return ""
+    try:
+        result = subprocess.run(
+            ["gog", "gmail", "url", thread_id, "--account", account, "--plain"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        parts = result.stdout.strip().split("\t", 1)
+        if len(parts) == 2:
+            return parts[1].strip()
+    except Exception:
+        return ""
+    return ""
+
+
+def send_report_gmail(
+    report_text: str,
+    pdf_path: Path,
+    stamp: str,
+    fetch_meta: Dict[str, Any],
+    fetched: int,
+    filtered_count: int,
+    already_seen: int,
+    remaining: int,
+    selected: int,
+    recommended: List[Tuple[Dict[str, Any], float, List[str]]],
+    recommended_star_map: Dict[str, str],
+) -> Tuple[str, str, str, str]:
+    account = detect_gog_account()
+    if not account:
+        return "not_configured", "No gog Gmail account is configured", "", ""
+
+    subject = f"LinkedIn jobs report — {stamp.replace('T', ' ')[:16]} UTC"
+    body_lines = [
+        "Attached is your latest LinkedIn jobs report PDF.",
+        "",
+        f"Generated: {stamp}",
+        f"Source: {fetch_meta.get('source_label', 'LinkedIn guest API')}",
+        f"Fetched: {fetched}",
+        f"Filtered: {filtered_count}",
+        f"Already seen: {already_seen}",
+        f"Remaining candidates: {remaining}",
+        f"Selected: {selected}",
+        "",
+        "Top picks:",
+    ]
+    for idx, (job, _, _) in enumerate(recommended[:5], start=1):
+        job_id = get_job_id(job)
+        star = recommended_star_map.get(job_id, "")
+        body_lines.append(f"{idx}. {star} {job.get('title')} — {job.get('companyName')}")
+
+    try:
+        result = subprocess.run(
+            [
+                "gog", "gmail", "send",
+                "--account", account,
+                "--to", account,
+                "--subject", subject,
+                "--body", "\n".join(body_lines),
+                "--attach", str(pdf_path),
+                "--no-input",
+                "--plain",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        kv = parse_tabbed_kv(result.stdout)
+        thread_id = kv.get("thread_id", "")
+        thread_url = gmail_thread_url(account, thread_id)
+        detail = account
+        if thread_id:
+            detail += f" | thread_id={thread_id}"
+        return "sent", detail, thread_id, thread_url
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or str(exc)).strip()
+        return "failed", detail[:300], "", ""
 
 
 # ---------------------------------------------------------------------------
@@ -269,7 +543,7 @@ def extract_employment_type(job_html: str) -> str:
     return ""
 
 
-def fetch_jobs_guest_api() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def fetch_jobs_guest_api(max_results: int) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """Fetch jobs from LinkedIn guest API across all role queries."""
     all_cards: Dict[str, Dict[str, Any]] = {}  # dedupe by id
     errors: List[str] = []
@@ -286,14 +560,14 @@ def fetch_jobs_guest_api() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
         except Exception as e:
             errors.append(f"search '{query}': {e}")
 
-        if len(all_cards) >= MAX_RESULTS:
+        if len(all_cards) >= max_results:
             break
 
-    detail_attempted = min(len(all_cards), MAX_RESULTS)
+    detail_attempted = min(len(all_cards), max_results)
 
     # Fetch individual JD for each card
     jobs: List[Dict[str, Any]] = []
-    for card in list(all_cards.values())[:MAX_RESULTS]:
+    for card in list(all_cards.values())[:max_results]:
         try:
             detail_url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{card['id']}"
             detail_html = http_get(detail_url)
@@ -328,12 +602,12 @@ def fetch_jobs_guest_api() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     return jobs, meta
 
 
-def fetch_jobs_apify(token: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def fetch_jobs_apify(token: str, max_results: int) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     public_urls = [linkedin_public_search_url(query) for query in ROLE_QUERIES]
     actor_input = {
         "urls": public_urls,
         "scrapeCompany": True,
-        "count": MAX_RESULTS,
+        "count": max_results,
         "splitByLocation": False,
     }
     encoded_actor = parse.quote(ACTOR_ID, safe="")
@@ -435,6 +709,19 @@ def extract_company_text(job: Dict[str, Any]) -> str:
         job.get("industries"),
     ]
     return normalize("\n".join(str(x) for x in fields if x))
+
+
+def has_health_biotech_signal(job: Dict[str, Any]) -> bool:
+    company_text = extract_company_text(job)
+    jd_text = normalize(job.get("descriptionText") or job.get("description") or "")
+    strong_phrases = [
+        "healthcare", "health care", "health-tech", "health tech", "biotech", "biotechnology",
+        "life sciences", "life-sciences", "pharma", "therapeutics", "drug discovery",
+        "revenue cycle", "patient care", "health systems", "clinical workflow", "medical device",
+    ]
+    if any(sig in company_text for sig in strong_phrases):
+        return True
+    return any(sig in jd_text for sig in strong_phrases)
 
 
 def extract_full_text(job: Dict[str, Any]) -> str:
@@ -552,7 +839,7 @@ def rank_job(job: Dict[str, Any], resume_text: str) -> Tuple[float, List[str]]:
         if signal in text:
             score += 0.45
 
-    if any(s in text for s in ["healthcare", "health tech", "health-tech", "biotech", "biotechnology", "life sciences", "medical", "clinical", "patient", "pharma", "therapeutics", "drug discovery"]):
+    if has_health_biotech_signal(job):
         score += 0.9
         reasons.append("health/biotech domain fits your health-tech background")
 
@@ -602,8 +889,17 @@ def assign_star_value(rank_index: int, total: int) -> float:
     return ladder[min(rank_index, len(ladder) - 1)]
 
 
-def choose_top_n(recommended_count: int) -> int:
+def choose_top_n(recommended_count: int, run_mode: str) -> int:
+    if run_mode == "low_peak":
+        return min(5, recommended_count)
     return 10 if recommended_count >= 10 else min(5, recommended_count)
+
+
+def select_recommended(candidates: List[Tuple[Dict[str, Any], float, List[str]]], run_mode: str) -> List[Tuple[Dict[str, Any], float, List[str]]]:
+    if run_mode == "low_peak":
+        suitable = [candidate for candidate in candidates if candidate[1] >= LOW_PEAK_MIN_SCORE]
+        return suitable[:choose_top_n(len(suitable), run_mode)]
+    return candidates[:choose_top_n(len(candidates), run_mode)]
 
 
 # ---------------------------------------------------------------------------
@@ -823,11 +1119,13 @@ def main() -> int:
     seen_jobs = seen.setdefault("jobs", {})
     resume_text = normalize(read_text_if_exists(RESUME_PATH))
 
+    run_mode = get_run_mode()
+    max_results = get_max_results_for_mode(run_mode)
     apify_token = os.environ.get("APIFY_TOKEN")
 
     # Fetch jobs from free LinkedIn guest API first, then fall back to Apify if anti-bot blocks bite hard.
-    print("Fetching jobs from LinkedIn guest API...", file=sys.stderr)
-    jobs, fetch_meta = fetch_jobs_guest_api()
+    print(f"Fetching jobs from LinkedIn guest API... (mode={run_mode}, count={max_results})", file=sys.stderr)
+    jobs, fetch_meta = fetch_jobs_guest_api(max_results)
     fetched = len(jobs)
     print(f"Fetched {fetched} jobs across {fetch_meta['queries']} queries.", file=sys.stderr)
     if fetch_meta.get("errors"):
@@ -838,7 +1136,7 @@ def main() -> int:
     if should_use_apify_fallback(jobs, fetch_meta):
         if apify_token:
             print("LinkedIn anti-bot threshold hit; switching to Apify fallback...", file=sys.stderr)
-            jobs, fetch_meta = fetch_jobs_apify(apify_token)
+            jobs, fetch_meta = fetch_jobs_apify(apify_token, max_results)
             fetch_meta["guest_attempt"] = guest_meta
             fetched = len(jobs)
             print(f"Apify fallback fetched {fetched} jobs.", file=sys.stderr)
@@ -883,8 +1181,7 @@ def main() -> int:
         candidates.append((job, score, reasons))
 
     candidates.sort(key=lambda x: x[1], reverse=True)
-    top_n = choose_top_n(len(candidates))
-    recommended = candidates[:top_n]
+    recommended = select_recommended(candidates, run_mode)
     recommended_star_map = {
         get_job_id(job): render_star_value(assign_star_value(idx, len(recommended)))
         for idx, (job, _, _) in enumerate(recommended)
@@ -924,10 +1221,12 @@ def main() -> int:
     lines: List[str] = []
     lines.append("# LinkedIn Jobs Report\n")
     lines.append(f"- Generated at: {stamp}")
+    lines.append(f"- Run mode: {run_mode}")
     lines.append(f"- Data source: {fetch_meta.get('source_label', 'LinkedIn guest API (free, no API key)')}")
     lines.append(f"- Search queries: {', '.join(ROLE_QUERIES)}")
     lines.append(f"- Location: {SEARCH_LOCATION} (geoId={SEARCH_GEO_ID}, distance={SEARCH_DISTANCE})")
     lines.append(f"- Freshness: last 4 hours")
+    lines.append(f"- Fetch limit: {max_results}")
     lines.append(f"- Jobs fetched: {fetched}")
     lines.append(f"- Fetch errors: {len(fetch_meta.get('errors', []))}")
     if fetch_meta.get("mode") == "apify_fallback":
@@ -942,6 +1241,15 @@ def main() -> int:
         breakdown = ", ".join(f"{k}={v}" for k, v in sorted(filter_reasons_count.items()))
         lines.append(f"  - Filter breakdown: {breakdown}")
     lines.append(f"- New candidates kept: {len(candidates)}")
+    if run_mode == "low_peak":
+        lines.append(f"- Low-peak recommendation threshold: score >= {LOW_PEAK_MIN_SCORE:.1f}, cap 5")
+    email_enabled = env_flag("LINKEDIN_EMAIL_REPORTS", default=False)
+    save_local_reports = env_flag("LINKEDIN_SAVE_LOCAL_REPORTS", default=False)
+    email_status = "disabled"
+    email_detail = "LINKEDIN_EMAIL_REPORTS not enabled"
+    email_thread_id = ""
+    email_thread_url = ""
+
     if notion_enabled:
         lines.append(f"- Notion: {notion_inserted} inserted, {notion_skipped_existing} already existed, {notion_failed} failed")
     else:
@@ -991,7 +1299,10 @@ def main() -> int:
                 lines.append(f"- Summary: {summary[:500]}{'...' if len(summary) > 500 else ''}")
             lines.append("")
     else:
-        lines.append("No new recommended jobs this run.\n")
+        if run_mode == "low_peak":
+            lines.append("No suitable low-peak recommendations this run.\n")
+        else:
+            lines.append("No new recommended jobs this run.\n")
 
     lines.append("## 2. Filtered-out jobs with reasons\n")
     if filtered_out:
@@ -1005,8 +1316,58 @@ def main() -> int:
     lines.append(f"- {already_seen}")
     lines.append("")
 
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text("\n".join(lines).rstrip() + "\n")
+    provisional_report = "\n".join(lines).rstrip() + "\n"
+    pdf_status = "not_generated"
+    local_report_status = "not_saved"
+    temp_pdf_path: Optional[Path] = None
+    if email_enabled:
+        try:
+            pdf_path = REPORT_PDF_PATH
+            if not save_local_reports and not REPORT_PDF_PATH_ENV:
+                temp_pdf_path = Path(tempfile.mkstemp(prefix="linkedin-jobs-", suffix=".pdf")[1])
+                pdf_path = temp_pdf_path
+            write_simple_pdf_from_markdown(provisional_report, pdf_path)
+            pdf_status = str(pdf_path)
+            email_status, email_detail, email_thread_id, email_thread_url = send_report_gmail(
+                provisional_report,
+                pdf_path,
+                stamp,
+                fetch_meta,
+                fetched,
+                len(filtered_out),
+                already_seen,
+                len(candidates),
+                len(recommended),
+                recommended,
+                recommended_star_map,
+            )
+        except Exception as e:
+            email_status = "failed"
+            email_detail = str(e)
+
+    lines.append("## 4. Delivery\n")
+    lines.append(f"- Gmail report email: {email_status}")
+    lines.append(f"- Gmail detail: {email_detail}")
+    if email_thread_id:
+        lines.append(f"- Gmail thread ID: {email_thread_id}")
+    if email_thread_url:
+        lines.append(f"- Gmail thread URL: {email_thread_url}")
+    if email_enabled:
+        lines.append(f"- PDF report: {pdf_status}")
+    lines.append("")
+
+    final_report = "\n".join(lines).rstrip() + "\n"
+    if save_local_reports or REPORT_PATH_ENV:
+        REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        REPORT_PATH.write_text(final_report)
+        local_report_status = str(REPORT_PATH)
+
+    if temp_pdf_path and temp_pdf_path.exists():
+        try:
+            temp_pdf_path.unlink()
+            pdf_status = "emailed_and_deleted"
+        except Exception:
+            pass
 
     # Console summary for Discord announce
     summary_titles = [f"{job.get('title')} @ {job.get('companyName')}" for job, _, _ in recommended[:5]]
@@ -1017,11 +1378,16 @@ def main() -> int:
         notion_line = " | notion=connection_failed"
     else:
         notion_line = " | notion=not_configured"
+    email_line = f" | gmail={email_status}"
+    link_line = f" | gmail_url={email_thread_url}" if email_thread_url else ""
+    report_line = f" | local_report={local_report_status}"
 
     source_mode = fetch_meta.get("mode", "linkedin_guest_api")
     print(
-        f"LinkedIn jobs run ok | source={source_mode} | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)}{notion_line} | report={REPORT_PATH}"
+        f"LinkedIn jobs run ok | mode={run_mode} | source={source_mode} | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)}{notion_line}{email_line}{report_line}"
     )
+    if email_thread_url:
+        print(f"Gmail report URL: {email_thread_url}")
     if summary_titles:
         print("Top picks: " + " | ".join(summary_titles))
     else:

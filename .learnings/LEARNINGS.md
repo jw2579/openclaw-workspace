@@ -43,3 +43,30 @@ Docker build fails on Apple Silicon due to platform mismatch
 
 ---
 
+## [LRN-20260314-001] best_practice
+
+**Logged**: 2026-03-14T14:58:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: config
+
+### Summary
+After `git rm` removes a tracked file from the working tree, use `git add -A` (or commit directly) instead of trying to `git add` the deleted path by name again.
+
+### Details
+A commit preparation command failed because `reports/linkedin_jobs_latest.md` had already been removed and staged by `git rm`, so `git add reports/linkedin_jobs_latest.md` no longer matched a filesystem path.
+
+### Suggested Action
+When staging mixed modifications + deletions, prefer `git add -A` to avoid pathspec mistakes.
+
+### Metadata
+- Source: error
+- Related Files: .gitignore, reports/linkedin_jobs_latest.md
+- Tags: git, staging, deletion
+
+### Resolution
+- **Resolved**: 2026-03-14T14:58:00Z
+- **Notes**: Switched to `git add -A` flow for the next commit.
+
+---
+

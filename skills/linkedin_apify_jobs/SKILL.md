@@ -14,6 +14,11 @@ Use this skill to fetch fresh LinkedIn job listings via LinkedIn's free guest AP
 
 When Notion is enabled, keep the schema lean and decision-focused: company, position, URL, status, star-based score, match reason, location, work mode, posted time, and JD content. Do not recreate a `note` column.
 
+The script also supports automatic time-of-day behavior in `America/New_York`:
+- `high_peak` = weekdays 09:00-21:00 → fetch up to 100, recommend up to 10
+- `low_peak` = weekdays 21:00-09:00 plus weekends → fetch up to 50, recommend up to 5 only if they clear a suitability threshold
+- Override for testing with `LINKEDIN_FORCE_MODE=high|low`
+
 ## Required reads
 
 Before running the workflow, read these when present:
