@@ -42,4 +42,10 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 - Notion credentials are stored locally at `.secrets/notion.env` for internal reuse across threads.
 - Do not echo secret values back into chat unless explicitly asked.
 
+### LinkedIn Job Report Routing
+
+- Primary Discord thread session: `agent:main:discord:channel:1481436478125903983` (`#job-alert`)
+- Mirror Discord thread session: `agent:main:discord:channel:1482225712093069415` (`Job Tracker`)
+- Current cron pattern: primary delivery uses cron announce to `#job-alert`, then mirrors the same concise human summary to `Job Tracker` via `sessions_send`.
+
 Add whatever helps you do your job. This is your cheat sheet.
