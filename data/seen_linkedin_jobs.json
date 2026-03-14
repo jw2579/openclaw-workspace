@@ -105,6 +105,11 @@
       "first_seen_at": "2026-03-12T16:34:11+00:00",
       "title": "Senior Software Engineer - Office Apps"
     },
+    "4326761646": {
+      "companyName": "AKASA",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Software Engineer, Client Solutions"
+    },
     "4327788503": {
       "companyName": "Bloomberg",
       "first_seen_at": "2026-03-12T16:34:11+00:00",
@@ -455,6 +460,11 @@
       "first_seen_at": "2026-03-12T08:34:48+00:00",
       "title": "Full Stack Software Engineer, Vice President \u2013 Corporate Functions Technology"
     },
+    "4382477287": {
+      "companyName": "KPMG US",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Sr. Full Stack .NET Developer"
+    },
     "4382511655": {
       "companyName": "BIP",
       "first_seen_at": "2026-03-12T04:34:28+00:00",
@@ -539,6 +549,11 @@
       "companyName": "The Hartford",
       "first_seen_at": "2026-03-14T00:33:56+00:00",
       "title": "Lead Productivity AI Engineer (Gemini Enterprise  & Copilot)"
+    },
+    "4383176958": {
+      "companyName": "Jerry",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Applied Data Scientist (entry)"
     },
     "4383183042": {
       "companyName": "The Hartford",
@@ -710,6 +725,16 @@
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "Senior Software Engineer"
     },
+    "4383942969": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Technical Analyst (or) Developer with SQL & Python exp"
+    },
+    "4383944866": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Senior Software Engineer"
+    },
     "4383949339": {
       "companyName": "TrueSkilla",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -719,6 +744,11 @@
       "companyName": "BlinkRx",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "Senior Quality Assurance Engineer"
+    },
+    "4383960110": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
     },
     "4383970429": {
       "companyName": "Agentio",
@@ -915,6 +945,71 @@
       "first_seen_at": "2026-03-14T00:33:56+00:00",
       "title": "Software Engineer III, Full Stack, Commerce"
     },
+    "4384609968": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "AI Tester with ML expertise"
+    },
+    "4384610985": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "ServiceNow Developer"
+    },
+    "4384613809": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "TM1 Developer"
+    },
+    "4384617659": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Java Backend Developer"
+    },
+    "4384624225": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Senior Full Stack Developer"
+    },
+    "4384625386": {
+      "companyName": "Keystone",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Investigations Engineer - Source Code (C++, Java, Javascript, Python, SQL)"
+    },
+    "4384626361": {
+      "companyName": "Keystone",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Forward Deployed AI Engineer"
+    },
+    "4384630101": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
+    },
+    "4384630325": {
+      "companyName": "Keystone",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "AI Product Engineer (Full Stack)"
+    },
+    "4384632370": {
+      "companyName": "Alvarez & Marsal",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Data Scientist, Generative & Agentic AI Solutions"
+    },
+    "4384634018": {
+      "companyName": "TrueGrowth AI",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "AI Engineer"
+    },
+    "4384635369": {
+      "companyName": "Fiserv",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Data Scientist"
+    },
+    "4384636261": {
+      "companyName": "CPS, Inc.",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Python Software Engineer"
+    },
     "4384829749": {
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -924,6 +1019,11 @@
       "companyName": "BJAK",
       "first_seen_at": "2026-03-12T16:34:11+00:00",
       "title": "Senior Engineer, Internal tools"
+    },
+    "4384851952": {
+      "companyName": "Capgemini",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "AI Application Engineer"
     },
     "4384859791": {
       "companyName": "Speechify",
@@ -1050,6 +1150,11 @@
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Principal Al/Machine Learning Scientist, Drug Discovery (China)"
     },
+    "4385398785": {
+      "companyName": "CLEAR",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Senior Software Engineer, Backend (Healthcare)"
+    },
     "4385509009": {
       "companyName": "Orbien LLC",
       "first_seen_at": "2026-03-13T20:34:08+00:00",
@@ -1099,6 +1204,81 @@
       "companyName": "Roku",
       "first_seen_at": "2026-03-14T00:33:56+00:00",
       "title": "Senior Software Engineer, Ad Serving"
+    },
+    "4385587724": {
+      "companyName": "SentiLink",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "AI Productivity Engineer"
+    },
+    "4385587971": {
+      "companyName": "Braintrust",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Eval Engineer"
+    },
+    "4385588707": {
+      "companyName": "NTT DATA North America",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Senior Full Stack Developer (Java & React with Infra Automation)"
+    },
+    "4385590942": {
+      "companyName": "AndHealth",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
+    },
+    "4385598537": {
+      "companyName": "Wells Fargo",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Lead Payments Full Stack Java Developers"
+    },
+    "4385800387": {
+      "companyName": "AndHealth",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Applied AI Engineer"
+    },
+    "4385807465": {
+      "companyName": "Reality Defender",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Applied Scientist II (Audio)"
+    },
+    "4385807977": {
+      "companyName": "LinkBio Corp.",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
+    },
+    "4385811373": {
+      "companyName": "Ideogram",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Member of Technical Staff"
+    },
+    "4385814898": {
+      "companyName": "Uber",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
+    },
+    "4385817019": {
+      "companyName": "Decagon",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "GTM Engineer"
+    },
+    "4385824349": {
+      "companyName": "Uber",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Software Engineer"
+    },
+    "4385825314": {
+      "companyName": "Uber",
+      "first_seen_at": "2026-03-14T04:33:58+00:00",
+      "title": "Sr Software Engineer"
+    },
+    "4385825439": {
+      "companyName": "Weekday AI (YC W21)",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Frontend Developer - USA"
+    },
+    "4385827066": {
+      "companyName": "NextGen Coding Company",
+      "first_seen_at": "2026-03-14T05:00:58+00:00",
+      "title": "Senior Software Engineer (Full-Stack / Systems)"
     }
   }
 }

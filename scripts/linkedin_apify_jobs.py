@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
+"""LinkedIn job pipeline — guest API primary, Apify fallback, optional Notion integration."""
 import json
 import os
 import re
 import sys
 import time
-from dataclasses import dataclass
 from datetime import datetime, timezone
+from html import unescape
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from urllib import parse, request, error
 
 WORKSPACE = Path(__file__).resolve().parent.parent
@@ -17,26 +18,56 @@ LOGS_DIR = WORKSPACE / "logs"
 SEEN_PATH = Path(os.environ.get("LINKEDIN_SEEN_STATE_PATH", DATA_DIR / "seen_linkedin_jobs.json"))
 DENYLIST_PATH = Path(os.environ.get("LINKEDIN_DENYLIST_PATH", DATA_DIR / "company_denylist.json"))
 REPORT_PATH = Path(os.environ.get("LINKEDIN_REPORT_PATH", REPORTS_DIR / "linkedin_jobs_latest.md"))
-ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
-DEFAULT_PUBLIC_URL = "https://www.linkedin.com/jobs/search/?keywords=software%20developer&geoId=90000070&distance=25&f_TPR=r14400&sortBy=DD"
-PUBLIC_URL = os.environ.get("LINKEDIN_PUBLIC_SEARCH_URL", DEFAULT_PUBLIC_URL)
-USER_PATH = WORKSPACE / "USER.md"
-MEMORY_PATH = WORKSPACE / "MEMORY.md"
 RESUME_PATH = WORKSPACE / "memory" / "resume-jiaxuan.md"
-MAX_RESULTS = int(os.environ.get("LINKEDIN_COUNT", "50"))
+MAX_RESULTS = int(os.environ.get("LINKEDIN_COUNT", "100"))
+ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
+
+ROLE_QUERIES = [
+    "software developer",
+    "software engineer",
+    "backend engineer",
+    "full stack engineer",
+    "ai engineer",
+    "mobile developer",
+]
+
+SEARCH_LOCATION = "New York City Metropolitan Area"
+SEARCH_GEO_ID = "90000070"
+SEARCH_DISTANCE = "25"
+SEARCH_FRESHNESS = "r14400"  # last 4 hours
+
+UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 NEUTRAL_BAD_SIGNALS = [
     "staffing", "recruiting", "recruitment", "talent solutions", "outsourcing",
     "it services", "consulting services", "consultancy services", "implementation partner",
     "vendor", "resource augmentation", "c2c", "corp-to-corp", "h1b transfer",
     "bench sales", "contract staffing", "offshore development", "managed services",
-    "system integrator", "placement services", "employment agency", "headhunter"
+    "system integrator", "placement services", "employment agency", "headhunter",
 ]
 GOOD_SIGNALS = [
     "python", "django", "fastapi", "react", "flutter", "full stack", "backend",
-    "api", "llm", "ai", "product", "mobile", "health", "sql", "data"
+    "api", "llm", "ai", "product", "mobile", "health", "sql", "data",
 ]
 
+CITIZENSHIP_PR_PATTERNS = [
+    r"u\.?s\.?\s*citizen",
+    r"united\s+states\s+citizen",
+    r"permanent\s+resident",
+    r"green\s+card\s+required",
+    r"green\s+card\s+holder",
+    r"security\s+clearance\s+required",
+    r"us\s+persons?\s+only",
+    r"must\s+be\s+a\s+u\.?s\.?\s+person",
+    r"must\s+be\s+authorized\s+to\s+work[^\n]{0,120}(citizen|u\.?s\.?\s+person|security\s+clearance)",
+    r"(citizen|u\.?s\.?\s+person|security\s+clearance)[^\n]{0,120}authorized\s+to\s+work",
+]
+CITIZENSHIP_RE = re.compile("|".join(CITIZENSHIP_PR_PATTERNS), re.IGNORECASE)
+
+
+# ---------------------------------------------------------------------------
+# Utility helpers
+# ---------------------------------------------------------------------------
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
@@ -66,28 +97,49 @@ def save_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
 
 
-def build_public_url(raw_url: str) -> str:
-    if raw_url:
-        parsed = parse.urlparse(raw_url)
-        q = dict(parse.parse_qsl(parsed.query, keep_blank_values=True))
-    else:
-        parsed = parse.urlparse(DEFAULT_PUBLIC_URL)
-        q = {}
-    q.setdefault("keywords", "software developer")
-    q.setdefault("geoId", "90000070")
-    q.setdefault("distance", "25")
-    q.setdefault("f_TPR", "r14400")
-    q.setdefault("sortBy", "DD")
-    clean = parsed._replace(
-        scheme=parsed.scheme or "https",
-        netloc=parsed.netloc or "www.linkedin.com",
-        path=parsed.path or "/jobs/search/",
-        query=parse.urlencode(q)
-    )
-    return parse.urlunparse(clean)
+def normalize(s: str) -> str:
+    return re.sub(r"\s+", " ", (s or "").strip().lower())
 
 
-def apify_request(token: str, url: str, payload: Dict[str, Any], method: str = "POST") -> Dict[str, Any]:
+def http_error_body(exc: error.HTTPError) -> Tuple[str, str]:
+    try:
+        raw = exc.read().decode("utf-8", errors="replace")
+    except Exception:
+        raw = ""
+    snippet = re.sub(r"\s+", " ", raw).strip()[:300]
+    return raw, snippet
+
+
+# ---------------------------------------------------------------------------
+# LinkedIn guest API — search + detail fetch
+# ---------------------------------------------------------------------------
+
+def linkedin_search_url(query: str, start: int = 0) -> str:
+    params = {
+        "keywords": query,
+        "location": SEARCH_LOCATION,
+        "geoId": SEARCH_GEO_ID,
+        "distance": SEARCH_DISTANCE,
+        "f_TPR": SEARCH_FRESHNESS,
+        "sortBy": "DD",
+        "start": str(start),
+    }
+    return "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?" + parse.urlencode(params)
+
+
+def linkedin_public_search_url(query: str) -> str:
+    params = {
+        "keywords": query,
+        "location": SEARCH_LOCATION,
+        "geoId": SEARCH_GEO_ID,
+        "distance": SEARCH_DISTANCE,
+        "f_TPR": SEARCH_FRESHNESS,
+        "sortBy": "DD",
+    }
+    return "https://www.linkedin.com/jobs/search/?" + parse.urlencode(params)
+
+
+def apify_request(token: str, url: str, payload: Optional[Dict[str, Any]], method: str = "POST") -> Dict[str, Any]:
     data = json.dumps(payload).encode("utf-8") if payload is not None else None
     req = request.Request(
         url,
@@ -118,25 +170,205 @@ def apify_get(token: str, url: str) -> Dict[str, Any]:
         return json.loads(body) if body else {}
 
 
-def fetch_jobs(token: str, actor_input: Dict[str, Any]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def http_get(url: str, timeout: int = 25, retries: int = 3) -> str:
+    last_error: Optional[Exception] = None
+    for attempt in range(1, retries + 1):
+        req = request.Request(url, headers={"User-Agent": UA}, method="GET")
+        try:
+            with request.urlopen(req, timeout=timeout) as resp:
+                body = resp.read().decode("utf-8", errors="replace")
+            lowered = body.lower()
+            if "captcha" in lowered or "security verification" in lowered or "verify you are human" in lowered:
+                raise RuntimeError("LinkedIn request failed: captcha/anti-bot page returned")
+            return body
+        except error.HTTPError as exc:
+            raw, snippet = http_error_body(exc)
+            detail = f"HTTP {exc.code} {exc.reason}"
+            lowered = raw.lower()
+            if exc.code == 429:
+                detail += " (rate-limited)"
+            if "captcha" in lowered or "security verification" in lowered or "verify you are human" in lowered:
+                detail += " (captcha/anti-bot page)"
+            if snippet:
+                detail += f" | {snippet}"
+            last_error = RuntimeError(f"LinkedIn request failed: {detail}")
+        except Exception as exc:
+            last_error = exc
+
+        if attempt < retries:
+            message = str(last_error).lower() if last_error else ""
+            if "captcha" in message or "rate-limited" in message or "timed out" in message:
+                time.sleep(3.0 * attempt)
+                continue
+            break
+
+    raise RuntimeError(str(last_error) if last_error else "LinkedIn request failed")
+
+
+def parse_job_cards(html: str) -> List[Dict[str, str]]:
+    jobs: List[Dict[str, str]] = []
+    for m in re.finditer(r"<li>(.*?)</li>", html, re.S):
+        s = m.group(1)
+        idm = re.search(r"jobPosting:(\d+)", s)
+        hrefm = re.search(r'href="([^"]*linkedin\.com/jobs/view/[^"]+)"', s)
+        titlem = re.search(r"<h3[^>]*>\s*(.*?)\s*</h3>", s, re.S)
+        compm = re.search(r'job-search-card-subtitle"[^>]*>\s*(.*?)\s*</a>', s, re.S)
+        locm = re.search(r'job-search-card__location"[^>]*>\s*(.*?)\s*</span>', s, re.S)
+        if not (idm and hrefm and titlem and compm):
+            continue
+        jobs.append({
+            "id": idm.group(1),
+            "jobUrl": unescape(hrefm.group(1)).replace("&amp;", "&"),
+            "title": re.sub(r"<[^>]+>", "", unescape(titlem.group(1))).strip(),
+            "companyName": re.sub(r"<[^>]+>", "", unescape(compm.group(1))).strip(),
+            "location": re.sub(r"<[^>]+>", "", unescape(locm.group(1))).strip() if locm else "",
+        })
+    return jobs
+
+
+def extract_jd_text(job_html: str) -> str:
+    m = re.search(r'<div class="show-more-less-html__markup[^>]*>([\s\S]*?)</div>', job_html)
+    if not m:
+        return ""
+    txt = m.group(1)
+    txt = re.sub(r"<script[\s\S]*?</script>", "", txt)
+    txt = re.sub(r"<style[\s\S]*?</style>", "", txt)
+    txt = txt.replace("<br>", "\n").replace("<br/>", "\n").replace("<br />", "\n")
+    txt = re.sub(r"</p>", "\n\n", txt)
+    txt = re.sub(r"</li>", "\n", txt)
+    txt = re.sub(r"<[^>]+>", "", txt)
+    txt = unescape(txt)
+    lines = [ln.strip() for ln in txt.splitlines()]
+    cleaned = []
+    for ln in lines:
+        lo = ln.lower()
+        if not ln:
+            cleaned.append("")
+            continue
+        if re.search(r"\b\d+[+,]?\s+applicants?\b", lo):
+            continue
+        if re.search(r"\b(posted|reposted|\d+\s+(day|days|hour|hours|week|weeks)\s+ago)\b", lo):
+            continue
+        if lo in {"about the job", "job description"}:
+            continue
+        cleaned.append(ln)
+    txt = "\n".join(cleaned)
+    txt = re.sub(r"\n{3,}", "\n\n", txt).strip()
+    if len(txt) > 18000:
+        txt = txt[:18000] + "\n\n[Truncated]"
+    return txt
+
+
+def extract_employment_type(job_html: str) -> str:
+    m = re.search(r'employment-type"[^>]*>\s*(.*?)\s*</span>', job_html, re.S)
+    if m:
+        return re.sub(r"<[^>]+>", "", unescape(m.group(1))).strip()
+    return ""
+
+
+def fetch_jobs_guest_api() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Fetch jobs from LinkedIn guest API across all role queries."""
+    all_cards: Dict[str, Dict[str, Any]] = {}  # dedupe by id
+    errors: List[str] = []
+
+    for query in ROLE_QUERIES:
+        url = linkedin_search_url(query)
+        try:
+            html = http_get(url)
+            cards = parse_job_cards(html)
+            for card in cards:
+                if card["id"] not in all_cards:
+                    all_cards[card["id"]] = card
+            time.sleep(1.0)  # polite delay between queries
+        except Exception as e:
+            errors.append(f"search '{query}': {e}")
+
+        if len(all_cards) >= MAX_RESULTS:
+            break
+
+    detail_attempted = min(len(all_cards), MAX_RESULTS)
+
+    # Fetch individual JD for each card
+    jobs: List[Dict[str, Any]] = []
+    for card in list(all_cards.values())[:MAX_RESULTS]:
+        try:
+            detail_url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{card['id']}"
+            detail_html = http_get(detail_url)
+            jd_text = extract_jd_text(detail_html)
+            emp_type = extract_employment_type(detail_html)
+            job = {
+                "id": card["id"],
+                "title": card["title"],
+                "companyName": card["companyName"],
+                "location": card["location"],
+                "jobUrl": card["jobUrl"],
+                "descriptionText": jd_text,
+                "employmentType": emp_type or "Unknown",
+                "postedAt": True,  # guest API results are always recent
+            }
+            jobs.append(job)
+            time.sleep(0.5)  # polite delay between detail fetches
+        except Exception as e:
+            errors.append(f"detail {card['id']}: {e}")
+
+    anti_bot_errors = sum(1 for err in errors if "captcha/anti-bot" in err or "rate-limited" in err)
+    meta = {
+        "mode": "linkedin_guest_api",
+        "source_label": "LinkedIn guest API (free, no API key)",
+        "queries": len(ROLE_QUERIES),
+        "raw_cards": len(all_cards),
+        "detail_attempted": detail_attempted,
+        "anti_bot_errors": anti_bot_errors,
+        "errors": errors,
+    }
+    return jobs, meta
+
+
+def fetch_jobs_apify(token: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    public_urls = [linkedin_public_search_url(query) for query in ROLE_QUERIES]
+    actor_input = {
+        "urls": public_urls,
+        "scrapeCompany": True,
+        "count": MAX_RESULTS,
+        "splitByLocation": False,
+    }
     encoded_actor = parse.quote(ACTOR_ID, safe="")
+    sync_error = "unexpected sync payload"
     sync_url = f"https://api.apify.com/v2/acts/{encoded_actor}/run-sync-get-dataset-items?format=json&clean=true"
     try:
         items = apify_request(token, sync_url, actor_input)
         if isinstance(items, list):
-            return items, {"mode": "sync"}
+            return items, {
+                "mode": "apify_fallback",
+                "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+                "actor": ACTOR_ID,
+                "public_urls": len(public_urls),
+                "errors": [],
+                "fallback_used": True,
+                "fetch_mode": "sync",
+            }
         if isinstance(items, dict) and isinstance(items.get("data"), list):
-            return items["data"], {"mode": "sync_wrapped"}
-    except error.HTTPError as e:
-        sync_error = e.read().decode("utf-8", errors="replace")
-    except Exception as e:
-        sync_error = str(e)
+            return items["data"], {
+                "mode": "apify_fallback",
+                "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+                "actor": ACTOR_ID,
+                "public_urls": len(public_urls),
+                "errors": [],
+                "fallback_used": True,
+                "fetch_mode": "sync_wrapped",
+            }
+    except error.HTTPError as exc:
+        _, sync_error = http_error_body(exc)
+    except Exception as exc:
+        sync_error = str(exc)
+
     run_url = f"https://api.apify.com/v2/acts/{encoded_actor}/runs"
     run = apify_request(token, run_url, actor_input)
     run_data = run.get("data", run)
     run_id = run_data.get("id")
     if not run_id:
-        raise RuntimeError(f"Apify async run failed to start after sync failure: {sync_error}")
+        raise RuntimeError(f"Apify fallback failed to start after sync failure: {sync_error}")
+
     poll_url = f"https://api.apify.com/v2/actor-runs/{run_id}"
     final = None
     for _ in range(60):
@@ -147,30 +379,119 @@ def fetch_jobs(token: str, actor_input: Dict[str, Any]) -> Tuple[List[Dict[str, 
         time.sleep(5)
     status = (final or {}).get("status")
     if status != "SUCCEEDED":
-        raise RuntimeError(f"Apify async run did not succeed. status={status} run_id={run_id}")
+        raise RuntimeError(f"Apify fallback did not succeed. status={status} run_id={run_id}")
+
     dataset_id = final.get("defaultDatasetId")
     if not dataset_id:
-        raise RuntimeError(f"Apify run succeeded but no defaultDatasetId was returned. run_id={run_id}")
+        raise RuntimeError(f"Apify fallback succeeded but no defaultDatasetId was returned. run_id={run_id}")
+
     items_url = f"https://api.apify.com/v2/datasets/{dataset_id}/items?format=json&clean=true"
     items = apify_get(token, items_url)
     if not isinstance(items, list):
-        raise RuntimeError(f"Unexpected dataset items payload type: {type(items).__name__}")
-    return items, {"mode": "async", "run_id": run_id, "dataset_id": dataset_id}
+        raise RuntimeError(f"Unexpected Apify dataset payload type: {type(items).__name__}")
+
+    meta = {
+        "mode": "apify_fallback",
+        "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+        "actor": ACTOR_ID,
+        "public_urls": len(public_urls),
+        "errors": [],
+        "fallback_used": True,
+        "fetch_mode": "async",
+        "run_id": run_id,
+        "dataset_id": dataset_id,
+    }
+    return items, meta
 
 
-def extract_text(job: Dict[str, Any]) -> str:
+def should_use_apify_fallback(jobs: List[Dict[str, Any]], meta: Dict[str, Any]) -> bool:
+    anti_bot_errors = int(meta.get("anti_bot_errors") or 0)
+    detail_attempted = int(meta.get("detail_attempted") or 0)
+    if anti_bot_errors <= 0:
+        return False
+    if anti_bot_errors >= 3:
+        return True
+    if detail_attempted and anti_bot_errors >= max(1, detail_attempted // 3):
+        return True
+    if detail_attempted and len(jobs) <= max(5, detail_attempted // 2):
+        return True
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Filtering
+# ---------------------------------------------------------------------------
+
+def extract_company_text(job: Dict[str, Any]) -> str:
+    """Extract ONLY company metadata fields for neutral signal checking."""
+    fields = [
+        job.get("companyName"),
+        job.get("companyWebsite"),
+        job.get("companyDescription"),
+        job.get("industries"),
+    ]
+    return normalize("\n".join(str(x) for x in fields if x))
+
+
+def extract_full_text(job: Dict[str, Any]) -> str:
+    """Extract all text including JD for ranking and other checks."""
     fields = [
         job.get("title"), job.get("companyName"), job.get("companyDescription"),
         job.get("descriptionText"), job.get("description"), job.get("location"),
-        job.get("employmentType"), job.get("workplaceType"), job.get("industries"),
-        job.get("companyWebsite"), job.get("jobUrl"), job.get("jobPostingUrl")
+        job.get("employmentType"), job.get("companyWebsite"), job.get("jobUrl"),
     ]
     return "\n".join(str(x) for x in fields if x)
 
 
-def normalize(s: str) -> str:
-    return re.sub(r"\s+", " ", (s or "").strip().lower())
+def citizenship_pr_filter(job: Dict[str, Any]) -> bool:
+    """Return True if the job requires US citizenship/PR/clearance."""
+    jd = job.get("descriptionText") or job.get("description") or ""
+    return bool(CITIZENSHIP_RE.search(jd))
 
+
+def company_filter_reason(job: Dict[str, Any], denylist: Dict[str, Any]) -> str:
+    company = job.get("companyName") or ""
+    website = job.get("companyWebsite") or ""
+    company_n = normalize(company)
+    website_n = normalize(website)
+
+    # Denylist exact match (company name only)
+    for name in denylist.get("exact_names", []):
+        if company_n == normalize(name):
+            return f"company denylist exact match: {name}"
+
+    # Denylist partial match (company name)
+    for part in denylist.get("name_contains", []):
+        if normalize(part) in company_n:
+            return f"company denylist partial match: {part}"
+
+    # Denylist website match
+    for part in denylist.get("website_contains", []):
+        if normalize(part) in website_n:
+            return f"company website denylist match: {part}"
+
+    # Stealth/confidential/undisclosed — CAN check full text
+    full_text_n = normalize(extract_full_text(job))
+    for part in ["stealth", "confidential", "undisclosed"]:
+        if part in company_n or part in full_text_n:
+            return f"low-transparency signal: {part}"
+
+    # Neutral business-rule signals — ONLY check company metadata, NOT full JD
+    company_text_n = extract_company_text(job)
+    for signal in NEUTRAL_BAD_SIGNALS:
+        if signal in company_n or signal in website_n or signal in company_text_n:
+            return f"neutral business-rule staffing/vendor signal: {signal}"
+
+    # Citizenship/PR eligibility check
+    if citizenship_pr_filter(job):
+        return "citizenship_pr_required"
+
+    return ""
+
+
+# ---------------------------------------------------------------------------
+# Ranking
+# ---------------------------------------------------------------------------
 
 def get_job_id(job: Dict[str, Any]) -> str:
     for key in ["id", "jobId", "linkedinJobId"]:
@@ -186,61 +507,48 @@ def get_job_id(job: Dict[str, Any]) -> str:
     return ""
 
 
-def company_filter_reason(job: Dict[str, Any], denylist: Dict[str, Any]) -> str:
-    company = job.get("companyName") or ""
-    website = job.get("companyWebsite") or ""
-    text = normalize(extract_text(job))
-    company_n = normalize(company)
-    website_n = normalize(website)
-    for name in denylist.get("exact_names", []):
-        if company_n == normalize(name):
-            return f"company denylist exact match: {name}"
-    for part in denylist.get("name_contains", []):
-        if normalize(part) in company_n:
-            return f"company denylist partial match: {part}"
-    for part in denylist.get("website_contains", []):
-        if normalize(part) in website_n:
-            return f"company website denylist match: {part}"
-    for part in ["stealth", "confidential", "undisclosed"]:
-        if part in company_n or part in text:
-            return f"low-transparency signal: {part}"
-    for signal in NEUTRAL_BAD_SIGNALS:
-        if signal in company_n or signal in website_n or signal in text:
-            return f"neutral business-rule staffing/vendor signal: {signal}"
-    return ""
-
-
 def rank_job(job: Dict[str, Any], resume_text: str) -> Tuple[float, List[str]]:
-    reasons = []
+    reasons: List[str] = []
     score = 0.0
     title = normalize(job.get("title", ""))
-    text = normalize(extract_text(job))
-    if any(t in title for t in ["software engineer", "software developer", "backend", "full stack", "full-stack"]):
+    text = normalize(extract_full_text(job))
+
+    if any(t in title for t in ["software engineer", "software developer", "backend", "full stack", "full-stack", "mobile developer", "ai engineer"]):
         score += 3.0
         reasons.append("title aligns with target software roles")
-    if any(t in title for t in ["senior", "staff", "principal"]) and "software" not in title and "backend" not in title:
-        score -= 0.3
+
+    # Seniority penalty for staff/principal (small penalty, not a filter)
+    if any(t in title for t in ["staff", "principal"]):
+        score -= 0.5
+        reasons.append("seniority stretch penalty (staff/principal)")
+
     for signal in GOOD_SIGNALS:
         if signal in text:
             score += 0.45
+
     if "full time" in text or "full-time" in text:
         score += 0.6
         reasons.append("full-time role")
+
     if "new york" in text or "remote" in text or "hybrid" in text:
         score += 0.4
+
     if job.get("postedAt") or job.get("postedDate") or job.get("timeAgo"):
         score += 0.5
         reasons.append("recent listing metadata present")
+
     desc_len = len(job.get("descriptionText") or job.get("description") or "")
     if desc_len > 400:
         score += 0.5
         reasons.append("job description has enough detail to evaluate")
+
     if resume_text:
         resume_signals = ["python", "django", "fastapi", "react", "flutter", "sql", "llm", "mobile", "health"]
         hits = [s for s in resume_signals if s in text and s in resume_text]
         score += min(len(hits) * 0.6, 3.0)
         if hits:
             reasons.append("resume overlap: " + ", ".join(hits[:5]))
+
     return score, reasons[:4]
 
 
@@ -260,34 +568,156 @@ def choose_top_n(recommended_count: int) -> int:
     return 10 if recommended_count >= 10 else min(5, recommended_count)
 
 
+# ---------------------------------------------------------------------------
+# Notion integration (optional)
+# ---------------------------------------------------------------------------
+
+def notion_headers(token: str) -> Dict[str, str]:
+    return {
+        "Authorization": f"Bearer {token}",
+        "Notion-Version": "2022-06-28",
+        "Content-Type": "application/json",
+    }
+
+
+def notion_api(url: str, headers: Dict[str, str], payload: Optional[Dict] = None,
+               method: str = "GET") -> Dict[str, Any]:
+    data = json.dumps(payload).encode("utf-8") if payload else None
+    req = request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with request.urlopen(req, timeout=30) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except error.HTTPError as exc:
+        _, snippet = http_error_body(exc)
+        detail = f"HTTP {exc.code} {exc.reason}"
+        if snippet:
+            detail += f" | {snippet}"
+        raise RuntimeError(f"Notion API {method} {url} failed: {detail}") from exc
+
+
+def ensure_note_column(db_id: str, headers: Dict[str, str]) -> None:
+    db = notion_api(f"https://api.notion.com/v1/databases/{db_id}", headers)
+    props = db.get("properties", {})
+    if "note" in props and props["note"].get("type") == "rich_text":
+        return
+    notion_api(
+        f"https://api.notion.com/v1/databases/{db_id}",
+        headers,
+        payload={"properties": {"note": {"rich_text": {}}}},
+        method="PATCH",
+    )
+
+
+def jd_to_children(jd_text: str) -> List[Dict[str, Any]]:
+    if not jd_text.strip():
+        return []
+    chunks: List[str] = []
+    for para in [p.strip() for p in jd_text.split("\n\n") if p.strip()]:
+        while len(para) > 1800:
+            chunks.append(para[:1800])
+            para = para[1800:]
+        chunks.append(para)
+    return [
+        {
+            "object": "block",
+            "type": "paragraph",
+            "paragraph": {"rich_text": [{"type": "text", "text": {"content": c}}]},
+        }
+        for c in chunks[:80]
+    ]
+
+
+def notion_insert_job(job: Dict[str, Any], score: float, reasons: List[str],
+                      db_id: str, headers: Dict[str, str]) -> bool:
+    """Insert a job into Notion. Returns True on success."""
+    company = (job.get("companyName") or "Unknown")[:200]
+    title = (job.get("title") or "Untitled")[:2000]
+    url = job.get("jobUrl") or ""
+    note = f"accepted by filters | score: {score:.2f} | reasons: {'; '.join(reasons[:3])}"
+    jd_text = job.get("descriptionText") or ""
+
+    payload = {
+        "parent": {"database_id": db_id},
+        "properties": {
+            "Name": {"title": [{"type": "text", "text": {"content": company}}]},
+            "URL": {"url": url if url else None},
+            "position": {"rich_text": [{"type": "text", "text": {"content": title}}]},
+            "Status": {"status": {"name": "Not started"}},
+            "note": {"rich_text": [{"type": "text", "text": {"content": note[:2000]}}]},
+        },
+        "children": jd_to_children(jd_text),
+    }
+    try:
+        result = notion_api("https://api.notion.com/v1/pages", headers, payload=payload, method="POST")
+        return result.get("object") == "page"
+    except Exception as e:
+        print(f"  Notion insert failed for {company} - {title}: {e}", file=sys.stderr)
+        return False
+
+
+# ---------------------------------------------------------------------------
+# Main pipeline
+# ---------------------------------------------------------------------------
+
 def main() -> int:
     ensure_dirs()
-    token = os.environ.get("APIFY_TOKEN")
-    if not token:
-        print("ERROR: APIFY_TOKEN is missing. Set it in-memory for this run, e.g. APIFY_TOKEN=... python3 scripts/linkedin_apify_jobs.py", file=sys.stderr)
-        return 2
-    public_url = build_public_url(PUBLIC_URL)
-    actor_input = {
-        "urls": [public_url],
-        "scrapeCompany": True,
-        "count": MAX_RESULTS,
-        "splitByLocation": False,
-    }
+
+    # Notion setup (optional)
+    notion_token = os.environ.get("NOTION_TOKEN")
+    notion_db_id = os.environ.get("NOTION_DB_ID")
+    notion_enabled = bool(notion_token and notion_db_id)
+    notion_status = "not configured"
+
+    if notion_enabled:
+        try:
+            nh = notion_headers(notion_token)
+            ensure_note_column(notion_db_id, nh)
+            notion_status = "connected"
+            print("Notion integration: connected and verified.", file=sys.stderr)
+        except Exception as e:
+            notion_enabled = False
+            notion_status = f"failed: {e}"
+            print(f"WARNING: Notion integration unavailable: {e}", file=sys.stderr)
+    else:
+        print("WARNING: NOTION_TOKEN or NOTION_DB_ID not set. Notion integration disabled.", file=sys.stderr)
+
     denylist = load_json(DENYLIST_PATH, {"exact_names": [], "name_contains": [], "website_contains": [], "notes": []})
     seen = load_json(SEEN_PATH, {"jobs": {}})
     seen_jobs = seen.setdefault("jobs", {})
     resume_text = normalize(read_text_if_exists(RESUME_PATH))
 
-    jobs, fetch_meta = fetch_jobs(token, actor_input)
+    apify_token = os.environ.get("APIFY_TOKEN")
+
+    # Fetch jobs from free LinkedIn guest API first, then fall back to Apify if anti-bot blocks bite hard.
+    print("Fetching jobs from LinkedIn guest API...", file=sys.stderr)
+    jobs, fetch_meta = fetch_jobs_guest_api()
     fetched = len(jobs)
+    print(f"Fetched {fetched} jobs across {fetch_meta['queries']} queries.", file=sys.stderr)
+    if fetch_meta.get("errors"):
+        for err in fetch_meta["errors"]:
+            print(f"  fetch error: {err}", file=sys.stderr)
+
+    guest_meta = fetch_meta
+    if should_use_apify_fallback(jobs, fetch_meta):
+        if apify_token:
+            print("LinkedIn anti-bot threshold hit; switching to Apify fallback...", file=sys.stderr)
+            jobs, fetch_meta = fetch_jobs_apify(apify_token)
+            fetch_meta["guest_attempt"] = guest_meta
+            fetched = len(jobs)
+            print(f"Apify fallback fetched {fetched} jobs.", file=sys.stderr)
+        else:
+            print("WARNING: LinkedIn anti-bot threshold hit but APIFY_TOKEN is not available; staying on guest API results.", file=sys.stderr)
+
     already_seen = 0
     filtered_out: List[Tuple[Dict[str, Any], str]] = []
+    filter_reasons_count: Dict[str, int] = {}
     candidates: List[Tuple[Dict[str, Any], float, List[str]]] = []
 
     for job in jobs:
         job_id = get_job_id(job)
         if not job_id:
             filtered_out.append((job, "missing linkedin job id"))
+            filter_reasons_count["missing_id"] = filter_reasons_count.get("missing_id", 0) + 1
             continue
         if job_id in seen_jobs:
             already_seen += 1
@@ -295,6 +725,18 @@ def main() -> int:
         reason = company_filter_reason(job, denylist)
         if reason:
             filtered_out.append((job, reason))
+            # Categorize filter reason
+            if "citizenship_pr" in reason:
+                cat = "citizenship_pr"
+            elif "denylist" in reason:
+                cat = "denylist"
+            elif "neutral" in reason:
+                cat = "neutral_signals"
+            elif "low-transparency" in reason:
+                cat = "low_transparency"
+            else:
+                cat = "other"
+            filter_reasons_count[cat] = filter_reasons_count.get(cat, 0) + 1
             continue
         score, reasons = rank_job(job, resume_text)
         candidates.append((job, score, reasons))
@@ -303,6 +745,19 @@ def main() -> int:
     top_n = choose_top_n(len(candidates))
     recommended = candidates[:top_n]
 
+    # Notion insertion (before report, so we can include status)
+    notion_inserted = 0
+    notion_failed = 0
+    if notion_enabled and recommended:
+        print(f"Inserting {len(recommended)} jobs into Notion...", file=sys.stderr)
+        for job, score, reasons in recommended:
+            if notion_insert_job(job, score, reasons, notion_db_id, nh):
+                notion_inserted += 1
+            else:
+                notion_failed += 1
+            time.sleep(0.3)  # rate limit courtesy
+
+    # Update seen state
     stamp = now_iso()
     for job, score, reasons in candidates:
         job_id = get_job_id(job)
@@ -313,22 +768,55 @@ def main() -> int:
         }
     save_json(SEEN_PATH, seen)
 
+    # Generate report
     lines: List[str] = []
     lines.append("# LinkedIn Jobs Report\n")
     lines.append(f"- Generated at: {stamp}")
-    lines.append(f"- Public search URL: {public_url}")
-    lines.append(f"- Actor: {ACTOR_ID}")
-    lines.append(f"- Fetch mode: {fetch_meta.get('mode')}")
+    lines.append(f"- Data source: {fetch_meta.get('source_label', 'LinkedIn guest API (free, no API key)')}")
+    lines.append(f"- Search queries: {', '.join(ROLE_QUERIES)}")
+    lines.append(f"- Location: {SEARCH_LOCATION} (geoId={SEARCH_GEO_ID}, distance={SEARCH_DISTANCE})")
+    lines.append(f"- Freshness: last 4 hours")
     lines.append(f"- Jobs fetched: {fetched}")
+    lines.append(f"- Fetch errors: {len(fetch_meta.get('errors', []))}")
+    if fetch_meta.get("mode") == "apify_fallback":
+        lines.append(f"- Fallback used: yes (actor={fetch_meta.get('actor')}, mode={fetch_meta.get('fetch_mode')})")
+        guest_attempt = fetch_meta.get("guest_attempt") or {}
+        lines.append(f"- Guest attempt before fallback: raw_cards={guest_attempt.get('raw_cards', 0)}, detail_attempted={guest_attempt.get('detail_attempted', 0)}, anti_bot_errors={guest_attempt.get('anti_bot_errors', 0)}")
+    else:
+        lines.append("- Fallback used: no")
     lines.append(f"- Already seen skipped: {already_seen}")
     lines.append(f"- Filtered out: {len(filtered_out)}")
-    lines.append(f"- New candidates kept: {len(candidates)}\n")
+    if filter_reasons_count:
+        breakdown = ", ".join(f"{k}={v}" for k, v in sorted(filter_reasons_count.items()))
+        lines.append(f"  - Filter breakdown: {breakdown}")
+    lines.append(f"- New candidates kept: {len(candidates)}")
+    if notion_enabled:
+        lines.append(f"- Notion: {notion_inserted} inserted, {notion_failed} failed")
+    else:
+        lines.append(f"- Notion: {notion_status}")
+
+    fetch_issues: List[str] = []
+    if fetch_meta.get("mode") == "apify_fallback":
+        guest_attempt = fetch_meta.get("guest_attempt") or {}
+        for err in guest_attempt.get("errors", []):
+            fetch_issues.append(f"guest attempt: {err}")
+        for err in fetch_meta.get("errors", []):
+            fetch_issues.append(f"apify fallback: {err}")
+    else:
+        fetch_issues.extend(fetch_meta.get("errors", []))
+
+    if fetch_issues:
+        lines.append("")
+        lines.append("## 0. Fetch issues\n")
+        for err in fetch_issues:
+            lines.append(f"- {err}")
+    lines.append("")
 
     lines.append("## 1. New recommended jobs\n")
     if recommended:
         for idx, (job, score, reasons) in enumerate(recommended, start=1):
             job_id = get_job_id(job)
-            url = job.get("jobUrl") or job.get("jobPostingUrl") or job.get("applyUrl") or ""
+            url = job.get("jobUrl") or ""
             company = job.get("companyName") or "Unknown company"
             title = job.get("title") or "Untitled role"
             location = job.get("location") or "Unknown location"
@@ -336,13 +824,12 @@ def main() -> int:
             lines.append(f"- Rating: {stars(score)} ({score:.2f})")
             lines.append(f"- Location: {location}")
             lines.append(f"- Employment type: {job.get('employmentType') or 'Unknown'}")
-            lines.append(f"- Workplace type: {job.get('workplaceType') or 'Unknown'}")
             lines.append(f"- LinkedIn job ID: {job_id}")
             if url:
                 lines.append(f"- Link: {url}")
             if reasons:
                 lines.append(f"- Why it ranked: {'; '.join(reasons)}")
-            summary = (job.get("descriptionText") or job.get("description") or "").strip().replace("\n", " ")
+            summary = (job.get("descriptionText") or "").strip().replace("\n", " ")
             if summary:
                 lines.append(f"- Summary: {summary[:500]}{'...' if len(summary) > 500 else ''}")
             lines.append("")
@@ -364,9 +851,19 @@ def main() -> int:
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.write_text("\n".join(lines).rstrip() + "\n")
 
+    # Console summary for Discord announce
     summary_titles = [f"{job.get('title')} @ {job.get('companyName')}" for job, _, _ in recommended[:5]]
+    notion_line = ""
+    if notion_enabled:
+        notion_line = f" | notion_inserted={notion_inserted}"
+    elif notion_token or notion_db_id:
+        notion_line = " | notion=connection_failed"
+    else:
+        notion_line = " | notion=not_configured"
+
+    source_mode = fetch_meta.get("mode", "linkedin_guest_api")
     print(
-        f"LinkedIn jobs run ok | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)} | report={REPORT_PATH}"
+        f"LinkedIn jobs run ok | source={source_mode} | fetched={fetched} | filtered={len(filtered_out)} | already_seen={already_seen} | remaining={len(candidates)} | selected={len(recommended)}{notion_line} | report={REPORT_PATH}"
     )
     if summary_titles:
         print("Top picks: " + " | ".join(summary_titles))

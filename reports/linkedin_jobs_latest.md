@@ -1,148 +1,120 @@
 # LinkedIn Jobs Report
 
-- Generated at: 2026-03-14T00:33:56+00:00
-- Public search URL: https://www.linkedin.com/jobs/search/?keywords=software+developer&geoId=90000070&distance=25&f_TPR=r14400&sortBy=DD
-- Actor: curious_coder/linkedin-jobs-scraper
-- Fetch mode: sync
-- Jobs fetched: 43
-- Already seen skipped: 1
-- Filtered out: 30
-- New candidates kept: 12
+- Generated at: 2026-03-14T05:33:09+00:00
+- Data source: LinkedIn guest API (free, no API key)
+- Search queries: software developer, software engineer, backend engineer, full stack engineer, ai engineer, mobile developer
+- Location: New York City Metropolitan Area (geoId=90000070, distance=25)
+- Freshness: last 4 hours
+- Jobs fetched: 27
+- Fetch errors: 2
+- Fallback used: no
+- Already seen skipped: 0
+- Filtered out: 1
+  - Filter breakdown: low_transparency=1
+- New candidates kept: 26
+- Notion: not configured
+
+## 0. Fetch issues
+
+- detail 4385398785: LinkedIn request failed: captcha/anti-bot page returned
+- detail 4377907158: LinkedIn request failed: captcha/anti-bot page returned
 
 ## 1. New recommended jobs
 
-### 1. Senior Software Engineer 2 - Care Tools — The Farmer's Dog
+### 1. Software Engineer, Client Solutions — AKASA
+- Rating: ★★★★★ (11.45)
+- Location: New York, NY
+- Employment type: Unknown
+- LinkedIn job ID: 4326761646
+- Link: https://www.linkedin.com/jobs/view/software-engineer-client-solutions-at-akasa-4326761646?position=5&pageNum=0&refId=HIIqagbaZiZvRaFauUUSkw%3D%3D&trackingId=nKoxJqVuSsEIF4xVJqEXBA%3D%3D
+- Why it ranked: title aligns with target software roles; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, fastapi, react, sql, health
+- Summary: About AKASA  At AKASA, our mission is to build the future of healthcare with AI. As the leading provider of generative AI solutions for the healthcare revenue cycle, we help health systems comprehensively capture and communicate the full patient clinical journey. By empowering health systems to streamline their operations, they can focus on what matters most - delivering quality patient care. We have raised over $205M in funding from investors such as Andreessen Horowitz, BOND, and Costanoa Vent...
+
+### 2. Software Engineer — AndHealth
+- Rating: ★★★★★ (11.45)
+- Location: New York, NY
+- Employment type: Unknown
+- LinkedIn job ID: 4385590942
+- Link: https://www.linkedin.com/jobs/view/software-engineer-at-andhealth-4385590942?position=3&pageNum=0&refId=HIIqagbaZiZvRaFauUUSkw%3D%3D&trackingId=KpkDB%2FBN9mxlYDVhGPtLUw%3D%3D
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: Full Time  New York, NY  AndHealth is a healthcare technology company created to help people reverse chronic disease. We are driven by the goal of making world-class specialty care accessible and affordable to all. We partner with health systems, community health centers, plans, and employers to remove barriers to care to ensure all people have access to the care they deserve.  We are looking for a Software Engineer to join our team to build a world-class patient experience through the AndHealth...
+
+### 3. Applied AI Engineer — AndHealth
+- Rating: ★★★★★ (11.45)
+- Location: New York, NY
+- Employment type: Unknown
+- LinkedIn job ID: 4385800387
+- Link: https://www.linkedin.com/jobs/view/applied-ai-engineer-at-andhealth-4385800387?position=2&pageNum=0&refId=AuErHm5UqquiMNoX6FJKlw%3D%3D&trackingId=6BFaVzlQnhhrFU88JAkMHQ%3D%3D
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: Full Time  New York, NY  AndHealth is a healthcare technology company created to help people reverse chronic disease. We are driven by the goal of making world-class specialty care accessible and affordable to all. We partner with health systems, community health centers, plans, and employers to remove barriers to care to ensure all people have access to the care they deserve.  We are looking for an Applied AI Engineer to help build the next generation of intelligent systems that power the AndHe...
+
+### 4. Senior Software Engineer (Full-Stack / Systems) — NextGen Coding Company
 - Rating: ★★★★★ (10.85)
+- Location: New York City Metropolitan Area
+- Employment type: Unknown
+- LinkedIn job ID: 4385827066
+- Link: https://www.linkedin.com/jobs/view/senior-software-engineer-full-stack-systems-at-nextgen-coding-company-4385827066?position=10&pageNum=0&refId=319MvTmytZOkdgE4qAMpaA%3D%3D&trackingId=iqbBsYk0A45eAQnn%2FIaIfQ%3D%3D
+- Why it ranked: title aligns with target software roles; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, react, sql, health
+- Summary: Education: If you did your undergrad in India, save your time and DO NOT APPLY  You will have to submit a W-9 when hired, no OTP, W-8, or other types of sponsorship  Senior Software Engineer (Full-Stack / Systems)  NextGen Coding Company  Location: United States (Remote)  Compensation: $50/hour (Contract)  Engagement Type: Contract (20–40 hours per week)  NextGen Coding Company is a U.S.-based software engineering firm delivering custom platforms, AI systems, automation tools, and enterprise app...
+
+### 5. Senior Full Stack Developer (Java & React with Infra Automation) — NTT DATA North America
+- Rating: ★★★★★ (9.20)
 - Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4384296398
-- Link: https://job-boards.greenhouse.io/thefarmersdog/jobs/8460736002
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Who We AreThe Farmer’s Dog was born from a mission to change the landscape of pet health, providing dogs and their humans with honest, smart, and simple care. We’re starting by radically improving the $90 billion pet food industry, replacing bags of highly-processed pellets with a personalized subscription service that sends complete and balanced, freshly-made dog food directly to customers’ doors. Our ultimate goal is to create innovative, delightful and personalized experiences across all aspe...
+- Employment type: Unknown
+- LinkedIn job ID: 4385588707
+- Link: https://www.linkedin.com/jobs/view/senior-full-stack-developer-java-react-with-infra-automation-at-ntt-data-north-america-4385588707?position=4&pageNum=0&refId=zsBJC14ffsegz069frVutg%3D%3D&trackingId=teHNuchxcTZG3RikBLbo4w%3D%3D
+- Why it ranked: title aligns with target software roles; recent listing metadata present; job description has enough detail to evaluate; resume overlap: react, llm
+- Summary: Req ID: 363690  NTT DATA strives to hire exceptional, innovative and passionate individuals who want to grow with us. If you want to be part of an inclusive, adaptable, and forward-thinking organization, apply now.  We are currently seeking a Senior Full Stack Developer (Java & React with Infra Automation) to join our team in New York, New York (US-NY), United States (US).  Day to Day/Job Function  Design, develop, and operate end-to-end full-stack applications including front-end user interface...
 
-### 2. Senior Software Engineer 2 - Marketing Tools and Landing Pages — The Farmer's Dog
-- Rating: ★★★★★ (10.40)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4384291549
-- Link: https://job-boards.greenhouse.io/thefarmersdog/jobs/8460735002
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Who We AreThe Farmer’s Dog was born from a mission to change the landscape of pet health, providing dogs and their humans with honest, smart, and simple care. We’re starting by radically improving the $90 billion pet food industry, replacing bags of highly-processed pellets with a personalized subscription service that sends complete and balanced, freshly-made dog food directly to customers’ doors. Our ultimate goal is to create innovative, delightful and personalized experiences across all aspe...
+### 6. Sr. Full Stack .NET Developer — KPMG US
+- Rating: ★★★★★ (9.20)
+- Location: Montvale, NJ
+- Employment type: Unknown
+- LinkedIn job ID: 4382477287
+- Link: https://www.linkedin.com/jobs/view/sr-full-stack-net-developer-at-kpmg-us-4382477287?position=6&pageNum=0&refId=zsBJC14ffsegz069frVutg%3D%3D&trackingId=XRrz%2BEqq1lrJvNfVE9UtPg%3D%3D
+- Why it ranked: title aligns with target software roles; recent listing metadata present; job description has enough detail to evaluate; resume overlap: sql, health
+- Summary: Known for being a great place to work and build a career, KPMG provides audit, tax and advisory services for organizations in today's most important industries. Our growth is driven by delivering real results for our clients. It's also enabled by our culture, which encourages individual development, embraces an inclusive environment, rewards innovative excellence and supports our communities. With qualities like those, it's no wonder we're consistently ranked among the best companies to work for...
 
-### 3. Vice President; Software Engineer — Bank of America
-- Rating: ★★★★★ (9.35)
-- Location: Jersey City, NJ
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4383167113
-- Link: https://careers.bankofamerica.com/en-us/job-detail/26009514/vice-president-software-engineer-jersey-city-new-jersey-united-states
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Job Description:At Bank of America, we are guided by a common purpose to help make financial lives better through the power of every connection. We do this by driving Responsible Growth and delivering for our clients, teammates, communities and shareholders every day.Being a Great Place to Work is core to how we drive Responsible Growth. This includes our commitment to being an inclusive workplace, attracting and developing exceptional talent, supporting our teammates’ physical, emotional, and f...
-
-### 4. Senior Software Engineer, Ad Serving — Roku
+### 7. Data Scientist, Generative & Agentic AI Solutions — Alvarez & Marsal
 - Rating: ★★★★★ (8.90)
 - Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4385579339
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Teamwork makes the stream work. Roku is changing how the world watches TVRoku is the #1 TV streaming platform in the U.S., Canada, and Mexico, and we've set our sights on powering every television in the world. Roku pioneered streaming to the TV. Our mission is to be the TV streaming platform that connects the entire TV ecosystem. We connect consumers to the content they love, enable content publishers to build and monetize large audiences, and provide advertisers unique capabilities to engage c...
+- Employment type: Unknown
+- LinkedIn job ID: 4384632370
+- Link: https://www.linkedin.com/jobs/view/data-scientist-generative-agentic-ai-solutions-at-alvarez-marsal-4384632370?position=9&pageNum=0&refId=AuErHm5UqquiMNoX6FJKlw%3D%3D&trackingId=D9%2Fqs7OEqB02lEC1G9KgJw%3D%3D
+- Why it ranked: recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, fastapi, sql, llm, health
+- Summary: Description  About Alvarez & Marsal  Alvarez & Marsal (A&M) is a global consulting firm with over 10,000 entrepreneurial, action and results-oriented professionals in over 40 countries. We take a hands-on approach to solving our clients' problems and assisting them in reaching their potential. Our culture celebrates independent thinkers and doers who positively impact our clients and shape our industry. The collaborative environment and engaging work—guided by A&M's core values of Integrity, Qua...
 
-### 5. Software Engineer III, Full Stack, Commerce — Google
+### 8. Software Engineer — Uber
 - Rating: ★★★★★ (8.90)
 - Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
+- Employment type: Unknown
+- LinkedIn job ID: 4385814898
+- Link: https://www.linkedin.com/jobs/view/software-engineer-at-uber-4385814898?position=1&pageNum=0&refId=HIIqagbaZiZvRaFauUUSkw%3D%3D&trackingId=WAmhGNk3u7Vl3y%2FzOoDPvw%3D%3D
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: This Notice is provided as a result of the filing of applications for permanent alien labor certification for the positions noted below. Any person may provide documentary evidence bearing on an application to the Certifying Officer, U.S. Department of Labor, Employment and Training Administration, Office of Foreign Labor Certification, 200 Constitution Avenue NW, Room N-5311, Washington, DC 20210.  Employer:  Uber Technologies, Inc.  Job Title:  Software Engineer  Job Location:  New York, New Y...
+
+### 9. Software Engineer — Uber
+- Rating: ★★★★★ (8.90)
+- Location: New York, NY
+- Employment type: Unknown
+- LinkedIn job ID: 4385824349
+- Link: https://www.linkedin.com/jobs/view/software-engineer-at-uber-4385824349?position=2&pageNum=0&refId=HIIqagbaZiZvRaFauUUSkw%3D%3D&trackingId=aKXVDnegjcWIeTgTKQERmA%3D%3D
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: Employer:  Uber Technologies, Inc.  Job Title:  Software Engineer  Job Location:  New York, New York  Job Type:  Full Time  Rate of Pay:  $198,000 to $242,000 per year  You will be eligible to participate in Uber's bonus program, and may be offered other types of comp. You will also be eligible for various benefits. More details can be found at the following link https://www.uber.com/careers/benefits .  Duties:  Design, develop, and test software applications. Design, develop, and/or test softwa...
+
+### 10. Software Engineer III, Full Stack, Commerce — Google
+- Rating: ★★★★★ (8.90)
+- Location: New York, NY
+- Employment type: Unknown
 - LinkedIn job ID: 4384602624
-- Link: https://careers.google.com/jobs/results/92409579454767814-software-engineer-iii/?src=Online/LinkedIn/linkedin_us&utm_source=linkedin&utm_medium=jobposting&utm_campaign=contract
+- Link: https://www.linkedin.com/jobs/view/software-engineer-iii-full-stack-commerce-at-google-4384602624?position=4&pageNum=0&refId=HIIqagbaZiZvRaFauUUSkw%3D%3D&trackingId=A82s0j%2F%2FGHKnOcMfuC545A%3D%3D
 - Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: Note: By applying to this position you will have an opportunity to share your preferred working location from the following: New York, NY, USA; Pittsburgh, PA, USA.Minimum qualifications:Bachelor’s degree or equivalent practical experience. 2 years of experience programming in Java or C++.2 years of experience programming in JavaScript or TypeScript.Preferred qualifications:Master's degree or PhD in Computer Science or related technical field. 2 years of experience with performance, large scale ...
-
-### 6. Senior Typescript Software Engineer - Trade Automation & Execution — Bloomberg
-- Rating: ★★★★★ (8.30)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4383168901
-- Link: https://click.appcast.io/t/-MJ3gzRcJDFkPGnRdg5ZqiFy8uqNTVhGnZIt3-ndX2Mng9uks4xanF0FQTn9cEfv?src=LinkedIn
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate
-- Summary: LocationNew YorkBusiness AreaEngineering and CTORef #10049158Description &amp; RequirementsJoin the Pioneers of Trading TechnologyImagine working on a team that’s shaping how buy-side trading workflows are experienced across asset classes, with trillions of dollars flowing through systems you help build every day. The EMS Workflows teams sit at the heart of Bloomberg’s Execution Management Systems, owning the presentation layer for buy-side EMSs across all asset classes.We partner closely with p...
-
-### 7. Analyst or Associate, AI & Platform Engineering — Aker
-- Rating: ★★★★☆ (7.40)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4385567637
-- Link: https://aker-ai.com/jobs/analyst-or-associate-ai-platform-engineering
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, sql, llm
-- Summary: Summary:Aker is seeking an Analyst or Associate to join its AI &amp; Platform Engineering team to design, build, and operate production-grade AI systems. This role focuses on large language models (LLMs), agentic systems, and data platforms that power intelligent decision-making and automation across the firm.This position is suited for individuals who want to build and own real systems end-to-end — from raw data ingestion and transformation to retrieval systems, orchestration layers, and intell...
-
-### 8. Lead Systems Operations Engineer — Wells Fargo
-- Rating: ★★★☆☆ (5.90)
-- Location: Iselin, NJ
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4385553489
-- Link: https://tnl2.jometer.com/v2/job?jz=581jn41b466874231eef93905a37b530adc39CMAJQAYBAACQAAAAAAAQ&utm_source=joveo&publisher=Linkedin%20Flat%20bid
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, mobile
-- Summary: Are you looking for more? Find it here. At Wells Fargo, we believe that a meaningful career is much more than just a job. It’s about finding all the elements that help you thrive, in one place.  means you’re supported in life, not just work. It means having a competitive salary, a robust benefits package, and programs to support your work-life balance and well-being. It means being rewarded for investing in your community, celebrated for being your authentic self, and empowered to grow.About Thi...
-
-### 9. Senior Lead Java Securities Quantitative Analytics Specialist — Wells Fargo
-- Rating: ★★★☆☆ (5.15)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4385561182
-- Link: https://tnl2.jometer.com/v2/job?jz=581jneb4c5e36350155bd9b6ff3b5ca8fc688CMAJQAYBAACQAAAAAAAQ&utm_source=joveo&publisher=Linkedin%20Flat%20bid
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: react, mobile
-- Summary: About This RoleWells Fargo is seeking a Quantitative Software Engineer, Executive Director (Senior Lead Securities Quantitative Analytics Specialist). A successful applicant will be a Java quantitative developer in the Mortgage Modeling Development Center in Wells Fargo Securities, with a focus on Juniper Vasara development. Vasara is the next generation risk platform for the bank. It is an ambitious, green field initiative to tackle the bank's risk computation challenges within capital markets,...
-
-### 10. AI Technology Product Manager-Associate — BlackRock
-- Rating: ★★★☆☆ (4.85)
-- Location: New York, NY
-- Employment type: Full-time
-- Workplace type: Unknown
-- LinkedIn job ID: 4385534768
-- Link: https://careers.blackrock.com/job/-/-/45831/92689558176?source=LinkedIn
-- Why it ranked: full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: health
-- Summary: About This RoleBlackRock is one of the world’s leading asset management firms and Aladdin® is the firm’s an end-to-end operating system for investment professionals to see their whole portfolio, understand risk exposure, and act with precision. Aladdin is the central nervous system powering the investment decisions of both the firm and its clients; a $1bn technology business that has significant growth aspirations over the next five years.The Aladdin Platform team is responsible for engineering ...
+- Summary: Note: By applying to this position you will have an opportunity to share your preferred working location from the following: New York, NY, USA; Pittsburgh, PA, USA.Minimum qualifications:  Bachelor’s degree or equivalent practical experience. 2 years of experience programming in Java or C++. 2 years of experience programming in JavaScript or TypeScript.  Preferred qualifications:  Master's degree or PhD in Computer Science or related technical field. 2 years of experience with performance, large...
 
 ## 2. Filtered-out jobs with reasons
 
-- Engineer — Akkodis Group Nordics: neutral business-rule staffing/vendor signal: it services
-- Senior Software Engineer (GEN AI and Antigravity) — Diversity Nexus: neutral business-rule staffing/vendor signal: c2c
-- Senior Fullstack Software Engineer — Robert Half: neutral business-rule staffing/vendor signal: staffing
-- Senior Software AI Engineer – Hedge Fund (NYC, Hybrid) — Sartre Group: neutral business-rule staffing/vendor signal: recruitment
-- 2026 Summer Internship (US) - Software Engineer, Backend Windows Development — Zebra Technologies: neutral business-rule staffing/vendor signal: it services
-- Senior Software Engineer - Java, Angular — PNC: low-transparency signal: confidential
-- Workday Developer — Avance Consulting: neutral business-rule staffing/vendor signal: recruiting
-- Senior Functional Tester — ECLARO: neutral business-rule staffing/vendor signal: staffing
-- Software Developer - .NET — Orion Innovation: neutral business-rule staffing/vendor signal: recruitment
-- Software Developer - .NET — Orion Innovation: neutral business-rule staffing/vendor signal: recruitment
-- C++ Developer — Robert Half: neutral business-rule staffing/vendor signal: talent solutions
-- Developer — Akkodis Group Nordics: neutral business-rule staffing/vendor signal: it services
-- UI Developer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
-- Software Engineer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
-- Software Engineer — Goliath Partners: neutral business-rule staffing/vendor signal: talent solutions
-- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
-- Junior Java Developer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
-- Associate GenAI Engineer — Deloitte: neutral business-rule staffing/vendor signal: it services
-- DC Policy Technical Lead — Capgemini: neutral business-rule staffing/vendor signal: recruiting
-- Duckcreek Policy Tech Lead — Capgemini: neutral business-rule staffing/vendor signal: recruiting
-- Senior GraphQL Engineer — Jobot: neutral business-rule staffing/vendor signal: staffing
-- Azure DevOpst Test Lead - Hybrid NYC — Randstad Digital Americas: neutral business-rule staffing/vendor signal: talent solutions
-- V&V Engineer/System Verification Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- V&V Engineer/System Verification Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- Postdoctoral Fellow-R&D Science Engineer — Pfizer: low-transparency signal: confidential
-- Quadient Developer — Cenicor Technologies Inc.: neutral business-rule staffing/vendor signal: staffing
-- Adobe Experience Manager — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- Quantum Calibration Software Developer — IBM: neutral business-rule staffing/vendor signal: it services
-- Sr. Functional Tester — Xaxis Solutions: neutral business-rule staffing/vendor signal: staffing
-- Artificial Intelligence - Senior Quality Assurance Engineer - Remote — Pellera Technologies: neutral business-rule staffing/vendor signal: recruiting
+- Scaled AI Success Engineer — OpenAI: low-transparency signal: confidential
 
 ## 3. Count of already-seen jobs skipped
 
-- 1
+- 0

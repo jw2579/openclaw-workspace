@@ -1,17 +1,16 @@
 ---
 name: linkedin_apify_jobs
-description: Fetch fresh LinkedIn jobs from Apify, filter low-quality companies, dedupe, rank, summarize, and support recurring runs.
+description: Fetch fresh LinkedIn jobs via the free guest API first, automatically fall back to Apify if LinkedIn anti-bot blocks the scrape, filter low-quality companies, dedupe, rank, optionally insert into Notion, summarize, and support recurring runs.
 metadata:
   openclaw:
     requires:
-      env: [APIFY_TOKEN]
-      primaryEnv: APIFY_TOKEN
       anyBins: [python3]
+    optionalEnv: [NOTION_TOKEN, NOTION_DB_ID, APIFY_TOKEN]
 ---
 
 # linkedin_apify_jobs
 
-Use this skill to fetch fresh LinkedIn job listings via Apify actor `curious_coder/linkedin-jobs-scraper`, filter low-quality companies, dedupe by LinkedIn job ID, rank against Jiaxuan's resume/preferences, and generate a report for recurring announcements.
+Use this skill to fetch fresh LinkedIn job listings via LinkedIn's free guest API (no API key, no cost), automatically fall back to the prior Apify actor when LinkedIn anti-bot blocks the guest scrape and `APIFY_TOKEN` is available, filter low-quality companies, dedupe by LinkedIn job ID, rank against Jiaxuan's resume/preferences, optionally insert accepted jobs into a Notion database, and generate a report for recurring Discord announcements.
 
 ## Required reads
 
@@ -24,6 +23,8 @@ Before running the workflow, read these when present:
 
 - Never use nationality, ethnicity, race, or origin based filtering.
 - Use only neutral business-rule filtering plus the editable denylist in `data/company_denylist.json`.
+- Neutral business-rule signals (staffing/vendor/recruiting) are checked ONLY against company metadata (name, website, description, industries), NOT against job description text.
+- Citizenship/PR eligibility filter rejects jobs requiring US citizenship, permanent residency, or security clearance — this is a legal eligibility check, not identity-based.
 - Prefer the local helper script `scripts/linkedin_apify_jobs.py` for fetch/filter/dedupe/report work.
 - Keep persistent state minimal and private.
 - Do not persist secrets into workspace files, reports, logs, or memory.
@@ -31,11 +32,37 @@ Before running the workflow, read these when present:
 ## Typical run
 
 ```bash
-APIFY_TOKEN=... python3 scripts/linkedin_apify_jobs.py
+python3 scripts/linkedin_apify_jobs.py
+```
+
+With Notion integration:
+```bash
+NOTION_TOKEN=... NOTION_DB_ID=... python3 scripts/linkedin_apify_jobs.py
 ```
 
 Optional environment overrides:
-- `LINKEDIN_PUBLIC_SEARCH_URL`
 - `LINKEDIN_REPORT_PATH`
 - `LINKEDIN_SEEN_STATE_PATH`
 - `LINKEDIN_DENYLIST_PATH`
+- `LINKEDIN_COUNT` (default: 100)
+- `NOTION_TOKEN` (optional — if provided with NOTION_DB_ID, accepted jobs are inserted into Notion)
+- `NOTION_DB_ID` (optional — Notion database ID for job tracking)
+- `APIFY_TOKEN` (optional — enables automatic fallback to the legacy Apify actor if LinkedIn guest requests hit anti-bot/captcha)
+
+## Data source
+
+Primary source: LinkedIn's free guest/public API endpoints (no authentication required):
+- Search: `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?...`
+- Detail: `https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/<job_id>`
+
+Fallback source when LinkedIn anti-bot blocks detail fetches and `APIFY_TOKEN` is available:
+- Apify actor: `curious_coder/linkedin-jobs-scraper`
+- Input style: LinkedIn public search URLs + `scrapeCompany=true`
+
+## Search configuration
+
+- Queries: software developer, software engineer, backend engineer, full stack engineer, ai engineer, mobile developer
+- Location: New York City Metropolitan Area (geoId=90000070, distance=25)
+- Freshness: last 4 hours
+- Max candidates: 100
+- Top picks: 5-10 depending on quality
