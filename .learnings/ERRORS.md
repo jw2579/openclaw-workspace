@@ -99,3 +99,35 @@ Wrap region-level Apify fallback in a `try/except`, log the fallback failure, an
 - **Notes**: Region-level fallback failures now degrade gracefully; smoke test completed successfully with guest results preserved.
 
 ---
+## [ERR-20260314-004] sessions_send_cross_thread_visibility
+
+**Logged**: 2026-03-14T18:58:00Z
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+`sessions_send` cannot be used to push messages into an unrelated Discord thread session when session visibility is restricted to the current session tree.
+
+### Error
+```
+Session send visibility is restricted to the current session tree (tools.sessions.visibility=tree).
+```
+
+### Context
+- Operation attempted: send a one-off test message (`hello msg`) from the old `#job-alert` thread into the new `Job Tracker` thread session
+- Tool: `sessions_send`
+- Target session: `agent:main:discord:channel:1482225712093069415`
+
+### Suggested Fix
+For cross-thread delivery outside the current session tree, use cron `announce` delivery to the target thread instead of `sessions_send`.
+
+### Metadata
+- Reproducible: yes
+- Related Files: TOOLS.md
+
+### Resolution
+- **Resolved**: 2026-03-14T18:58:00Z
+- **Notes**: Switched to a one-shot cron announce for the test message.
+
+---
