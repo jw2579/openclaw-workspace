@@ -1230,6 +1230,11 @@
       "first_seen_at": "2026-03-13T12:34:12+00:00",
       "title": "Forward Deployed Engineer, GenAI, Google Cloud"
     },
+    "4374082998": {
+      "companyName": "Siemens EDA (Siemens Digital Industries Software)",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Cloud Solutions Engineer"
+    },
     "4374086741": {
       "companyName": "Fortune",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
@@ -1760,6 +1765,31 @@
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "AI Research Scientist, SysML - FAIR"
     },
+    "4383673513": {
+      "companyName": "Applitools",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Developer Relations Engineer"
+    },
+    "4383680259": {
+      "companyName": "Unity South APAC (SEA, ANZ, IND Subcont.)",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Netcode Engineer"
+    },
+    "4383683028": {
+      "companyName": "Unity South APAC (SEA, ANZ, IND Subcont.)",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Full-Stack Engineer, Unity Ads SDK"
+    },
+    "4383683029": {
+      "companyName": "Unity South APAC (SEA, ANZ, IND Subcont.)",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior SDK Engineer, Unity Ads (iOS)"
+    },
+    "4383683124": {
+      "companyName": "AirOps",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior / Staff Software Engineer, Data Platform"
+    },
     "4383910669": {
       "companyName": "TalentAlly",
       "first_seen_at": "2026-03-14T05:56:03+00:00",
@@ -2274,6 +2304,56 @@
       "companyName": "Jobs via Dice",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Full Stack Developer"
+    },
+    "4384913943": {
+      "companyName": "FetchJobs.co",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Web Developer"
+    },
+    "4384916781": {
+      "companyName": "FetchJobs.co",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "System Engineer"
+    },
+    "4384920908": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Frontend Engineer"
+    },
+    "4384920915": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Software Engineer (full-stack)"
+    },
+    "4384922714": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Java / J2EE Developer (Hibernate / Angular / Spring Boot / Google Cloud Platform)"
+    },
+    "4384932188": {
+      "companyName": "Roblox",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Software Engineer, Profile"
+    },
+    "4384935048": {
+      "companyName": "Talentum, Inc.",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior QA Engineer (Manual / Automation)"
+    },
+    "4384938078": {
+      "companyName": "Pinetree Research",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Founding Member of Technical Staff"
+    },
+    "4384940103": {
+      "companyName": "Esyconnect",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Developer"
+    },
+    "4384942077": {
+      "companyName": "Reflection AI",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Don't See Your Role? Apply Here!"
     },
     "4385100761": {
       "companyName": "Handshake",
@@ -2804,6 +2884,171 @@
       "companyName": "Cisco",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Software Engineer"
+    },
+    "4386005381": {
+      "companyName": "Spectrum",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Engineer IV"
+    },
+    "4386020847": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "C++ Engineer - High Performance Computing (HPC)"
+    },
+    "4386020988": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386021686": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Engineer II"
+    },
+    "4386023819": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386024499": {
+      "companyName": "Cisco",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Engineering Technical Leader"
+    },
+    "4386024722": {
+      "companyName": "Citizens",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Principal Software Engineer"
+    },
+    "4386024972": {
+      "companyName": "Fini",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "User Interface Engineer"
+    },
+    "4386024980": {
+      "companyName": "TransPerfect Connect",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Software Engineer"
+    },
+    "4386025554": {
+      "companyName": "GSBOA",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "E2E AC-Lite Simple Test-2026-03-15"
+    },
+    "4386025661": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Engineer (C#) - Internal Tooling"
+    },
+    "4386026635": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Lead Systems Engineer (Rust) - AI Platform"
+    },
+    "4386029493": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Machine Learning Expert"
+    },
+    "4386029506": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior C++ Full-Stack Engineer \u2014 AI Data & Infrastructure"
+    },
+    "4386030518": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Backend & Tooling Engineer (Rust)"
+    },
+    "4386031534": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Backend & Tooling Engineer (Rust)"
+    },
+    "4386031661": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386032656": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386033646": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386034406": {
+      "companyName": "Capgemini",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Firmware Validation Engineer I"
+    },
+    "4386034447": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Python Full-Stack Engineer \u2014 AI Data & Infrastructure"
+    },
+    "4386035693": {
+      "companyName": "TransPerfect Connect",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Senior Software Engineer"
+    },
+    "4386036468": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Java Developer"
+    },
+    "4386037470": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386038176": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Python Software Engineer - AI Workflows"
+    },
+    "4386039225": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386039226": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386040083": {
+      "companyName": "Inside Higher Ed",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Software Developer"
+    },
+    "4386041039": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Principal Rust Engineer - ML Infrastructure"
+    },
+    "4386041227": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386042184": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Front-End Developer"
+    },
+    "4386042185": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "Dot NET Developer"
+    },
+    "4386044138": {
+      "companyName": "Ataraxis AI",
+      "first_seen_at": "2026-03-15T07:55:12+00:00",
+      "title": "GTM Engineer"
     }
   }
 }
