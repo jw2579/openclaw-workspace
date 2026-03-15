@@ -2315,6 +2315,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "System Engineer"
     },
+    "4384919999": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Engineer, Backend"
+    },
     "4384920908": {
       "companyName": "RemoteHunter",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -2325,15 +2330,40 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Senior Software Engineer (full-stack)"
     },
+    "4384921839": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Lead Full Stack Engineer (REMOTE)"
+    },
     "4384922714": {
       "companyName": "Jobs via Dice",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Java / J2EE Developer (Hibernate / Angular / Spring Boot / Google Cloud Platform)"
     },
+    "4384927686": {
+      "companyName": "hackajob",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Senior Lead Software Engineer"
+    },
+    "4384929651": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Software Engineer"
+    },
+    "4384931578": {
+      "companyName": "Wearable Technologies Inc.",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Full Stack Engineer"
+    },
     "4384932188": {
       "companyName": "Roblox",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Senior Software Engineer, Profile"
+    },
+    "4384932540": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Senior Backend Engineer"
     },
     "4384935048": {
       "companyName": "Talentum, Inc.",
@@ -2350,10 +2380,25 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Software Developer"
     },
+    "4384941186": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Infrastructure Software Engineer"
+    },
     "4384942077": {
       "companyName": "Reflection AI",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Don't See Your Role? Apply Here!"
+    },
+    "4384942155": {
+      "companyName": "hackajob",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Senior Software Engineer, Motion Planning"
+    },
+    "4384943019": {
+      "companyName": "RemoteHunter",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Senior Full Stack Software Engineer"
     },
     "4385100761": {
       "companyName": "Handshake",
@@ -2920,6 +2965,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Principal Software Engineer"
     },
+    "4386024844": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Dot NET Developer"
+    },
     "4386024972": {
       "companyName": "Fini",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -2945,6 +2995,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Lead Systems Engineer (Rust) - AI Platform"
     },
+    "4386027905": {
+      "companyName": "GEI Consultants, Inc.",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Full Stack Engineer"
+    },
     "4386029493": {
       "companyName": "Alignerr",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -2954,6 +3009,11 @@
       "companyName": "Alignerr",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Senior C++ Full-Stack Engineer \u2014 AI Data & Infrastructure"
+    },
+    "4386029651": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Dot NET Developer"
     },
     "4386030518": {
       "companyName": "Alignerr",
@@ -3010,6 +3070,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Python Software Engineer - AI Workflows"
     },
+    "4386038180": {
+      "companyName": "Alignerr",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "C++ Engineer - High Performance Computing (HPC)"
+    },
     "4386039225": {
       "companyName": "Bright Vision Technologies",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -3024,6 +3089,11 @@
       "companyName": "Inside Higher Ed",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Software Developer"
+    },
+    "4386040231": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Dot NET Developer"
     },
     "4386041039": {
       "companyName": "Alignerr",
@@ -3049,6 +3119,11 @@
       "companyName": "Ataraxis AI",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "GTM Engineer"
+    },
+    "4386046019": {
+      "companyName": "Bright Vision Technologies",
+      "first_seen_at": "2026-03-15T08:30:19+00:00",
+      "title": "Dot NET Developer"
     }
   }
 }
