@@ -17,7 +17,15 @@ REPORTS_DIR = WORKSPACE / "reports"
 LOGS_DIR = WORKSPACE / "logs"
 SEEN_PATH = Path(os.environ.get("LINKEDIN_SEEN_STATE_PATH", DATA_DIR / "seen_linkedin_jobs.json"))
 DENYLIST_PATH = Path(os.environ.get("LINKEDIN_DENYLIST_PATH", DATA_DIR / "company_denylist.json"))
-REPORT_PATH = Path(os.environ.get("LINKEDIN_REPORT_PATH", REPORTS_DIR / "linkedin_jobs_latest.md"))
+# Report filename with timestamp + also maintain latest.md as alias
+def get_report_path():
+    from datetime import datetime
+    now_utc = datetime.utcnow()
+    timestamped_name = f"linkedin_jobs_{now_utc.strftime('%Y-%m-%d_%H%M')}.md"
+    return REPORTS_DIR / timestamped_name
+
+REPORT_PATH = Path(os.environ.get("LINKEDIN_REPORT_PATH", get_report_path()))
+REPORT_LATEST = REPORTS_DIR / "linkedin_jobs_latest.md"
 RESUME_PATH = WORKSPACE / "memory" / "resume-jiaxuan.md"
 LOW_PEAK_MIN_SCORE = float(os.environ.get("LINKEDIN_LOW_PEAK_MIN_SCORE", "5.5"))
 ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
@@ -103,6 +111,10 @@ CITIZENSHIP_RE = re.compile("|".join(CITIZENSHIP_PR_PATTERNS), re.IGNORECASE)
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+def now_edt():
+    from zoneinfo import ZoneInfo
+    return datetime.now(ZoneInfo("America/New_York")).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def ensure_dirs() -> None:
@@ -1221,7 +1233,8 @@ def main() -> int:
     region_runs = fetch_meta.get("region_runs") or []
     active_profile_summary = ", ".join(fetch_meta.get("active_profiles") or [])
     lines.append("# LinkedIn Jobs Report\n")
-    lines.append(f"- Generated at: {stamp}")
+    lines.append(f"- Generated at: {now_edt()} (EDT)")
+    lines.append(f"- Generated at (UTC): {stamp}")
     lines.append(f"- Schedule timezone: {SCHEDULE_TIMEZONE}")
     lines.append(f"- Scheduled run hours EDT: {', '.join(str(hour) for hour in RUN_HOURS_EDT)}")
     if fetch_meta.get("hour_edt") is not None:
@@ -1327,6 +1340,8 @@ def main() -> int:
     final_report = "\n".join(lines).rstrip() + "\n"
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.write_text(final_report)
+    # Also maintain linkedin_jobs_latest.md as an alias to the latest report
+    REPORT_LATEST.write_text(final_report)
     local_report_status = str(REPORT_PATH)
 
     # Console summary for Discord announce
