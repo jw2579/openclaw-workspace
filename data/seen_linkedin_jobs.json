@@ -20,6 +20,11 @@
       "first_seen_at": "2026-03-13T16:34:12+00:00",
       "title": "Full Stack Software Engineer - Application Development"
     },
+    "4088517379": {
+      "companyName": "Cohere",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Senior Member of Technical Staff, Multimodal AI"
+    },
     "4119949418": {
       "companyName": "Celonis",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -199,6 +204,11 @@
       "companyName": "DoorDash",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Software Engineer, ML Serving Platform"
+    },
+    "4291686342": {
+      "companyName": "Snap Inc.",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Principal Software Engineer, Growth, Level 7"
     },
     "4291687309": {
       "companyName": "Snap Inc.",
@@ -395,6 +405,11 @@
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Senior Options Software Engineer"
     },
+    "4314533194": {
+      "companyName": "ZipRecruiter",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Senior Software Engineer, Site Reliability"
+    },
     "4314815691": {
       "companyName": "Ramp",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
@@ -459,6 +474,11 @@
       "companyName": "Epic",
       "first_seen_at": "2026-03-14T15:34:00+00:00",
       "title": "Technical Solutions Engineer"
+    },
+    "4324629610": {
+      "companyName": "Whatnot",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Software Engineer, Seller Growth"
     },
     "4324658519": {
       "companyName": "Reflection AI",
@@ -544,6 +564,16 @@
       "companyName": "Hopper",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Senior Software Engineer - Customer Experience Platform"
+    },
+    "4328198003": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Software Engineer II"
+    },
+    "4328198004": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Senior Software Engineer"
     },
     "4328260230": {
       "companyName": "PwC",
@@ -650,19 +680,49 @@
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
     },
+    "4334579993": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Android Developer"
+    },
     "4334589237": {
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-15T13:07:53+00:00",
       "title": "Software Engineer III- Data"
+    },
+    "4334599636": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Mobile Application Developer (Android)"
+    },
+    "4334599639": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Mobile Software Engineer"
+    },
+    "4334609304": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Mobile Software Engineer"
     },
     "4334609318": {
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
     },
+    "4334609326": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Software Engineer (Mobile Focus)"
+    },
     "4334619195": {
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
+      "title": "Full Stack Developer (Kotlin or Java)"
+    },
+    "4334631054": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
     },
     "4334633162": {
@@ -684,6 +744,11 @@
       "companyName": "Abridge",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Engineering Manager, GenAI Platform"
+    },
+    "4334670485": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Backend Developer (Kotlin/Java, Android APIs)"
     },
     "4334670503": {
       "companyName": "DataAnnotation",
@@ -715,6 +780,11 @@
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Developer Productivity Engineer"
     },
+    "4334700251": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Android Software Engineer"
+    },
     "4334710199": {
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
@@ -725,15 +795,35 @@
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Backend Developer (Kotlin/Java, Android APIs)"
     },
+    "4334720157": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Mobile Application Developer (Android)"
+    },
+    "4334720159": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Backend Developer (Kotlin/Java, Android APIs)"
+    },
     "4334720173": {
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
     },
+    "4334730101": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Backend Developer (Kotlin/Java, Android APIs)"
+    },
     "4334730108": {
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
+    },
+    "4334730116": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Software Engineer (Mobile Focus)"
     },
     "4334750063": {
       "companyName": "DataAnnotation",
@@ -744,6 +834,16 @@
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
+    },
+    "4334760052": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Backend Developer (Kotlin/Java, Android APIs)"
+    },
+    "4334760062": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Backend Developer (Kotlin/Java, Android APIs)"
     },
     "4334760064": {
       "companyName": "DataAnnotation",
@@ -764,6 +864,11 @@
       "companyName": "DataAnnotation",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Full Stack Developer (Kotlin or Java)"
+    },
+    "4334780004": {
+      "companyName": "DataAnnotation",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Software Engineer (Mobile Focus)"
     },
     "4337350999": {
       "companyName": "Legora",
@@ -1005,6 +1110,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Software Engineer, Backend Developer Experience"
     },
+    "4349376186": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Senior Software Engineer"
+    },
     "4349701623": {
       "companyName": "Bloomberg",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -1053,6 +1163,11 @@
     "4354682049": {
       "companyName": "Snap Inc.",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
+      "title": "Software Engineer, Full Stack, Level 4"
+    },
+    "4354691598": {
+      "companyName": "Snap Inc.",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
       "title": "Software Engineer, Full Stack, Level 4"
     },
     "4356057549": {
@@ -1274,6 +1389,11 @@
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-15T13:07:53+00:00",
       "title": "Software Engineer III- Big Data / AI/ML / Python / React"
+    },
+    "4359766231": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T18:45:07+00:00",
+      "title": "Software Engineer II"
     },
     "4359781208": {
       "companyName": "Gusto",
@@ -1544,6 +1664,11 @@
       "companyName": "Snap Inc.",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Software Engineer, Full Stack, Level 4"
+    },
+    "4367937405": {
+      "companyName": "Microsoft",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Senior Software Engineer"
     },
     "4367955105": {
       "companyName": "Microsoft",
@@ -2299,6 +2424,11 @@
       "companyName": "Flightcast",
       "first_seen_at": "2026-03-15T13:07:53+00:00",
       "title": "Senior Founding Engineer (Full Stack)"
+    },
+    "4383691709": {
+      "companyName": "Funda\u00e7\u00e3o SEPPA",
+      "first_seen_at": "2026-03-15T19:04:57+00:00",
+      "title": "Software Enginee (Entry-Level / Associate)"
     },
     "4383910669": {
       "companyName": "TalentAlly",
