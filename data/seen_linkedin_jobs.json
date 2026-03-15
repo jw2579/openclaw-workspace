@@ -35,6 +35,11 @@
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "AI Research Scientist \u2013 Datadog AI Research (DAIR)"
     },
+    "4144968610": {
+      "companyName": "Column",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer (Product)"
+    },
     "4158283450": {
       "companyName": "DoorDash",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -64,6 +69,11 @@
       "companyName": "Tecton",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Staff Software Engineer, Realtime Data"
+    },
+    "4233507866": {
+      "companyName": "Rivian",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Sr. Machine Learning/AI Engineer"
     },
     "4239978849": {
       "companyName": "Figma",
@@ -100,10 +110,20 @@
       "first_seen_at": "2026-03-14T15:37:59+00:00",
       "title": "Staff Machine Learning Engineer - Causal Inference"
     },
+    "4258378544": {
+      "companyName": "Applied Intuition",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer - Developer Infrastructure"
+    },
     "4258558564": {
       "companyName": "Duolingo",
       "first_seen_at": "2026-03-13T12:34:12+00:00",
       "title": "Senior iOS Engineer, App Builds"
+    },
+    "4259704030": {
+      "companyName": "Uber",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Machine Learning Engineer - Marketplace Pricing"
     },
     "4268651352": {
       "companyName": "Crestron Electronics",
@@ -155,10 +175,20 @@
       "first_seen_at": "2026-03-14T16:03:44+00:00",
       "title": "Backend Software Engineer - Reference Data Services"
     },
+    "4284500255": {
+      "companyName": "PTR Global",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior software engineer (.Net)"
+    },
     "4290869777": {
       "companyName": "DoorDash",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Software Engineer, ML Serving Platform"
+    },
+    "4293661896": {
+      "companyName": "Samsara",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Engineer I - External Platform"
     },
     "4294211870": {
       "companyName": "BRG",
@@ -179,6 +209,16 @@
       "companyName": "Genentech",
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Machine Learning Engineer, Foundation Models (Prescient / AI for Drug Discovery)"
+    },
+    "4300074337": {
+      "companyName": "Doppel",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer, Infrastructure"
+    },
+    "4301565384": {
+      "companyName": "Monolithic Power Systems, Inc.",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "AI Developer Intern"
     },
     "4302993309": {
       "companyName": "Dataminr",
@@ -270,6 +310,16 @@
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Staff Machine Learning Engineer"
     },
+    "4304820431": {
+      "companyName": "BitGo",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer - Wallet Core"
+    },
+    "4305256153": {
+      "companyName": "General Motors",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "ML / AI Software Engineer - C++ Metrics Frameworks"
+    },
     "4308848905": {
       "companyName": "Metropolitan Transportation Authority",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -289,6 +339,16 @@
       "companyName": "Morgan & Morgan, P.A.",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
       "title": "TLM, Salesforce Engineering"
+    },
+    "4312232372": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Machine Learning Engineer Intern, (MS/PhD) 2026"
+    },
+    "4312233312": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Machine Learning/AI Scientist Intern (PhD), 2026"
     },
     "4313368561": {
       "companyName": "Citadel Securities",
@@ -320,6 +380,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Senior Platform Engineer - Kubernetes"
     },
+    "4320957428": {
+      "companyName": "Adobe",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Development Engineer"
+    },
     "4320985164": {
       "companyName": "Headway",
       "first_seen_at": "2026-03-14T16:03:44+00:00",
@@ -329,6 +394,16 @@
       "companyName": "Whatnot",
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Software Engineer, Discovery (Search)"
+    },
+    "4323238572": {
+      "companyName": "Rivian",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineering - Summer 2026 Internships"
+    },
+    "4323338353": {
+      "companyName": "Rivian",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineering - Summer 2026 Internships"
     },
     "4324331623": {
       "companyName": "Trexquant Investment LP",
@@ -430,6 +505,11 @@
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Forward Deployed Software Engineer- Palantir Foundry- Senior Manager"
     },
+    "4328272690": {
+      "companyName": "Reddit, Inc.",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Engineer, Android Test Engineering"
+    },
     "4328310062": {
       "companyName": "PwC",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
@@ -465,10 +545,25 @@
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Forward Deployed Software Engineer-Palantir Foundry-Director"
     },
+    "4331546468": {
+      "companyName": "Clearwater Analytics",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Development Engineer III"
+    },
+    "4331556366": {
+      "companyName": "Clearwater Analytics",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Development Engineer"
+    },
     "4331596031": {
       "companyName": "Cockroach Labs",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Member of Technical Staff (SRE)"
+    },
+    "4331956082": {
+      "companyName": "Anything",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Mobile Engineer"
     },
     "4332254414": {
       "companyName": "Anthropic",
@@ -485,10 +580,25 @@
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Principal Quant Developer"
     },
+    "4334398828": {
+      "companyName": "Light",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer"
+    },
     "4334522587": {
       "companyName": "Gusto",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Staff Applied AI and Machine Learning Engineer, Payments & Risk"
+    },
+    "4334589237": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer III- Data"
+    },
+    "4334655587": {
+      "companyName": "The D. E. Shaw Group",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Product Engineer \u2013 Private Equity Platform"
     },
     "4334772124": {
       "companyName": "Notion",
@@ -500,15 +610,30 @@
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Legal Engineer"
     },
+    "4337844278": {
+      "companyName": "Samsara",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Engineer II - External Platform"
+    },
     "4337859728": {
       "companyName": "SiriusXM",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Staff Software Engineer, Application Development & Testing"
     },
+    "4337884276": {
+      "companyName": "Chime",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer, Financial Platform"
+    },
     "4337899610": {
       "companyName": "SiriusXM",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Staff Software Engineer, Application Development & Testing"
+    },
+    "4337933694": {
+      "companyName": "Samsara",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Engineer I - External Platform"
     },
     "4337960542": {
       "companyName": "Credit Genie",
@@ -535,6 +660,11 @@
       "first_seen_at": "2026-03-14T15:18:45+00:00",
       "title": "VDC Engineer"
     },
+    "4339089587": {
+      "companyName": "CLEAR",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer, Platform"
+    },
     "4339119493": {
       "companyName": "Aircall",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -559,6 +689,11 @@
       "companyName": "Bloomberg",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
       "title": "Senior Software Engineer - Terminal Deployment Infrastructure"
+    },
+    "4341990612": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Data Scientist (L4) -  Marketing and Experience DSE"
     },
     "4343858358": {
       "companyName": "Bloomberg",
@@ -640,6 +775,26 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Software Engineer, Full Stack - Developer Console"
     },
+    "4345161911": {
+      "companyName": "Intuit",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Software Engineer - Backend"
+    },
+    "4345171935": {
+      "companyName": "Intuit",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Software Engineer-Full Stack"
+    },
+    "4345290048": {
+      "companyName": "Deloitte",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "AI Solutions Leader"
+    },
+    "4345390049": {
+      "companyName": "Medpace",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer"
+    },
     "4345410432": {
       "companyName": "Microsoft",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
@@ -650,6 +805,11 @@
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Software Engineer"
     },
+    "4347685563": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full-Stack Engineer L5, ML Insights & Visualizations, Machine Learning Platform"
+    },
     "4347742633": {
       "companyName": "Suno",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -659,6 +819,11 @@
       "companyName": "Suno",
       "first_seen_at": "2026-03-14T15:18:45+00:00",
       "title": "Software Engineer, Growth"
+    },
+    "4347818126": {
+      "companyName": "Cognition",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Machine Learning Researcher"
     },
     "4348317570": {
       "companyName": "DoorDash",
@@ -689,6 +854,16 @@
       "companyName": "FanDuel",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Software Engineer - Sportsbook"
+    },
+    "4352452995": {
+      "companyName": "Woven by Toyota",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Machine Learning Engineer, Vehicle Perception (Internship)"
+    },
+    "4352580476": {
+      "companyName": "Walmart",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "(USA) Staff, Software Engineer"
     },
     "4356057549": {
       "companyName": "Bloomberg",
@@ -735,6 +910,11 @@
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
     },
+    "4356762752": {
+      "companyName": "EY",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
+    },
     "4356791776": {
       "companyName": "NetApp",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
@@ -754,6 +934,11 @@
       "companyName": "EY",
       "first_seen_at": "2026-03-14T15:18:45+00:00",
       "title": "SAP - Tech/Arch - Integrations Senior - Consulting - Location OPEN"
+    },
+    "4356952253": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Solutions Software Engineer"
     },
     "4357041406": {
       "companyName": "ALO",
@@ -790,6 +975,11 @@
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Data Scientist II"
     },
+    "4359388320": {
+      "companyName": "Deloitte",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Deloitte Technology | Product Engineering | Full Stack Software Engineer| PxE A&A"
+    },
     "4359446226": {
       "companyName": "BlackRock",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
@@ -799,6 +989,16 @@
       "companyName": "Tubi",
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Staff Software Engineer, ML Infra & Distributed Systems"
+    },
+    "4359467362": {
+      "companyName": "StubHub",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer II - Open Distribution (Backend)"
+    },
+    "4359476827": {
+      "companyName": "Oliver Wyman",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Oliver Wyman - Associate/ Engagement Manager / Principal \u2013 Tech Innovation Practice (Technical Architecture & Delivery Focus)"
     },
     "4359491959": {
       "companyName": "Maybern",
@@ -830,10 +1030,35 @@
       "first_seen_at": "2026-03-14T15:13:37+00:00",
       "title": "Senior Software Engineer I"
     },
+    "4359737192": {
+      "companyName": "Unusual Ventures",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Platform Engineer -GovSignals"
+    },
+    "4359751153": {
+      "companyName": "Roku",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Data Scientist"
+    },
     "4359752501": {
       "companyName": "SoFi",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Senior Full-Stack Software Engineer, Member Growth"
+    },
+    "4359761397": {
+      "companyName": "Roku",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer, Embedded UI"
+    },
+    "4359765593": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer III- Big Data / AI/ML / Python / React"
+    },
+    "4359781208": {
+      "companyName": "Gusto",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Data Scientist - Product"
     },
     "4359962534": {
       "companyName": "Microsoft",
@@ -854,6 +1079,11 @@
       "companyName": "Nuveen, a TIAA company",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Software Engineer, Asset Management"
+    },
+    "4360620455": {
+      "companyName": "Trimble Inc.",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer"
     },
     "4360631174": {
       "companyName": "Microsoft",
@@ -935,6 +1165,11 @@
       "first_seen_at": "2026-03-13T12:34:12+00:00",
       "title": "Senior Software Engineer - Life Sciences"
     },
+    "4367244229": {
+      "companyName": "EvenUp",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Frontend Engineer, Client Portal"
+    },
     "4367289234": {
       "companyName": "Anthropic",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
@@ -954,6 +1189,11 @@
       "companyName": "JPMorganChase",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
       "title": "Principal Software Engineer - Interest Rate Risk Platform"
+    },
+    "4367446500": {
+      "companyName": "JPMorganChase",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Principal Software Engineer - Java , AI"
     },
     "4367456363": {
       "companyName": "JPMorganChase",
@@ -989,6 +1229,11 @@
       "companyName": "FanDuel",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Software Engineer"
+    },
+    "4367500188": {
+      "companyName": "The LaunchWell Group",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Frontend Engineer"
     },
     "4367503162": {
       "companyName": "Prudential Financial",
@@ -1030,6 +1275,11 @@
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Software Engineer I (Full Time) - United States"
     },
+    "4367619655": {
+      "companyName": "Cleo",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Machine Learning Engineer | San Francisco"
+    },
     "4367631160": {
       "companyName": "Stripe",
       "first_seen_at": "2026-03-14T21:09:16+00:00",
@@ -1064,6 +1314,11 @@
       "companyName": "Microsoft",
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Member of Technical Staff - Principal Backend Engineer, Copilot Memory and Personalization"
+    },
+    "4367984852": {
+      "companyName": "Guidewire Software",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Software Engineer - Application Platform"
     },
     "4368349382": {
       "companyName": "JCPenney",
@@ -1220,6 +1475,16 @@
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Java Developer - Intern"
     },
+    "4373763931": {
+      "companyName": "Robinhood",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Software Engineer, Backend"
+    },
+    "4373765256": {
+      "companyName": "Netflix",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer 4 - Ads Signals Conversion API"
+    },
     "4373984766": {
       "companyName": "Practising Law Institute (PLI)",
       "first_seen_at": "2026-03-13T16:34:12+00:00",
@@ -1329,6 +1594,11 @@
       "companyName": "Morgan Stanley",
       "first_seen_at": "2026-03-14T15:34:00+00:00",
       "title": "Senior Full Stack Software Engineer"
+    },
+    "4374944887": {
+      "companyName": "GEICO",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Staff Software Engineer - AI/ML Platform"
     },
     "4375026062": {
       "companyName": "Persistent Systems, LLC",
@@ -1789,6 +2059,11 @@
       "companyName": "AirOps",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Senior / Staff Software Engineer, Data Platform"
+    },
+    "4383685366": {
+      "companyName": "Flightcast",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Senior Founding Engineer (Full Stack)"
     },
     "4383910669": {
       "companyName": "TalentAlly",
@@ -2375,6 +2650,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Founding Member of Technical Staff"
     },
+    "4384938482": {
+      "companyName": "Haystack",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer"
+    },
     "4384940103": {
       "companyName": "Esyconnect",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -2399,6 +2679,11 @@
       "companyName": "RemoteHunter",
       "first_seen_at": "2026-03-15T08:30:19+00:00",
       "title": "Senior Full Stack Software Engineer"
+    },
+    "4384943297": {
+      "companyName": "Velvet Ledger Workforce",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full Stack Developer"
     },
     "4385100761": {
       "companyName": "Handshake",
@@ -3105,6 +3390,11 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Dot NET Developer"
     },
+    "4386041805": {
+      "companyName": "CityView Solutions",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "ML Data Engineer \u2013 Healthcare Data Curation & Cleaning (1 Year Fixed Term)"
+    },
     "4386042184": {
       "companyName": "Bright Vision Technologies",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
@@ -3115,15 +3405,75 @@
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "Dot NET Developer"
     },
+    "4386043575": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full-Stack Software Engineer $110/hr"
+    },
     "4386044138": {
       "companyName": "Ataraxis AI",
       "first_seen_at": "2026-03-15T07:55:12+00:00",
       "title": "GTM Engineer"
     },
+    "4386044616": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full-Stack Software Engineer"
+    },
     "4386046019": {
       "companyName": "Bright Vision Technologies",
       "first_seen_at": "2026-03-15T08:30:19+00:00",
       "title": "Dot NET Developer"
+    },
+    "4386047303": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Backend Software Engineer - Remote"
+    },
+    "4386050216": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full-Stack Software Engineer"
+    },
+    "4386051122": {
+      "companyName": "Wiraa",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Backend Software Engineer (Java, SQL)"
+    },
+    "4386051221": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full-Stack Software Developer"
+    },
+    "4386052186": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Developer"
+    },
+    "4386052273": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer I"
+    },
+    "4386053081": {
+      "companyName": "Wiraa",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Full Stack Developer"
+    },
+    "4386053296": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Software Engineer I"
+    },
+    "4386054015": {
+      "companyName": "Wiraa",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Backend Engineer (AI)"
+    },
+    "4386055014": {
+      "companyName": "Wiraa",
+      "first_seen_at": "2026-03-15T13:07:53+00:00",
+      "title": "Frontend Software Engineer (React.js, TypeScript)"
     }
   }
 }

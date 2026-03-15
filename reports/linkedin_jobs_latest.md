@@ -1,117 +1,127 @@
 # LinkedIn Jobs Report
 
-- Generated at: 2026-03-15T08:30:19+00:00
+- Generated at: 2026-03-15T13:07:53+00:00
 - Schedule timezone: America/New_York
 - Scheduled run hours EDT: 1, 5, 9, 13, 17, 21
-- Current EDT hour: 4
+- Current EDT hour: 9
 - Active region profiles: new_york:weekend/28, california:weekend/32, us:weekend/48
 - Data source: Mixed: LinkedIn guest API primary, Apify fallback where blocked
 - Search queries: software developer, software engineer, backend engineer, full stack engineer, ai engineer, mobile developer
 - Freshness: last 4 hours
 - Fetch budget: 108
-- Unique jobs fetched: 68
-- Fetch errors: 8
+- Unique jobs fetched: 93
+- Fetch errors: 10
 - Recommendation cap: up to 4
 - Non-peak rule: offpeak/weekend jobs must score >= 5.5 and match target role titles
-- Already seen skipped: 38
-- Filtered out: 15
-  - Filter breakdown: citizenship_pr=1, denylist=4, low_transparency=1, neutral_signals=9
-- New candidates kept: 15
+- Already seen skipped: 0
+- Filtered out: 23
+  - Filter breakdown: citizenship_pr=1, low_transparency=6, neutral_signals=16
+- New candidates kept: 70
 - Notion: 4 inserted, 0 already existed, 0 failed
 
 ## 0. Regional fetch plan
 
-- new_york: location=New York City Metropolitan Area (geoId=90000070, distance=25), period=weekend, fetch_limit=28, fetched=12, source=linkedin_guest_api
-- california: location=California, period=weekend, fetch_limit=32, fetched=16, source=linkedin_guest_api
-- us: location=United States, period=weekend, fetch_limit=48, fetched=48, source=apify_fallback
-  - guest attempt before fallback: raw_cards=44, detail_attempted=44, anti_bot_errors=5
+- new_york: location=New York City Metropolitan Area (geoId=90000070, distance=25), period=weekend, fetch_limit=28, fetched=26, source=linkedin_guest_api
+- california: location=California, period=weekend, fetch_limit=32, fetched=30, source=linkedin_guest_api
+- us: location=United States, period=weekend, fetch_limit=48, fetched=49, source=apify_fallback
+  - guest attempt before fallback: raw_cards=43, detail_attempted=43, anti_bot_errors=6
 
 ## 1. Fetch issues
 
-- new_york: detail 4383683029: LinkedIn request failed: captcha/anti-bot page returned
-- california: detail 4384925430: LinkedIn request failed: captcha/anti-bot page returned
-- california: detail 4386025554: LinkedIn request failed: captcha/anti-bot page returned
-- us guest attempt: detail 4384936057: LinkedIn request failed: captcha/anti-bot page returned
-- us guest attempt: detail 4384941186: LinkedIn request failed: captcha/anti-bot page returned
-- us guest attempt: detail 4384932232: LinkedIn request failed: captcha/anti-bot page returned
-- us guest attempt: detail 4386043074: LinkedIn request failed: captcha/anti-bot page returned
-- us guest attempt: detail 4386039224: LinkedIn request failed: captcha/anti-bot page returned
+- new_york: detail 4373763931: LinkedIn request failed: captcha/anti-bot page returned
+- new_york: detail 4373708093: LinkedIn request failed: captcha/anti-bot page returned
+- california: detail 4383683600: LinkedIn request failed: captcha/anti-bot page returned
+- california: detail 4373767870: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4352423967: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4304820431: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4144968610: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4386055014: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4367619655: LinkedIn request failed: captcha/anti-bot page returned
+- us guest attempt: detail 4328119588: LinkedIn request failed: captcha/anti-bot page returned
 
 ## 2. New recommended jobs
 
-### 1. Lead Full Stack Engineer (REMOTE) — RemoteHunter
+### 1. Senior Software Engineer II - External Platform — Samsara
 - Rating: ⭐⭐⭐⭐⭐
 - Effective period: weekend
 - Search profiles: United States (weekend)
 - Location: United States
 - Posted: 2026-03-15
-- Work mode: Remote
+- Work mode: Hybrid
 - Employment type: Full-time
-- LinkedIn job ID: 4384921839
-- Link: https://www.linkedin.com/jobs/view/lead-full-stack-engineer-remote-at-remotehunter-4384921839?refId=jNT2Ge2o8dTaAw6n3TQzAQ%3D%3D&trackingId=VG6fMwv50ViVMCLgAjcbtA%3D%3D&position=18&pageNum=0
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, react, mobile
-- Summary: 1. About Our Client:The organization operates in the technology sector, focusing on developing cloud-native systems to support diverse users. It addresses challenges in building scalable, modern content creation solutions through remote and local team collaboration. The program emphasizes high-quality technical execution and user experience enhancement at scale.2. About the Opportunity:The Lead Full Stack Engineer role involves managing a team of engineers to design, develop, and deliver well-ar...
+- LinkedIn job ID: 4337844278
+- Link: https://www.linkedin.com/jobs/view/senior-software-engineer-ii-external-platform-at-samsara-4337844278?refId=tC8NFtrt7IxnB%2BbxJb%2BKwQ%3D%3D&trackingId=pDarh9kW%2BHvwvLcO9rkNWw%3D%3D&position=13&pageNum=0
+- Why it ranked: title aligns with target software roles; health/biotech domain fits your health-tech background; full-time role; recent listing metadata present; job description has enough detail to evaluate
+- Summary: Who We AreSamsara (NYSE: IOT) is the pioneer of the Connected Operations™ Cloud, which is a platform that enables organizations that depend on physical operations to harness Internet of Things (IoT) data to develop actionable insights and improve their operations. At Samsara, we are helping improve the safety, efficiency and sustainability of the physical operations that power our global economy. Representing more than 40% of global GDP, these industries are the infrastructure of our planet, inc...
 
-### 2. Senior Backend Engineer — RemoteHunter
+### 2. Senior software engineer (.Net) — PTR Global
 - Rating: ⭐⭐⭐⭐✨
+- Effective period: weekend
+- Search profiles: New York City Metropolitan Area (weekend)
+- Location: Iselin, NJ
+- Posted: 15 minutes ago
+- Work mode: Remote
+- Employment type: Unknown
+- LinkedIn job ID: 4284500255
+- Link: https://www.linkedin.com/jobs/view/senior-software-engineer-net-at-ptr-global-4284500255?position=9&pageNum=0&refId=O9TxyarLR0vzIVXBztfJAQ%3D%3D&trackingId=OuFZdhNNW%2FEaAUoNEuO96A%3D%3D
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: react, sql, mobile
+- Summary: Position: Sr Full stack .Net Developer Location: Iselin, New Jersey Duration: Contract Job ID: 169394  Job Overview:  The client is seeking a Senior Software Engineer to act in the highest technical capacity as an individual contributor and lead other engineers in the development of complex computer applications and initiatives. The candidate must have a thorough understanding of available technologies and tools, including but not limited to .Net, Microservices Architecture, Kafka, Azure Cloud, ...
+
+### 3. Full-Stack Software Engineer $110/hr — Mercor
+- Rating: ⭐⭐⭐⭐
 - Effective period: weekend
 - Search profiles: United States (weekend)
 - Location: United States
 - Posted: 2026-03-15
-- Work mode: Remote
+- Work mode: On-site
 - Employment type: Full-time
-- LinkedIn job ID: 4384932540
-- Link: https://www.linkedin.com/jobs/view/senior-backend-engineer-at-remotehunter-4384932540?refId=jNT2Ge2o8dTaAw6n3TQzAQ%3D%3D&trackingId=MbW6em2%2B5Z3pU%2FMkgbd5dA%3D%3D&position=4&pageNum=0
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: sql, mobile
-- Summary: 1. About Our Client:The organization is a leading player in decentralized finance, developing advanced trading infrastructure for a major decentralized exchange protocol. It has processed over $65 billion in cumulative trading volume and generated eight-figure revenue in the past year. Serving more than 400,000 registered traders, the platform works to broaden access to global financial markets including crypto, equities, and commodities.2. About the Opportunity:The Senior Backend Engineer will ...
+- LinkedIn job ID: 4386043575
+- Link: https://www.linkedin.com/jobs/view/full-stack-software-engineer-%24110-hr-at-mercor-4386043575?refId=ZSCEu6DDvCQ2rtCxMimaFg%3D%3D&trackingId=cvbkJPePNuXE47MVILHqig%3D%3D&position=16&pageNum=0
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, react, llm
+- Summary: About The JobMercor connects elite creative and technical talent with leading AI research labs. Headquartered in San Francisco, our investors include Benchmark, General Catalyst, Peter Thiel, Adam D'Angelo, Larry Summers, and Jack Dorsey.Position: Software EngineerType: ContractCompensation: $80–$110/hourLocation: Remote; MPK if possible for those who want to be onsiteRole ResponsibilitiesDesign, build, and maintain scalable web applications using React/TypeScript and Python.Leverage LLM-based c...
 
-### 3. Full Stack Engineer — GEI Consultants, Inc.
-- Rating: ⭐⭐⭐⭐
-- Effective period: weekend
-- Search profiles: United States (weekend)
-- Location: Dallas, TX
-- Posted: 2026-03-15
-- Work mode: Hybrid
-- Employment type: Full-time
-- LinkedIn job ID: 4386027905
-- Link: https://www.linkedin.com/jobs/view/full-stack-engineer-at-gei-consultants-inc-4386027905?refId=jNT2Ge2o8dTaAw6n3TQzAQ%3D%3D&trackingId=FhmRrOhVmZpx54Fj2dtoQQ%3D%3D&position=3&pageNum=0
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: react, sql
-- Summary: DescriptionYour role at GEI. The Full Stack Engineer is responsible for front-end development and back-end interconnection of solutions that support AI-powered applications and integrations across GEI. This role builds user-facing and backend components for AI-enabled solutions, including custom applications and Copilot extensibility, ensuring seamless integration, performance, and scalability.The Full Stack Engineer plays a hands-on delivery role in active AI Solutions Factory use cases by deve...
-
-### 4. Senior Full Stack Software Engineer — RemoteHunter
+### 4. Full-Stack Software Engineer — Mercor
 - Rating: ⭐⭐⭐✨
 - Effective period: weekend
 - Search profiles: United States (weekend)
 - Location: United States
 - Posted: 2026-03-15
-- Work mode: Remote
+- Work mode: On-site
 - Employment type: Full-time
-- LinkedIn job ID: 4384943019
-- Link: https://www.linkedin.com/jobs/view/senior-full-stack-software-engineer-at-remotehunter-4384943019?refId=jNT2Ge2o8dTaAw6n3TQzAQ%3D%3D&trackingId=1xBHVo61DZ8AkpZQpDA3Zg%3D%3D&position=13&pageNum=0
-- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: sql
-- Summary: 1. About Our Client:The organization operates in the health system pharmacy sector, addressing complex challenges in pharmacy design and operations. It focuses on creating pharmacy footprints that align with client needs today while positioning them for future success. The company delivers measurable financial improvements, operational excellence, and enhanced patient experiences. Its mission is to transform healthcare through pharmacy, aiming to improve lives by reimagining pharmacy services. T...
+- LinkedIn job ID: 4386050216
+- Link: https://www.linkedin.com/jobs/view/full-stack-software-engineer-at-mercor-4386050216?refId=ZSCEu6DDvCQ2rtCxMimaFg%3D%3D&trackingId=aRO2PiA2i4QYwfV5MThnAA%3D%3D&position=10&pageNum=0
+- Why it ranked: title aligns with target software roles; full-time role; recent listing metadata present; job description has enough detail to evaluate; resume overlap: python, react, llm
+- Summary: About The JobMercor connects elite creative and technical talent with leading AI research labs. Headquartered in San Francisco, our investors include Benchmark, General Catalyst, Peter Thiel, Adam D'Angelo, Larry Summers, and Jack Dorsey.Position: Software EngineerType: ContractCompensation: $80–$110/hourLocation: Remote; MPK if possible for those who want to be onsiteRole ResponsibilitiesDesign, build, and maintain scalable web applications using React/TypeScript and Python.Leverage LLM-based c...
 
 ## 3. Filtered-out jobs with reasons
 
-- Senior Engineer -Technology — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- V&V Engineer/System Verification Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- Senior Software Systems Engineer — Areté: citizenship_pr_required
-- Software Engineer (Trajectory Generation) - Remote — Taskify AI: neutral business-rule staffing/vendor signal: staffing
-- Full Stack Developer - Polish (Remote) — Quik Hire Staffing: neutral business-rule staffing/vendor signal: staffing
-- Java Programmer (Polish Language) – Remote — Keystone Recruitment: neutral business-rule staffing/vendor signal: recruitment
-- Java Software Developer (Polish Language) – Remote — Keystone Recruitment: neutral business-rule staffing/vendor signal: recruitment
-- Java Software Developer (Polish Language) – Remote — Keystone Recruitment: neutral business-rule staffing/vendor signal: recruitment
-- Java GCP Engineer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- TypeScript / JavaScript Developer (Polish Language) – Remote — Keystone Recruitment: neutral business-rule staffing/vendor signal: recruitment
-- Java Developer — Tata Consultancy Services: company denylist exact match: Tata Consultancy Services
-- Software Engineer Principal - Data Solution Implementation (Java / Python / Hadoop / Kafka) — PNC: low-transparency signal: confidential
-- Back End Developer — AIsa: One interface for compute, data, and monetization.: neutral business-rule staffing/vendor signal: vendor
-- Junior Software Developer - TS/SCI with FS Poly REQUIRED — Evans & Chambers Technology: neutral business-rule staffing/vendor signal: it services
-- Software Engineer (Trajectory) - Remote — Taskify AI: neutral business-rule staffing/vendor signal: staffing
+- Software Engineer (C++ or Python) – 2026 Grads — Hudson River Trading: neutral business-rule staffing/vendor signal: recruitment
+- Engineering Manager, Platform Innovation — DoorDash: low-transparency signal: confidential
+- Senior Software Engineer - Backend — HappyRobot: low-transparency signal: confidential
+- Senior Software Engineer - Full-Stack — HappyRobot: low-transparency signal: confidential
+- Engineering Manager, Platform Innovation — DoorDash: low-transparency signal: confidential
+- Software Engineer, Agent Infrastructure — OpenAI: low-transparency signal: confidential
+- Engineer Graduate: (Machine Learning Engineer, Data-Search-TikTok.US - San Jose) - 2026 Start (PhD) — TikTok: low-transparency signal: confidential
+- Software Engineer — M1 Technology LLC: neutral business-rule staffing/vendor signal: it services
+- Senior Fullstack Software Engineer (Nova) — Iterable: neutral business-rule staffing/vendor signal: recruiting
+- Senior Fullstack Software Engineer (Nova) — Iterable: neutral business-rule staffing/vendor signal: recruiting
+- Front End Developer (Remote) — Elevate Recruitment: neutral business-rule staffing/vendor signal: recruitment
+- Frontend Engineer (Js, CSS3) — Wiraa: citizenship_pr_required
+- Software Engineer (Java/Angular) — Kforce Inc: neutral business-rule staffing/vendor signal: staffing
+- Senior Fullstack Software Engineer (Nova) — Iterable: neutral business-rule staffing/vendor signal: recruiting
+- Senior Fullstack Software Engineer (Nova) — Iterable: neutral business-rule staffing/vendor signal: recruiting
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Java Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Senior Fullstack Software Engineer (Nova) — Iterable: neutral business-rule staffing/vendor signal: recruiting
+- Java/Javascript Software Engineer — BeaconFire Inc.: neutral business-rule staffing/vendor signal: outsourcing
+- Software Engineer — General Motors: neutral business-rule staffing/vendor signal: it services
 
 ## 4. Count of already-seen jobs skipped
 
-- 38
+- 0
 
 ## 5. Local storage
 
