@@ -1720,6 +1720,11 @@
       "first_seen_at": "2026-03-14T17:09:57+00:00",
       "title": "Staff Full-Stack Engineer - Partner Value + Performance Intelligence"
     },
+    "4372136938": {
+      "companyName": "kadence",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Full Stack Engineer"
+    },
     "4372633756": {
       "companyName": "Bloomberg",
       "first_seen_at": "2026-03-12T20:33:57+00:00",
@@ -1729,6 +1734,11 @@
       "companyName": "Inspiren",
       "first_seen_at": "2026-03-12T12:34:07+00:00",
       "title": "Senior Software Engineer - Backend"
+    },
+    "4372845661": {
+      "companyName": "Broadcom",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Staff Software Engineer"
     },
     "4373030469": {
       "companyName": "hackajob",
@@ -1975,6 +1985,11 @@
       "first_seen_at": "2026-03-14T21:09:16+00:00",
       "title": "Staff Software Engineer (Full Stack)"
     },
+    "4375488714": {
+      "companyName": "EliseAI",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Front-End Design Engineer"
+    },
     "4375653076": {
       "companyName": "Pathos",
       "first_seen_at": "2026-03-14T12:36:26+00:00",
@@ -2069,6 +2084,11 @@
       "companyName": "Precision Neuroscience",
       "first_seen_at": "2026-03-12T04:34:28+00:00",
       "title": "Full-Stack Software Engineer"
+    },
+    "4377899819": {
+      "companyName": "Noom",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior Backend Engineer"
     },
     "4377907158": {
       "companyName": "The Walt Disney Company",
@@ -2470,10 +2490,20 @@
       "first_seen_at": "2026-03-15T19:04:57+00:00",
       "title": "Software Enginee (Entry-Level / Associate)"
     },
+    "4383691905": {
+      "companyName": "Corafone",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "AI Agent Engineer"
+    },
     "4383697507": {
       "companyName": "Orb",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Sales Development Representative- San Francisco HQ"
+    },
+    "4383802314": {
+      "companyName": "kadence",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Founding Head of Engineering"
     },
     "4383910669": {
       "companyName": "TalentAlly",
@@ -2585,10 +2615,40 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Staff II Machine Learning Engineer"
     },
+    "4384002452": {
+      "companyName": "TestBox",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior Backend Engineer"
+    },
+    "4384002466": {
+      "companyName": "Playsaurus Inc.",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "LATAM - Backend Developer"
+    },
     "4384003095": {
       "companyName": "Unity South APAC (SEA, ANZ, IND Subcont.)",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Principal Engineer, Ads Measurement"
+    },
+    "4384006148": {
+      "companyName": "FetchJobs.co",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "POWER ENGINEER"
+    },
+    "4384009033": {
+      "companyName": "FetchJobs.co",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Design Engineer"
+    },
+    "4384010120": {
+      "companyName": "Playsaurus Inc.",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "LATAM - Game Developer with Javascript Experience"
+    },
+    "4384010121": {
+      "companyName": "Playsaurus Inc.",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "LATAM - Game Developer with Unity Experience"
     },
     "4384200861": {
       "companyName": "Hearst",
@@ -2624,6 +2684,11 @@
       "companyName": "HashRoot",
       "first_seen_at": "2026-03-13T20:34:08+00:00",
       "title": "Software Engineer"
+    },
+    "4384276317": {
+      "companyName": "Kinds Security",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Full Stack Engineer"
     },
     "4384283236": {
       "companyName": "Jobs via Dice",
@@ -3145,25 +3210,75 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "React Developer"
     },
+    "4384944825": {
+      "companyName": "AutoHDR",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior Software Engineer"
+    },
+    "4384945759": {
+      "companyName": "ClearlyRated",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Backend Platform Engineer"
+    },
     "4384946499": {
       "companyName": "Wiraa",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Backend Software Engineer"
+    },
+    "4384948778": {
+      "companyName": "Reactor",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Founding Engineer, ML Inference"
+    },
+    "4384950868": {
+      "companyName": "Ballant Studios",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Unity C# Game Programmer"
+    },
+    "4384950903": {
+      "companyName": "GEICO",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Staff Machine Learning Engineer"
     },
     "4384953313": {
       "companyName": "Haystack",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Full Stack Engineer"
     },
+    "4384954518": {
+      "companyName": "ClearlyRated",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Frontend Engineer"
+    },
     "4384957208": {
       "companyName": "Haystack",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "AI Engineer"
     },
+    "4384959422": {
+      "companyName": "ClearlyRated",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "AI/ML Engineer"
+    },
     "4384960214": {
       "companyName": "Spacetime Agents",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Software Engineer"
+    },
+    "4384960625": {
+      "companyName": "GEICO",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Staff Machine Learning Engineer"
+    },
+    "4384961368": {
+      "companyName": "Primoria AI",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior AI/ML Lead Engineer"
+    },
+    "4384969025": {
+      "companyName": "GEICO",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Staff Machine Learning Engineer"
     },
     "4385100761": {
       "companyName": "Handshake",
@@ -3970,6 +4085,11 @@
       "first_seen_at": "2026-03-15T13:07:53+00:00",
       "title": "Frontend Software Engineer (React.js, TypeScript)"
     },
+    "4386060585": {
+      "companyName": "Nscale",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior Systems Engineer"
+    },
     "4386060647": {
       "companyName": "Mindrift",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
@@ -4010,6 +4130,11 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Full Stack Engineer"
     },
+    "4386065929": {
+      "companyName": "Christian & Timbers",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Principal Eng AI"
+    },
     "4386066440": {
       "companyName": "Alpaca",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
@@ -4030,6 +4155,11 @@
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Backend / Full-Stack Web Developer (PHP/LAMP)"
     },
+    "4386068945": {
+      "companyName": "Black Rocket Productions",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
+    },
     "4386069689": {
       "companyName": "GEI Consultants, Inc.",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
@@ -4045,15 +4175,40 @@
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "Principal Systems Engineer (C++) - AI Infrastructure"
     },
+    "4386071604": {
+      "companyName": "Christian & Timbers",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Senior Robotics Engineer"
+    },
     "4386072210": {
       "companyName": "Best Job Tool",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "JavaScript Developer"
     },
+    "4386072643": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Adversarial Machine Learning Engineer Remote"
+    },
+    "4386072743": {
+      "companyName": "Black Rocket Productions",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
+    },
+    "4386073717": {
+      "companyName": "Black Rocket Productions",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
+    },
     "4386074319": {
       "companyName": "Imagry | Autonomous Driving",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Senior Deep Learning Engineer - Perception"
+    },
+    "4386074673": {
+      "companyName": "Black Rocket Productions",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
     },
     "4386075167": {
       "companyName": "Hirenza",
@@ -4065,10 +4220,30 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Business Data Engineer"
     },
+    "4386075584": {
+      "companyName": "Mercor",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "AI Engineer \u2013 Remote Work"
+    },
+    "4386075596": {
+      "companyName": "Marketeq Talent",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "AI Marketing Automation Evangelist & Strategy Architect"
+    },
+    "4386076789": {
+      "companyName": "Inside Higher Ed",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Application Integration Analyst"
+    },
     "4386077077": {
       "companyName": "Hirenza",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Full Stack Developer"
+    },
+    "4386077665": {
+      "companyName": "talentpluto",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "GTM Engineer"
     },
     "4386078121": {
       "companyName": "Bridgeline",
@@ -4079,6 +4254,16 @@
       "companyName": "TBD",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Founding Engineer"
+    },
+    "4386078410": {
+      "companyName": "Christian & Timbers",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Staff ML Ops Eng"
+    },
+    "4386078581": {
+      "companyName": "Black Rocket Productions",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
     },
     "4386080237": {
       "companyName": "Meter Corp Limited",
@@ -4095,6 +4280,11 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Embedded Software Engineer"
     },
+    "4386081641": {
+      "companyName": "Inside Higher Ed",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Cloud Engineer"
+    },
     "4386082163": {
       "companyName": "Heirloom Cloud Corporation",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
@@ -4104,6 +4294,11 @@
       "companyName": "Old Harmony",
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Systems Engineer"
+    },
+    "4386089154": {
+      "companyName": "talentpluto",
+      "first_seen_at": "2026-03-16T01:05:14+00:00",
+      "title": "Forward Deployed Engineer"
     }
   }
 }
