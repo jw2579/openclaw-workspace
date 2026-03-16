@@ -880,6 +880,15 @@ def job_search_profiles(job: Dict[str, Any]) -> List[str]:
 def recommendation_cap(fetch_plan: List[Dict[str, Any]]) -> int:
     if not fetch_plan:
         return 5
+    # Check if this is a peak hour on a weekday (Mon-Fri)
+    first_plan = fetch_plan[0]
+    is_weekend = first_plan.get("is_weekend", False)
+    hour_edt = first_plan.get("hour_edt", 12)
+    is_weekday = not is_weekend
+    # Peak hours are 9am-5pm EDT on weekdays
+    is_peak = is_weekday and 9 <= hour_edt < 17
+    if is_peak:
+        return 16
     average_fetch = total_fetch_budget(fetch_plan) / max(1, len(fetch_plan))
     proportional_cap = max(1, round(average_fetch / 10.0))
     return min(8, proportional_cap)
