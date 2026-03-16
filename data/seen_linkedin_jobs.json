@@ -2625,6 +2625,11 @@
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "LATAM - Backend Developer"
     },
+    "4384002787": {
+      "companyName": "myGwork - LGBTQ+ Business Community",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "MTS1 Backend Engineer - eBay Live"
+    },
     "4384003095": {
       "companyName": "Unity South APAC (SEA, ANZ, IND Subcont.)",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
@@ -2639,6 +2644,11 @@
       "companyName": "FetchJobs.co",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Design Engineer"
+    },
+    "4384009371": {
+      "companyName": "adaption",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Machine Learning Engineer (Applied ML)"
     },
     "4384010120": {
       "companyName": "Playsaurus Inc.",
@@ -2669,6 +2679,11 @@
       "companyName": "Citi",
       "first_seen_at": "2026-03-13T04:34:04+00:00",
       "title": "Senior Java Developer - Big Data Platform"
+    },
+    "4384218634": {
+      "companyName": "MFM Search LLC",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Investment Data Product Owner & Data Scientist (Private Equity)"
     },
     "4384233244": {
       "companyName": "Jobs via Dice",
@@ -3245,15 +3260,35 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Full Stack Engineer"
     },
+    "4384953933": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "AI Solutions Engineer II"
+    },
     "4384954518": {
       "companyName": "ClearlyRated",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Frontend Engineer"
     },
+    "4384954863": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Member of Technical Staff, Senior Applied AI Engineer, Image Generation"
+    },
+    "4384954865": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "FPGA/ASIC Design Engineer (Silicon Engineering)"
+    },
     "4384957208": {
       "companyName": "Haystack",
       "first_seen_at": "2026-03-15T18:25:40+00:00",
       "title": "AI Engineer"
+    },
+    "4384958783": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "AI Engineer II - Generative AI & Agents"
     },
     "4384959422": {
       "companyName": "ClearlyRated",
@@ -3275,10 +3310,70 @@
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Senior AI/ML Lead Engineer"
     },
+    "4384962556": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Software Engineer II: Microsoft AI Development Acceleration Program"
+    },
+    "4384965466": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Senior Software Engineer"
+    },
+    "4384966761": {
+      "companyName": "ShipERP",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Associate AI/Machine Learning Engineer"
+    },
+    "4384967253": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Product Review Engineer 6"
+    },
+    "4384968600": {
+      "companyName": "Creo Networks Inc.",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Executive Backend Engineer \u2014 Social Media"
+    },
     "4384969025": {
       "companyName": "GEICO",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Staff Machine Learning Engineer"
+    },
+    "4384971057": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Software Engineer II - Office AI Platform"
+    },
+    "4384971263": {
+      "companyName": "KPMG US",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Senior Associate, AI Engineer"
+    },
+    "4384973031": {
+      "companyName": "Jobs via Dice",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Prinicipal Software Engineer - System Optimization"
+    },
+    "4384978063": {
+      "companyName": "Conversion Capital",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Senior Solutions Engineer \u2013 Payments"
+    },
+    "4384978071": {
+      "companyName": "Husky Technologies",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Product Development Engineer (Design Specialist - Packaging Hot Runner)"
+    },
+    "4384978399": {
+      "companyName": "VectorShift",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Artificial Intelligence Engineer"
+    },
+    "4384978438": {
+      "companyName": "Product.ai",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "UX Designer"
     },
     "4385100761": {
       "companyName": "Handshake",
@@ -4195,6 +4290,11 @@
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Summer Camp Coding, Digital Arts, or Game Development Assistant Instructor"
     },
+    "4386072843": {
+      "companyName": "Amazon",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Sr. Software Engineer, Mobile Manipulation Robotics"
+    },
     "4386073717": {
       "companyName": "Black Rocket Productions",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
@@ -4229,6 +4329,11 @@
       "companyName": "Marketeq Talent",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "AI Marketing Automation Evangelist & Strategy Architect"
+    },
+    "4386075760": {
+      "companyName": "ASM",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Engineer, Field Service- \"I & II\""
     },
     "4386076789": {
       "companyName": "Inside Higher Ed",
@@ -4280,6 +4385,11 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Embedded Software Engineer"
     },
+    "4386081610": {
+      "companyName": "Amazon",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Sr. Software Engineer, Mobile Manipulation Robotics"
+    },
     "4386081641": {
       "companyName": "Inside Higher Ed",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
@@ -4295,10 +4405,50 @@
       "first_seen_at": "2026-03-15T21:09:43+00:00",
       "title": "Systems Engineer"
     },
+    "4386087517": {
+      "companyName": "Wiraa",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Machine Learning Engineer"
+    },
+    "4386088482": {
+      "companyName": "Mintlify",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Senior Product Engineer"
+    },
     "4386089154": {
       "companyName": "talentpluto",
       "first_seen_at": "2026-03-16T01:05:14+00:00",
       "title": "Forward Deployed Engineer"
+    },
+    "4386091623": {
+      "companyName": "Gabb",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Staff IOS Engineer [Contractor]"
+    },
+    "4386094142": {
+      "companyName": "Lockheed Martin",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Systems Engineer Sr"
+    },
+    "4386094254": {
+      "companyName": "GEI Consultants, Inc.",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Full Stack Engineer"
+    },
+    "4386095117": {
+      "companyName": "Pytho AI",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "AI Engineer"
+    },
+    "4386301192": {
+      "companyName": "Gabb",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Staff Android Engineer (Contractor)"
+    },
+    "4386308019": {
+      "companyName": "A2 Trading Corp.",
+      "first_seen_at": "2026-03-16T05:05:01+00:00",
+      "title": "Automation Engineer"
     }
   }
 }
