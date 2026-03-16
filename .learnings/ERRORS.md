@@ -131,3 +131,37 @@ For cross-thread delivery outside the current session tree, use cron `announce` 
 - **Notes**: Switched to a one-shot cron announce for the test message.
 
 ---
+
+## [ERR-20260315-001] linkedin_zoneinfo_report_generation
+
+**Logged**: 2026-03-15T18:44:00Z
+**Priority**: high
+**Status**: resolved
+**Area**: backend
+
+### Summary
+The LinkedIn pipeline could finish fetch/filter/Notion work but then crash while writing the report on Python runtimes without `zoneinfo`.
+
+### Error
+```
+ModuleNotFoundError: No module named 'zoneinfo'
+```
+
+### Context
+- Operation attempted: scheduled LinkedIn jobs cron run
+- Script: `scripts/linkedin_apify_jobs.py`
+- Failure point: `now_edt()` during report generation
+- Impact: report + latest alias were not written, so downstream Discord summary delivery could not continue
+
+### Suggested Fix
+Wrap `zoneinfo` usage in a compatibility fallback that formats America/New_York time via `time`/`TZ` when `zoneinfo` is unavailable.
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/linkedin_apify_jobs.py
+
+### Resolution
+- **Resolved**: 2026-03-15T18:45:00Z
+- **Notes**: Added a fallback in `now_edt()` to use `current_new_york_time()` + `time.strftime(...)` when importing `zoneinfo` fails.
+
+---

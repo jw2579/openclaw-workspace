@@ -31,12 +31,13 @@ LOW_PEAK_MIN_SCORE = float(os.environ.get("LINKEDIN_LOW_PEAK_MIN_SCORE", "5.5"))
 ACTOR_ID = os.environ.get("APIFY_ACTOR_ID", "curious_coder/linkedin-jobs-scraper")
 
 ROLE_QUERIES = [
-    "software developer",
-    "software engineer",
-    "backend engineer",
-    "full stack engineer",
-    "ai engineer",
-    "mobile developer",
+    "Applied AI Engineer",
+    "AI Engineer",
+    "Agents & Multimodal Systems",
+    "Backend AI Engineer",
+    "AI Product Engineer",
+    "Mobile Engineer",
+    "Full-Stack AI Engineer",
 ]
 
 SCHEDULE_TIMEZONE = "America/New_York"
@@ -113,8 +114,12 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 def now_edt():
-    from zoneinfo import ZoneInfo
-    return datetime.now(ZoneInfo("America/New_York")).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.now(ZoneInfo("America/New_York")).replace(microsecond=0).strftime("%Y-%m-%d %H:%M:%S")
+    except Exception:
+        current = current_new_york_time()
+        return time.strftime("%Y-%m-%d %H:%M:%S", current)
 
 
 def ensure_dirs() -> None:
