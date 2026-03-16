@@ -10,16 +10,20 @@ _Learn about the person you're helping. Update this as you go._
 
 ## Context
 
-- Jiaxuan is a software developer with AI-native full-stack experience.
-- Strongest fit: Software Engineer, Software Developer, Full-Stack, Backend, AI product engineering roles.
-- Background includes health tech, mobile apps, backend APIs, LLM-powered features, and data-heavy workflows.
-- Core stack signal: Python, Flutter, React, FastAPI, Django, SQL.
+- Jiaxuan is now best positioned as an AI-native product engineer, not just a generic software engineer.
+- Strongest fit: Applied AI Engineer, AI Product Engineer, Backend AI Engineer, Full-Stack AI Engineer, AI engineer roles focused on agents / multimodal systems, plus strong Mobile Engineer opportunities.
+- Background includes production AI agents, multimodal AI workflows, backend APIs, mobile apps, health tech, and data-heavy product systems.
+- Core stack signal: Python, FastAPI, React, Flutter, PostgreSQL, Django, SQL.
+- Strongest differentiator: can ship AI systems end-to-end across backend, frontend, and mobile surfaces.
 - Prefer surfacing recent, high-quality roles with clear fit to resume.
 - For job search tasks, prioritize:
   - strong role-to-resume match
-  - product/engineering-focused teams
+  - AI-native product/engineering teams
+  - agentic / multimodal / applied-AI product work
+  - backend AI platform or full-stack AI product roles
   - recent postings
   - concise summaries with top picks first
+- Secondary bucket: generic backend / full-stack / mobile roles with strong product quality, especially in health tech or AI-adjacent companies.
 - Avoid bloated context. Only store durable preferences here.
 
 ---
