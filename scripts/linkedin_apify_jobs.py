@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LinkedIn job pipeline — guest API primary, Apify fallback, optional Notion integration."""
+"""LinkedIn job pipeline — Apify-only fetching with optional Notion integration."""
 import json
 import os
 import re
@@ -500,12 +500,11 @@ def fetch_jobs_apify(token: str, region_plan: Dict[str, Any]) -> Tuple[List[Dict
                 "region_label": region_config["label"],
                 "period": region_plan["period"],
                 "fetch_limit": max_results,
-                "mode": "apify_fallback",
-                "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+                "mode": "apify",
+                "source_label": "Apify",
                 "actor": ACTOR_ID,
                 "public_urls": len(public_urls),
                 "errors": [],
-                "fallback_used": True,
                 "fetch_mode": "sync",
             }
         if isinstance(items, dict) and isinstance(items.get("data"), list):
@@ -517,12 +516,11 @@ def fetch_jobs_apify(token: str, region_plan: Dict[str, Any]) -> Tuple[List[Dict
                 "region_label": region_config["label"],
                 "period": region_plan["period"],
                 "fetch_limit": max_results,
-                "mode": "apify_fallback",
-                "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+                "mode": "apify",
+                "source_label": "Apify",
                 "actor": ACTOR_ID,
                 "public_urls": len(public_urls),
                 "errors": [],
-                "fallback_used": True,
                 "fetch_mode": "sync_wrapped",
             }
     except error.HTTPError as exc:
@@ -565,12 +563,11 @@ def fetch_jobs_apify(token: str, region_plan: Dict[str, Any]) -> Tuple[List[Dict
         "region_label": region_config["label"],
         "period": region_plan["period"],
         "fetch_limit": max_results,
-        "mode": "apify_fallback",
-        "source_label": "Apify fallback (triggered after LinkedIn anti-bot)",
+        "mode": "apify",
+        "source_label": "Apify",
         "actor": ACTOR_ID,
         "public_urls": len(public_urls),
         "errors": [],
-        "fallback_used": True,
         "fetch_mode": "async",
         "run_id": run_id,
         "dataset_id": dataset_id,
@@ -583,50 +580,24 @@ def fetch_jobs_for_region(region_plan: Dict[str, Any], apify_token: Optional[str
     region_label = region_plan["config"]["label"]
     period = region_plan["period"]
     fetch_limit = int(region_plan["fetch_count"])
+    if not apify_token:
+        raise RuntimeError("APIFY_TOKEN is required because LinkedIn guest API fetching has been removed.")
     print(
-        f"Fetching jobs from LinkedIn guest API... (region={region_key}, period={period}, count={fetch_limit}, location={region_label})",
+        f"Fetching jobs from Apify... (region={region_key}, period={period}, count={fetch_limit}, location={region_label})",
         file=sys.stderr,
     )
-    jobs, fetch_meta = fetch_jobs_guest_api(region_plan)
+    jobs, fetch_meta = fetch_jobs_apify(apify_token, region_plan)
     fetched = len(jobs)
-    print(f"Fetched {fetched} jobs for {region_key} across {fetch_meta['queries']} queries.", file=sys.stderr)
+    print(f"Apify fetched {fetched} jobs for {region_key}.", file=sys.stderr)
     if fetch_meta.get("errors"):
         for err in fetch_meta["errors"]:
             print(f"  fetch error [{region_key}]: {err}", file=sys.stderr)
-
-    guest_meta = fetch_meta
-    if should_use_apify_fallback(jobs, fetch_meta):
-        if apify_token:
-            print(f"LinkedIn anti-bot threshold hit for {region_key}; switching to Apify fallback...", file=sys.stderr)
-            try:
-                jobs, fetch_meta = fetch_jobs_apify(apify_token, region_plan)
-                fetch_meta["guest_attempt"] = guest_meta
-                fetched = len(jobs)
-                print(f"Apify fallback fetched {fetched} jobs for {region_key}.", file=sys.stderr)
-            except Exception as exc:
-                fetch_meta = dict(guest_meta)
-                fetch_meta.setdefault("errors", []).append(f"apify fallback failed: {exc}")
-                fetch_meta["fallback_error"] = str(exc)
-                print(
-                    f"WARNING: Apify fallback failed for {region_key}: {exc}. Staying on guest API results.",
-                    file=sys.stderr,
-                )
-        else:
-            print(
-                f"WARNING: LinkedIn anti-bot threshold hit for {region_key} but APIFY_TOKEN is not available; staying on guest API results.",
-                file=sys.stderr,
-            )
     fetch_meta["fetched"] = fetched
     return jobs, fetch_meta
 
 
 def aggregate_source_label(region_runs: List[Dict[str, Any]]) -> str:
-    modes = {item.get("mode") for item in region_runs}
-    if modes == {"linkedin_guest_api"}:
-        return "LinkedIn guest API (free, no API key)"
-    if modes == {"apify_fallback"}:
-        return "Apify fallback (triggered after LinkedIn anti-bot)"
-    return "Mixed: LinkedIn guest API primary, Apify fallback where blocked"
+    return "Apify"
 
 
 def fetch_jobs_all_regions(fetch_plan: List[Dict[str, Any]], apify_token: Optional[str]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
@@ -649,7 +620,7 @@ def fetch_jobs_all_regions(fetch_plan: List[Dict[str, Any]], apify_token: Option
             else:
                 aggregated_jobs[key] = dict(job)
 
-    source_modes = sorted({item.get("mode", "linkedin_guest_api") for item in region_runs})
+    source_modes = sorted({item.get("mode", "apify") for item in region_runs})
     meta = {
         "mode": source_modes[0] if len(source_modes) == 1 else "mixed_sources",
         "source_label": aggregate_source_label(region_runs),
@@ -1245,7 +1216,7 @@ def main() -> int:
     if fetch_meta.get("hour_edt") is not None:
         lines.append(f"- Current EDT hour: {fetch_meta.get('hour_edt')}")
     lines.append(f"- Active region profiles: {active_profile_summary}")
-    lines.append(f"- Data source: {fetch_meta.get('source_label', 'LinkedIn guest API (free, no API key)')}")
+    lines.append(f"- Data source: {fetch_meta.get('source_label', 'Apify')}")
     lines.append(f"- Search queries: {', '.join(ROLE_QUERIES)}")
     lines.append(f"- Freshness: last 4 hours")
     lines.append(f"- Fetch budget: {fetch_budget}")
